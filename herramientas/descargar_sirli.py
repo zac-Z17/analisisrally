@@ -1,20 +1,25 @@
 """Descarga de sirli.org (sistema oficial del Rally Latinoamericano de Innovación):
-- ganadores de sede, nacionales e internacionales (2023-2025)
-- banco de desafíos de cada año
+- ganadores de sede, nacionales e internacionales
+- banco de desafíos (enunciado completo) de cada año
 
-Guarda el HTML crudo en datos/sirli_html/ y una tabla genérica en datos/sirli_filas.csv
-(una fila por fila de tabla / tarjeta, con sus textos y enlaces). Después se limpia con
-herramientas/limpiar_sirli.py.
+Salidas:
+  datos/ganadores_sirli_<años>.csv   nivel, año, categoría, puesto, equipo, desafío, sede, país, video
+  datos/desafios_sirli.csv           año, número, título, enunciado
+  datos/sirli_html/                  HTML crudo (no se sube al repo)
 
 Uso:  python herramientas/descargar_sirli.py [años...]     (por defecto 2023 2024 2025)
-Necesita acceso a red a sirli.org. Hace pausas entre pedidos para no saturar el sitio.
+
+Nota: sirli.org envía una cadena de certificados incompleta (le falta el intermedio
+Let's Encrypt YR1). Se añaden YR1 y «Root YR» firmada por ISRG Root X1, descargados de
+letsencrypt.org (herramientas/certs/cadena-sirli.pem); la verificación TLS sigue activa.
 """
 import csv
-import hashlib
+import os
+import re
 import sys
+import tempfile
 import time
 from pathlib import Path
-from urllib.parse import urljoin
 
 import requests
 from bs4 import BeautifulSoup
@@ -23,10 +28,24 @@ BASE = 'https://sirli.org'
 RAIZ = Path(__file__).resolve().parent.parent
 HTML = RAIZ / 'datos' / 'sirli_html'
 PAUSA = 1.5
-MAX_PAGINAS = 200
+PUESTOS = {'PRIMER': 1, 'SEGUNDO': 2, 'TERCER': 3}
 
-S = requests.Session()
-S.headers['User-Agent'] = 'Mozilla/5.0 (equipo estudiantil UNI-RUPAP; analisis Rally de Innovacion)'
+
+def sesion():
+    s = requests.Session()
+    s.headers['User-Agent'] = 'Mozilla/5.0 (equipo estudiantil UNI-RUPAP; analisis Rally de Innovacion)'
+    base = os.environ.get('REQUESTS_CA_BUNDLE') or os.environ.get('SSL_CERT_FILE')
+    if not base:
+        import certifi
+        base = certifi.where()
+    extra = Path(__file__).resolve().parent / 'certs' / 'cadena-sirli.pem'
+    bundle = Path(tempfile.gettempdir()) / 'ca_sirli.pem'
+    bundle.write_text(Path(base).read_text() + '\n' + extra.read_text())
+    s.verify = str(bundle)
+    return s
+
+
+S = sesion()
 
 
 def bajar(url, nombre):
@@ -35,9 +54,9 @@ def bajar(url, nombre):
         return destino.read_text(encoding='utf-8', errors='replace')
     for intento in range(4):
         try:
-            r = S.get(url, timeout=60)
+            r = S.get(url, timeout=120, verify=S.verify)  # REQUESTS_CA_BUNDLE pisaría a session.verify
             if r.status_code == 200:
-                r.encoding = r.apparent_encoding or 'utf-8'
+                r.encoding = 'utf-8'
                 destino.write_text(r.text, encoding='utf-8')
                 time.sleep(PAUSA)
                 return r.text
@@ -48,72 +67,95 @@ def bajar(url, nombre):
     return ''
 
 
-def filas(html, url):
-    """Extrae filas de tablas (o bloques con 'Ver video') con textos y enlaces."""
+def categoria_de(tarjeta, actual):
+    for padre in tarjeta.parents:
+        clases = ' '.join(padre.get('class') or [])
+        if 'bd-callout-innovacion' in clases:
+            return 'Innovación'
+        if 'bd-callout-social' in clases:
+            return 'Impacto Social'
+    return actual
+
+
+def ganadores(html, nivel, anio, url):
+    sopa = BeautifulSoup(html, 'lxml')
+    filas, area = [], ''
+    for nodo in sopa.find_all(['h4', 'div']):
+        if nodo.name == 'h4':
+            t = nodo.get_text(' ', strip=True).upper()
+            area = 'Innovación' if 'INNOVACI' in t else 'Impacto Social' if 'SOCIAL' in t else area
+            continue
+        if 'form-directorio' not in (nodo.get('class') or []):
+            continue
+        f = {'nivel': nivel, 'anio': anio, 'categoria': categoria_de(nodo, area), 'puesto': '',
+             'equipo': '', 'desafio_num': '', 'desafio': '', 'sede': '', 'pais': '', 'video_url': '', 'fuente': url}
+        lugar = nodo.find('strong')
+        if lugar:
+            f['puesto'] = PUESTOS.get(lugar.get_text(strip=True).split()[0].upper(), '')
+        for fila in nodo.select('div.row'):
+            etiqueta = fila.find('label', class_='text-secondary')
+            valor = etiqueta.find_next_sibling('div') if etiqueta else None
+            if not valor:
+                continue
+            clave, texto = etiqueta.get_text(strip=True).rstrip(':').lower(), valor.get_text(' ', strip=True)
+            if clave == 'equipo':
+                f['equipo'] = texto
+            elif clave.startswith('categor'):
+                f['categoria'] = 'Innovación' if 'INNOVACI' in texto.upper() else 'Impacto Social'
+            elif clave.startswith('desaf'):
+                m = re.match(r'(\d+)\s*-\s*(.*)', texto)
+                f['desafio_num'], f['desafio'] = (m.group(1), m.group(2)) if m else ('', texto)
+            elif clave == 'sede':
+                f['sede'] = texto
+            elif clave.startswith('pa'):
+                f['pais'] = texto
+            elif clave == 'video':
+                a = valor.find('a', href=True)
+                f['video_url'] = a['href'] if a else ''
+        filas.append(f)
+    return filas
+
+
+def desafios(html, anio, url):
     sopa = BeautifulSoup(html, 'lxml')
     out = []
-    for t in sopa.find_all('table'):
-        enc = [th.get_text(' ', strip=True) for th in t.find_all('th')]
-        for tr in t.find_all('tr'):
-            celdas = tr.find_all('td')
-            if not celdas:
-                continue
-            textos = [c.get_text(' ', strip=True) for c in celdas]
-            enlaces = [urljoin(url, a['href']) for a in tr.find_all('a', href=True)]
-            out.append({'encabezados': ' | '.join(enc), 'celdas': ' | '.join(textos),
-                        'enlaces': ' '.join(enlaces)})
-    if not out:  # sin tablas: tarjetas con enlace "Ver video"
-        for a in sopa.find_all('a', string=lambda s: s and 'video' in s.lower()):
-            bloque = a
-            for _ in range(4):
-                if bloque.parent is None:
-                    break
-                bloque = bloque.parent
-                if len(bloque.get_text(' ', strip=True)) > 60:
-                    break
-            out.append({'encabezados': '', 'celdas': bloque.get_text(' | ', strip=True),
-                        'enlaces': ' '.join(urljoin(url, x['href']) for x in bloque.find_all('a', href=True))})
+    for h3 in sopa.find_all('h3'):
+        m = re.match(r'(\d+)\s*-\s*(.*)', h3.get_text(' ', strip=True))
+        if not m:
+            continue
+        p = h3.find_next_sibling('p')
+        texto = p.get_text('\n', strip=True) if p else ''
+        out.append({'anio': anio, 'num': m.group(1), 'titulo': m.group(2),
+                    'enunciado': re.sub(r'\n+', ' ', texto), 'fuente': url})
     return out
 
 
-def recorrer(nivel, anio, plantilla):
-    """Baja todas las páginas de un listado hasta que deje de traer filas nuevas."""
-    vistas, total = set(), []
-    for p in range(1, MAX_PAGINAS + 1):
-        url = plantilla.format(anio=anio, p=p)
-        html = bajar(url, f'{nivel}_{anio}_p{p:03d}.html')
-        nuevas = []
-        for f in filas(html, url):
-            clave = hashlib.md5(f['celdas'].encode()).hexdigest()
-            if clave not in vistas:
-                vistas.add(clave)
-                nuevas.append({'nivel': nivel, 'anio': anio, 'pagina': p, 'url': url, **f})
-        print(f'{nivel} {anio} p{p}: {len(nuevas)} filas nuevas')
-        total += nuevas
-        if not nuevas or '{p}' not in plantilla:
-            break
-    return total
+def escribir(nombre, filas, campos):
+    with (RAIZ / 'datos' / nombre).open('w', newline='', encoding='utf-8-sig') as f:
+        w = csv.DictWriter(f, fieldnames=campos)
+        w.writeheader()
+        w.writerows(filas)
+    print(f'{nombre}: {len(filas)} filas')
 
 
 def main():
     anios = [int(a) for a in sys.argv[1:]] or [2023, 2024, 2025]
     HTML.mkdir(parents=True, exist_ok=True)
-    todo = []
+    todos, retos = [], []
     for anio in anios:
-        todo += recorrer('internacional', anio, BASE + '/ganadores/internacional/{anio}')
-        # "Todos" en una sola página; si el sitio no lo respeta, se pagina de 50 en 50
+        url = f'{BASE}/ganadores/internacional/{anio}'
+        todos += ganadores(bajar(url, f'internacional_{anio}.html'), 'internacional', anio, url)
         for nivel in ('nacional', 'sede'):
-            filas_todas = recorrer(nivel, anio, BASE + f'/ganadores/{nivel}/{{anio}}/?page=1&ipp=Todos&field=1&sort=0')
-            if len(filas_todas) < 20:
-                filas_todas = recorrer(nivel, anio, BASE + f'/ganadores/{nivel}/{{anio}}/?page={{p}}&ipp=50&field=1&sort=0')
-            todo += filas_todas
-        todo += recorrer('desafios', anio, BASE + '/desafios/banco_desafios/{anio}')
-    salida = RAIZ / 'datos' / 'sirli_filas.csv'
-    with salida.open('w', newline='', encoding='utf-8') as f:
-        w = csv.DictWriter(f, fieldnames=['nivel', 'anio', 'pagina', 'url', 'encabezados', 'celdas', 'enlaces'])
-        w.writeheader()
-        w.writerows(todo)
-    print(f'Listo: {len(todo)} filas en {salida}')
+            url = f'{BASE}/ganadores/{nivel}/{anio}/?page=1&ipp=Todos&field=1&sort=0'
+            todos += ganadores(bajar(url, f'{nivel}_{anio}.html'), nivel, anio, url)
+        url = f'{BASE}/desafios/banco_desafios/{anio}'
+        retos += desafios(bajar(url, f'desafios_{anio}.html'), anio, url)
+        print(anio, {n: sum(1 for t in todos if t['anio'] == anio and t['nivel'] == n)
+                     for n in ('internacional', 'nacional', 'sede')}, 'desafíos:', sum(1 for r in retos if r['anio'] == anio))
+    sufijo = f'{min(anios)}_{max(anios)}' if len(anios) > 1 else str(anios[0])
+    escribir(f'ganadores_sirli_{sufijo}.csv', todos,
+             ['nivel', 'anio', 'categoria', 'puesto', 'equipo', 'desafio_num', 'desafio', 'sede', 'pais', 'video_url', 'fuente'])
+    escribir('desafios_sirli.csv', retos, ['anio', 'num', 'titulo', 'enunciado', 'fuente'])
 
 
 if __name__ == '__main__':
