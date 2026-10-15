@@ -4,7 +4,7 @@
 
 **Cómo usarlo:**
 1. Copia todo el bloque de abajo (desde `### INICIO DEL PROMPT` hasta `### FIN DEL PROMPT`).
-2. En la sección **[MATERIAL 1]** pega la tabla de ganadores (`datos/ganadores_todos.csv` o la tabla del README).
+2. En la sección **[MATERIAL 1]** pega la tabla de ganadores (`datos/ganadores_2023_2025.csv`; ábranlo en Excel y copien las columnas que quepan).
 3. En **[MATERIAL 2]** pega lo que tengan de los videos: transcripciones o notas.
    - Para sacar la transcripción, abre el video en YouTube y usa «⋯ → Mostrar transcripción».
    - Si usan una IA que puede ver videos de YouTube (por ejemplo Gemini o NotebookLM), pásele directamente los links.
@@ -26,9 +26,11 @@ para que un equipo universitario de Nicaragua pueda repetirlos en la próxima ed
   Competencia de 28 horas seguidas, simultánea en sedes universitarias de varios países.
 - Equipos multidisciplinarios eligen UN desafío (problema real planteado por empresas, ONG o
   instituciones) y proponen una solución creativa e innovadora.
-- Dos categorías: «INNOVACIÓN» e «IMPACTO SOCIAL».
-- Entregables: un VIDEO de máximo 2 minutos y un REPORTE PAUTADO (formulario sobre la propuesta,
-  su factibilidad y su impacto).
+- Dos categorías: «INNOVACIÓN» e «IMPACTO SOCIAL». El equipo no elige la categoría: el jurado de
+  sede asigna cada solución a una según sus características.
+- Entregables: un VIDEO de máximo 2 minutos (en YouTube) y un REPORTE PAUTADO en PDF sobre la
+  propuesta, su factibilidad y su impacto. Desde 2026 el video debe mostrar un prototipo a escala
+  hecho con material reciclable y el reporte debe llevar citas APA.
 - Criterios del jurado (bases): 1) grado de innovación de la solución; 2) impacto positivo en la
   sociedad; 3) prefactibilidad económica y social y sustentabilidad ambiental; 4) viabilidad
   técnica; 5) calidad de la presentación. Los entregables deben citar sus fuentes. Se descalifica

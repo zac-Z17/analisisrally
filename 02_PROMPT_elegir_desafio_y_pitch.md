@@ -7,14 +7,15 @@
 
 **Ustedes deciden.** El prompt recomienda, pero se detiene y espera a que el equipo elija el desafío antes de desarrollar el pitch.
 
-**Cómo usarlo:**
-1. Copia el bloque de abajo (desde `### INICIO DEL PROMPT` hasta `### FIN DEL PROMPT`) en un chat nuevo de su IA.
+**La forma más fácil el día del evento:** abran una sesión de Claude Code en este repositorio y peguen los desafíos. El archivo `CLAUDE.md` ya le dice a Claude que haga todo este proceso con los datos del repositorio.
+
+**Si prefieren usarlo en otra IA:**
+1. Copia el bloque de abajo (desde `### INICIO DEL PROMPT` hasta `### FIN DEL PROMPT`) en un chat nuevo.
    - Usen un modelo potente y, si pueden, activen la búsqueda web para verificar datos y ver si la idea ya existe.
-2. Llenen los 4 insumos:
+2. Llenen los insumos:
    - **[A]** Los desafíos 2026: copien y peguen el texto completo de cada desafío cuando se publiquen.
-   - **[B]** Las preguntas de Brayan, ya respondidas (perfil del equipo).
-   - **[C]** El «Manual de patrones ganadores» que salió del Prompt 1. Si no les dio tiempo, peguen `informe_patrones.md` de este repositorio.
-   - **[D]** Datos prácticos: sede, categoría preferida, materiales a mano y horario.
+   - **[B]** Ya está lleno con su sede (UNI-RUPAP) y «sin preferencia de categoría». Si quieren, agreguen carreras y materiales a mano.
+   - **[C]** Peguen `informe_patrones.md` de este repositorio, o el resultado del Prompt 1 si lo corrieron con los videos.
 3. Envíen. La IA responde hasta el **Paso 5 (recomendación)** y se detiene.
 4. Discutan en equipo y escriban: «Elegimos el desafío X, opción Y. Desarrolla el paso 6».
 5. Para pedir cambios después, escriban por ejemplo: «hazlo más corto», «cambia el gancho», «dame 3 nombres más».
@@ -32,32 +33,43 @@ Actúa como un equipo de 3 personas en una sola voz:
 Tu objetivo: ayudarnos a elegir el desafío y la idea con MÁS POSIBILIDADES REALES DE GANAR
 (primero a nivel nacional y luego latinoamericano), y después estructurar el pitch ganador.
 
-# REGLAS DEL CONCURSO (respétalas siempre)
-- 28 horas seguidas. Elegimos UN desafío. Hay dos categorías: «INNOVACIÓN» e «IMPACTO SOCIAL».
-- Entregables: VIDEO de máximo 2 minutos + REPORTE PAUTADO (formulario sobre la propuesta, su
-  factibilidad y su impacto). Pasarse de tiempo o plagiar puede descalificar.
+# REGLAS DEL CONCURSO 2026 (respétalas siempre)
+- 28 horas seguidas (vie 16 → sáb 17 oct 2026). Elegimos UN desafío (máximo 14 desafíos).
+- Dos categorías: «INNOVACIÓN» e «IMPACTO SOCIAL». OJO: el equipo NO elige la categoría y el
+  desafío no la trae: el JURADO DE SEDE asigna cada solución a una categoría según sus
+  características. Nosotros solo podemos ORIENTARLA con el enfoque de la solución y del pitch.
+- Solo el 1.er lugar de cada categoría en la sede pasa a la etapa nacional; los 1.os nacionales
+  pasan a la latinoamericana. Los jurados nacional e internacional SOLO ven el video y el
+  reporte: si algo no está ahí, para ellos no existe.
+- Entregables (se cargan en SIRLI antes de terminar las 28 h):
+  1) VIDEO de máximo 2 minutos, publicado en YouTube. NUEVO 2026: «deberá mostrarse un prototipo
+     de la solución propuesta elaborado con material reciclable y a escala», con el movimiento de
+     una persona o algo que pruebe que NO fue hecho con inteligencia artificial.
+  2) REPORTE PAUTADO en PDF que detalle la propuesta y aborde los criterios de evaluación, con
+     citas válidas en formato APA.
+  3) Video de TikTok de máximo 1 minuto con el equipo de otro país que asigna SIRLI
+     (obligatorio, no da puntos).
 - Criterios del jurado (bases): 1) grado de innovación de la solución; 2) impacto positivo en la
   sociedad; 3) prefactibilidad económica y social y sustentabilidad ambiental; 4) viabilidad
-  técnica; 5) calidad de la presentación. Los entregables deben citar las fuentes que usan.
-- Jurado de sede → jurado nacional (podio por categoría) → jurado internacional (podio
-  latinoamericano). Los jurados nacional e internacional SOLO ven el video y el reporte: si algo
-  no está en el video o el reporte, para ellos no existe.
+  técnica; 5) calidad de la presentación.
+- Descalifican el plagio de propuestas existentes y el «abuso de inteligencia artificial». Por
+  eso: la IA nos ayuda a pensar, pero el texto final, el prototipo y el video deben ser nuestros.
 
 # INSUMOS
 [A] DESAFÍOS DE ESTA EDICIÓN (texto completo):
 <<< PEGAR AQUÍ >>>
 
-[B] PERFIL DEL EQUIPO (preguntas de Brayan respondidas: integrantes, carreras, habilidades,
-herramientas que dominamos, intereses, experiencia previa, etc.):
-<<< PEGAR AQUÍ >>>
+[B] NUESTRO EQUIPO:
+- Sede: Universidad Nacional de Ingeniería (UNI), Recinto Universitario Pedro Arauz Palacios
+  (RUPAP), Managua, Nicaragua. Compite primero contra los equipos de la sede y luego contra
+  todo Nicaragua.
+- Categoría: SIN PREFERENCIA. Recomiéndanos tú la categoría (Innovación o Impacto Social) donde
+  tengamos más posibilidades, según el desafío y los patrones ganadores.
+- (Opcional) Carreras, habilidades y materiales a mano: <<< pegar si se quiere; si no, asume un
+  equipo de estudiantes de ingeniería con celular, laptop, Canva/Figma y materiales sencillos >>>
 
 [C] MANUAL DE PATRONES GANADORES (análisis de los ganadores de años anteriores):
-<<< PEGAR AQUÍ >>>
-
-[D] DATOS PRÁCTICOS: sede/universidad, país (Nicaragua), categoría que preferimos (o «sin
-preferencia»), materiales y equipos que tenemos a mano, horas que realmente podremos trabajar,
-quién edita video:
-<<< PEGAR AQUÍ >>>
+<<< PEGAR AQUÍ el contenido de informe_patrones.md (o el resultado del Prompt 1) >>>
 
 # PROCESO — sigue los pasos en orden y muestra el resultado de cada uno
 
@@ -66,16 +78,19 @@ Resume qué entendiste y lista los datos que faltan. No te detengas por ellos: a
 y marca cada supuesto con [SUPUESTO].
 
 PASO 1 — Radiografía de cada desafío (tabla)
-desafío | quién lo propone | problema raíz (no el síntoma) | a quién afecta y cuánto (con datos
-si los conoces; marca [VERIFICAR] si no estás seguro) | qué espera el proponente | categoría donde
-encaja mejor | restricciones o requisitos explícitos | qué tan «popular» será entre los demás
-equipos (alta/media/baja) y por qué.
+desafío | problema raíz (no el síntoma) | a quién afecta y cuánto, en Nicaragua y en
+Latinoamérica (con datos si los conoces; marca [VERIFICAR] si no estás seguro) | qué pide
+exactamente el enunciado | categoría hacia la que se inclina (Innovación / Impacto Social /
+ambas) | restricciones o requisitos explícitos | qué tan «popular» será entre los demás equipos
+de nuestra sede (alta/media/baja) y por qué | parecido con desafíos que ya ganaron antes (agua,
+residuos→valor, vivienda, alimentos, salud mental…).
 
 PASO 2 — Aplicaciones posibles (3 por desafío, distintas entre sí)
 Para cada desafío propone 3 soluciones de naturaleza diferente (por ejemplo: una digital, una
 física/de producto, una de servicio o modelo de negocio, o mezclas). Para cada una: nombre
-provisional, cómo funciona en 2 frases, qué la hace nueva, y qué prototipo o demostración se
-puede construir en 28 h.
+provisional, cómo funciona en 2 frases, qué la hace nueva, y qué PROTOTIPO A ESCALA CON
+MATERIAL RECICLABLE (cartón, botellas, tapas, Tetra Pak, madera, etc.) se puede construir en
+28 h y mover en cámara.
 
 PASO 3 — Validación rápida de cada aplicación
 Para cada una responde en pocas palabras:
@@ -100,11 +115,13 @@ Puntúa cada aplicación de 1 a 5 en (los 5 primeros son los criterios oficiales
 - Coincidencia con patrones ganadores del insumo [C] (15 %)
 - Encaje con el equipo y lo que podemos hacer en 28 h (10 %)
 Calcula el total ponderado (sobre 5) y ordena de mayor a menor. Muestra la tabla completa.
-Si la categoría elegida cambia lo que más pesa, explícalo.
 
 PASO 5 — Recomendación y DETENTE
-- Top 3 opciones con: desafío, idea, categoría sugerida, puntaje, probabilidad de ganar
-  (alta/media/baja) y el argumento en 3 líneas.
+- Top 3 opciones con: desafío, idea, CATEGORÍA HACIA LA QUE CONVIENE ORIENTARLA (y cómo
+  orientarla: qué resaltar para que el jurado de sede la ponga ahí), puntaje, probabilidad de
+  ganar la sede y luego Nicaragua (alta/media/baja) y el argumento en 3 líneas.
+- Recuerda: en nuestra sede (UNI-RUPAP, de ingeniería) muchos equipos harán soluciones técnicas;
+  evalúa si la opción destaca más en Innovación o en Impacto Social frente a esa competencia.
 - Tu recomendación principal y un plan B, con el mayor riesgo de cada una y cómo mitigarlo.
 - Sé honesto: si ninguna opción es fuerte, dilo y propone cómo mejorarlas.
 Termina con: «Elijan desafío y opción, y escriban: "Desarrolla el paso 6 con…"». NO sigas hasta
@@ -120,8 +137,10 @@ PASO 6 — Desarrollo de la opción elegida (solo cuando lo pidamos)
    escala).
 5. Impacto: indicadores medibles (cuántas personas, cuánto ahorro, cuántas toneladas, etc.),
    ODS relacionados, beneficio para Nicaragua y Latinoamérica.
-6. Prototipo: qué construir o simular en 28 h para que se VEA en el video (maqueta, mockup de
-   app en Figma/Canva, simulación, demo), con la lista de tareas.
+6. Prototipo OBLIGATORIO 2026: maqueta a escala hecha con material reciclable, que una persona
+   del equipo mueva o haga funcionar en cámara (prueba de que no es IA). Lista de materiales
+   reciclables, pasos de armado, tiempo estimado y qué mostrar de cerca. Si hay app o sensor,
+   cómo mostrarlo además (pantallas en Figma/Canva, simulación, Arduino si hay).
 7. GUION DEL VIDEO DE 2 MINUTOS (máx. 260–280 palabras de voz): tabla
    «segundos | qué se ve | qué se dice (texto exacto) | texto en pantalla | música/sonido».
    Estructura base, ajústala con los patrones del insumo [C]:
@@ -133,11 +152,14 @@ PASO 6 — Desarrollo de la opción elegida (solo cuando lo pidamos)
 9. REPORTE PAUTADO: texto listo para cada sección (problema, solución, innovación,
    factibilidad técnica/económica, impacto, plan de implementación), claro y sin relleno, con
    las citas de las fuentes de cada dato (las bases exigen citar la información usada).
-10. Plan de trabajo de las 28 horas por roles (investigación, prototipo, video, reporte),
-    dejando al menos 4 horas para editar y 1 hora de margen antes del cierre.
-11. Las 8 preguntas más difíciles que haría un jurado y cómo responderlas.
-12. Checklist final antes de entregar (duración ≤ 2:00, audio claro, subtítulos, nombre del
-    equipo, desafío correcto, datos con fuente, sin material con derechos de autor, etc.).
+10. Plan de trabajo de las 28 horas por roles (investigación, prototipo, video, reporte,
+    TikTok), dejando al menos 4 horas para editar y 1 hora de margen antes del cierre.
+11. Idea para el TikTok de 1 minuto con el equipo del otro país (corto, divertido, sin
+    distraer al equipo más de 1 hora).
+12. Las 8 preguntas más difíciles que haría un jurado y cómo responderlas.
+13. Checklist final antes de entregar (video ≤ 2:00 en YouTube, prototipo reciclado visible y
+    movido por una persona, audio claro, subtítulos, nombre del equipo y del desafío, reporte
+    PDF con citas APA, link de TikTok cargado en SIRLI, sin material con derechos de autor).
 
 # REGLAS DE RESPUESTA
 - No inventes cifras ni fuentes. Si das un número aproximado, márcalo [VERIFICAR] y di dónde
