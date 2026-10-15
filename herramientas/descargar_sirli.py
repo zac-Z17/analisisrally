@@ -4,7 +4,7 @@
 
 Salidas:
   datos/ganadores_sirli_<años>.csv   nivel, año, categoría, puesto, equipo, desafío, sede, país, video
-  datos/desafios_sirli.csv           año, número, título, enunciado
+  datos/desafios_sirli_<años>.csv    año, número, título, enunciado
   datos/sirli_html/                  HTML crudo (no se sube al repo)
 
 Uso:  python herramientas/descargar_sirli.py [años...]     (por defecto 2023 2024 2025)
@@ -155,7 +155,7 @@ def main():
     sufijo = f'{min(anios)}_{max(anios)}' if len(anios) > 1 else str(anios[0])
     escribir(f'ganadores_sirli_{sufijo}.csv', todos,
              ['nivel', 'anio', 'categoria', 'puesto', 'equipo', 'desafio_num', 'desafio', 'sede', 'pais', 'video_url', 'fuente'])
-    escribir('desafios_sirli.csv', retos, ['anio', 'num', 'titulo', 'enunciado', 'fuente'])
+    escribir(f'desafios_sirli_{sufijo}.csv', retos, ['anio', 'num', 'titulo', 'enunciado', 'fuente'])
 
 
 if __name__ == '__main__':

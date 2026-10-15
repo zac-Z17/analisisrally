@@ -13,12 +13,14 @@ Base de trabajo para elegir el desafío y la categoría con más posibilidades d
 
 | Archivo | Para qué |
 |---|---|
-| [`informe_patrones.md`](informe_patrones.md) | **Empiecen por aquí.** Qué tienen en común los ganadores 2023–2025: desafíos, tipo de idea, categoría, estructura del pitch |
+| [`informe_patrones.md`](informe_patrones.md) | **Empiecen por aquí.** Qué desafíos e ideas ganan, cómo funciona el embudo sede → nacional → Latinoamérica, hacia qué categoría se inclina cada tipo de desafío, estructura del pitch, videos para ver y reglas de decisión |
 | [`02_PROMPT_elegir_desafio_y_pitch.md`](02_PROMPT_elegir_desafio_y_pitch.md) | Prompt para el día del evento: analiza los desafíos, propone y puntúa ideas, recomienda desafío y categoría, y luego arma video, reporte y plan de 28 h |
 | [`01_PROMPT_analisis_ganadores.md`](01_PROMPT_analisis_ganadores.md) | Prompt para analizar a fondo los videos ganadores (si los ven antes del Rally) |
-| [`reglas_del_rally_2026.md`](reglas_del_rally_2026.md) | Bases 2026, criterios del jurado, entregables, novedades y desafíos de años anteriores, con fuentes |
-| [`datos/ganadores_2023_2025.csv`](datos/ganadores_2023_2025.csv) | 80 ganadores nacionales e internacionales 2023–2025: categoría, puesto, desafío, idea, fuentes |
-| [`datos/ganadores_historico.csv`](datos/ganadores_historico.csv) | Lo mismo desde 2016 (129 filas) |
+| [`reglas_del_rally_2026.md`](reglas_del_rally_2026.md) | Bases 2026, criterios del jurado, entregables y novedades, con fuentes |
+| [`datos/ganadores_sirli_2023_2025.csv`](datos/ganadores_sirli_2023_2025.csv) | **Los 2.407 premios oficiales 2023–2025** (sede, nacional e internacional): categoría, puesto, desafío, sede, país, link y título del video |
+| [`datos/analisis_sirli.md`](datos/analisis_sirli.md) | Tablas: embudo por desafío, categoría por desafío, Nicaragua año por año, la sede UNI-RUPAP y las universidades |
+| [`datos/desafios_sirli_2023_2025.csv`](datos/desafios_sirli_2023_2025.csv) | Enunciado completo de los 26 desafíos 2023–2025 |
+| [`datos/ganadores_2023_2025.csv`](datos/ganadores_2023_2025.csv) | Ideas y cifras de los ganadores, según noticias |
 
 ## Cómo usarlo el día del Rally
 1. Cuando publiquen los desafíos, **copien el texto completo de todos**.
@@ -53,11 +55,20 @@ Base de trabajo para elegir el desafío y la categoría con más posibilidades d
 | 2024 | TECHRIDERS (UNI-RUSB) · Micropresas | Hydrostudio (UNCSM) · Micropresas |
 | 2023 | Güegüense Pinolero (UNM) · Vivienda digna | Nicarq Sinergy (UNI-RUSB) · Vivienda digna |
 
-Los 2.os y 3.os lugares, los otros países, las ideas y las fuentes están en `datos/ganadores_2023_2025.csv`.
+## Su sede: UNI-RUPAP (1.os lugares de sede)
+
+| Año | Innovación | Impacto Social |
+|---|---|---|
+| 2025 | Ingenio «SAT KUNAN» · Alerta temprana | **Mentes Volcánicas «ReVida Móvil» · Tetra Pak → 1.º nacional y 1.º latam** |
+| 2024 | UNITechnos «Nuvis Collecta» · Micropresas | Volcanic «IGNI» · Evacuación |
+| 2023 | IngenioNica · Vivienda digna | **Tlacatlyani · Alimentación de calidad → 3.º nacional** |
+
+De los 6 primeros lugares de su sede, 2 llegaron al podio nacional (33 %, contra el 7 % de Nicaragua), y los dos en Impacto Social.
+
+Los 2.os y 3.os lugares, todos los países, las sedes y los links de video están en `datos/ganadores_sirli_2023_2025.csv`.
 
 ## Pendiente
-- **Videos de los ganadores:** se ven desde los enlaces «Ver video» de `https://sirli.org/ganadores/internacional/2025` (y 2024, 2023). Ver `informe_patrones.md`, sección 6.
-- **Ganadores de sede:** se descargan con `python herramientas/descargar_sirli.py`, que necesita acceso a red a sirli.org.
+- **Ver los videos ganadores.** Desde la nube no se pueden leer los subtítulos de YouTube. La lista priorizada, con links y comparaciones, está en `informe_patrones.md`, sección 7.
 
 ## Fuentes principales
 - SIRLI, sistema oficial del Rally (ganadores y banco de desafíos): https://sirli.org/ganadores/

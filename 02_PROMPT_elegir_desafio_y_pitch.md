@@ -15,7 +15,7 @@
 2. Llenen los insumos:
    - **[A]** Los desafíos 2026: copien y peguen el texto completo de cada desafío cuando se publiquen.
    - **[B]** Ya está lleno con su sede (UNI-RUPAP) y «sin preferencia de categoría». Si quieren, agreguen carreras y materiales a mano.
-   - **[C]** Peguen `informe_patrones.md` de este repositorio, o el resultado del Prompt 1 si lo corrieron con los videos.
+   - **[C]** Peguen `informe_patrones.md` de este repositorio (y, si cabe, `datos/analisis_sirli.md`), o el resultado del Prompt 1 si lo corrieron con los videos.
 3. Envíen. La IA responde hasta el **Paso 5 (recomendación)** y se detiene.
 4. Discutan en equipo y escriban: «Elegimos el desafío X, opción Y. Desarrolla el paso 6».
 5. Para pedir cambios después, escriban por ejemplo: «hazlo más corto», «cambia el gancho», «dame 3 nombres más».
@@ -69,7 +69,8 @@ Tu objetivo: ayudarnos a elegir el desafío y la idea con MÁS POSIBILIDADES REA
   equipo de estudiantes de ingeniería con celular, laptop, Canva/Figma y materiales sencillos >>>
 
 [C] MANUAL DE PATRONES GANADORES (análisis de los ganadores de años anteriores):
-<<< PEGAR AQUÍ el contenido de informe_patrones.md (o el resultado del Prompt 1) >>>
+<<< PEGAR AQUÍ el contenido de informe_patrones.md (o el resultado del Prompt 1). Si cabe,
+pegar también datos/analisis_sirli.md (tablas por desafío, categoría, Nicaragua y UNI-RUPAP) >>>
 
 # PROCESO — sigue los pasos en orden y muestra el resultado de cada uno
 
@@ -80,10 +81,12 @@ y marca cada supuesto con [SUPUESTO].
 PASO 1 — Radiografía de cada desafío (tabla)
 desafío | problema raíz (no el síntoma) | a quién afecta y cuánto, en Nicaragua y en
 Latinoamérica (con datos si los conoces; marca [VERIFICAR] si no estás seguro) | qué pide
-exactamente el enunciado | categoría hacia la que se inclina (Innovación / Impacto Social /
-ambas) | restricciones o requisitos explícitos | qué tan «popular» será entre los demás equipos
-de nuestra sede (alta/media/baja) y por qué | parecido con desafíos que ya ganaron antes (agua,
-residuos→valor, vivienda, alimentos, salud mental…).
+exactamente el enunciado | familia del desafío según [C] sección 5 (personas y necesidades
+humanas → suele caer en Impacto Social; materiales, residuos, ambiente y ciudad → depende de la
+solución; dispositivos de detección, localización o control → suele caer en Innovación) | restricciones o requisitos explícitos | qué tan «popular» será entre los demás equipos
+de nuestra sede (alta/media/baja) y por qué | parecido con desafíos que ya ganaron en Nicaragua
+(agua/micropresas, vivienda, Tetra Pak y residuos para comunidades, huertos) o que rindieron poco
+(alerta/localización, bienestar digital, urbanos), según [C].
 
 PASO 2 — Aplicaciones posibles (3 por desafío, distintas entre sí)
 Para cada desafío propone 3 soluciones de naturaleza diferente (por ejemplo: una digital, una

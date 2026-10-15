@@ -1,156 +1,235 @@
-# Informe de patrones ganadores — Rally Latinoamericano de Innovación (2023–2025)
+# Informe de patrones ganadores — Rally Latinoamericano de Innovación 2023–2025
 
-Preparado el 15 oct 2026 para un equipo de la **sede UNI-RUPAP (Managua)**, de cara al Rally del **viernes 16 y sábado 17 de octubre de 2026**.
+Preparado el 15 de octubre de 2026 para un equipo de la **sede UNI-RUPAP (Managua)**, para el Rally del **viernes 16 y sábado 17 de octubre de 2026**.
 
-**Base de datos:** 80 ganadores nacionales e internacionales de 2023–2025 (`datos/ganadores_2023_2025.csv`), más 49 de años anteriores como referencia (`datos/ganadores_historico.csv`).
+## Base de datos
+- **2.407 premios oficiales de sirli.org** (`datos/ganadores_sirli_2023_2025.csv`): 2.234 de sede, 152 nacionales y 21 latinoamericanos. Cada uno con categoría, puesto, desafío, sede, país, link del video y título del video (que trae el nombre de la solución).
+- **26 desafíos con su enunciado completo** (`datos/desafios_sirli_2023_2025.csv`).
+- **Ideas y cifras de noticias** (`datos/ganadores_2023_2025.csv`).
+- **Tablas del análisis:** `datos/analisis_sirli.md`.
 
-**Límites:**
-- Las ideas y cifras salen de noticias y de la base oficial SIRLI, vistas a través de un buscador.
-- **Todavía no se analizó el contenido de los videos**: la red de este entorno bloquea YouTube y sirli.org. La sección 6 dice cómo completarlo.
-- Lo marcado **(inferencia)** es interpretación nuestra, no un dato.
-
----
-
-## 1. Resumen en 10 líneas
-
-1. **Nicaragua es potencia en este Rally.**
-   - 1.er lugar latinoamericano en **Innovación tres años seguidos**: 2023 Güegüense Pinolero (UNM), 2024 TECHRIDERS (UNI-RUSB) y 2025 STEM Synergy (UAM).
-   - En 2025 también ganó el 1.º de **Impacto Social**: Mentes Volcánicas, de **su sede, UNI-RUPAP**.
-2. **El 1.º nacional de Nicaragua casi siempre llega al podio latinoamericano.** La parte difícil es ganar la sede y luego el país.
-3. **Los ganadores se concentran en 2 o 3 desafíos por año**: agua, residuos convertidos en algo valioso, vivienda y producción de alimentos. Los desafíos «urbanos» o muy de nicho casi no llegan al podio internacional.
-4. **Ganan las soluciones físicas y tangibles con una capa tecnológica sencilla** (sensores, app de apoyo). Entre los ganadores cuya idea conocemos, desde 2023 las apps puras solo aparecen en 3.os lugares.
-5. **Los ganadores aterrizan la idea en un lugar real y nombrado** (por ejemplo, la comunidad de Apanás, en Jinotega) y dan **cifras de impacto**: litros por año, familias beneficiadas, toneladas, porcentaje de pérdida evitada.
-6. **El «estilo Nicaragua» que gana es la solución integral.** Por ejemplo, la vivienda DIGNA juntaba estructura, agua, saneamiento y energía, con materiales baratos y locales (bambú, llanta reciclada).
-7. **Transformar un residuo en un producto de más valor** (upcycling) gana en las dos categorías. Ejemplos: larvas que producen harina proteica, carbón activado a partir de textiles, Tetra Pak.
-8. **La categoría la asigna el jurado de sede según la solución.** Ustedes no la eligen, pero sí la pueden **orientar**: más novedad técnica apunta a Innovación; más beneficiarios vulnerables, inclusión y comunidad apunta a Impacto Social.
-9. **En 2026 hay reglas nuevas que cambian la estrategia:**
-   - El video debe mostrar un **prototipo a escala hecho con material reciclable**, con una persona moviéndolo, como prueba de que no es IA.
-   - El reporte debe llevar **citas APA**.
-   - Descalifican por plagio o por **abuso de IA**.
-
-   Esto favorece todavía más las soluciones físicas y demostrables.
-10. **Solo el 1.er lugar de cada categoría de la sede pasa a la etapa nacional.** En UNI-RUPAP hay que ser el mejor de la sede en una categoría.
+## Límites
+- Solo se conocen los equipos **premiados**, no todos los participantes.
+- **El contenido de los videos no se pudo analizar**: YouTube bloquea los subtítulos desde servidores en la nube. Hay que verlos; la lista está en la sección 7.
+- Lo marcado **(inferencia)** es interpretación, no dato.
 
 ---
 
-## 2. ¿Qué desafíos eligen los ganadores?
+## 1. Resumen
 
-**Podio latinoamericano (1.º a 3.º de cada categoría) por desafío:**
+1. **Nicaragua es la potencia del Rally.** De los 6 primeros lugares latinoamericanos de 2023–2025, **4 fueron nicaragüenses**: Innovación en 2023, 2024 y 2025, e Impacto Social en 2025.
+2. **El cuello de botella es ganar en Nicaragua, no en Latinoamérica.**
+   - Cada año compiten a nivel nacional unos **83 a 96 primeros lugares de sede** por solo 6 podios: apenas el **7 %** llega.
+   - Pero **5 de los 6 primeros lugares nacionales** de Nicaragua subieron al podio latinoamericano.
+3. **Su sede rinde muy por encima del promedio.** De los 6 primeros lugares de sede de UNI-RUPAP (2023–2025), **2 llegaron al podio nacional (33 %)**, contra el 7 % del país. **Los dos fueron en Impacto Social**: Tlacatlyani, 3.º nacional en 2023, y Mentes Volcánicas, 1.º nacional y 1.º latinoamericano en 2025.
+4. **En Nicaragua, el podio nacional se concentra en un desafío «tangible» por año:**
+   - **2023 Vivienda digna:** los dos 1.os nacionales.
+   - **2024 Micropresas:** los dos 1.os nacionales.
+   - **2025 Tetra Pak:** 3 de los 6 podios, incluido el 1.º de Impacto Social.
+5. **Algunos desafíos con muchos ganadores de sede en Nicaragua no sacaron ni un podio nacional:**
+   - 2023: Siempre en contacto (15 primeros de sede) y Agua segura (10).
+   - 2024: Enlazando generaciones (14) y Desperdicio alimentario (10).
+   - 2025: Alerta temprana (15), Salud móvil para mujeres (13) y Reciclado textil (10).
+   - **(Inferencia)** El jurado nacional de Nicaragua premia soluciones físicas para necesidades básicas (agua, techo, reutilizar materiales en comunidades) más que dispositivos de alerta o soluciones digitales.
+6. **Lo que gana es tangible con una capa tecnológica sencilla**:
+   - micropresa con sensores y app (TECHRIDERS);
+   - vivienda modular con agua, saneamiento y energía (Güegüense Pinolero);
+   - huerto vertical (PlantBee);
+   - productos de Tetra Pak (ReVida Móvil).
 
-| Año | Desafío | Podios internacionales | Equipos |
+   Entre las ideas conocidas, las apps puras no pasan del 3.er lugar latinoamericano.
+7. **Los ganadores bautizan su solución con nombre propio** y lo ponen en el título del video: PlantBee, ReVida Móvil, BioInnova, Beetle Protein, CarboTextil, GeaX, FioGot, Connected Mind, EducaRV, Appibara.
+8. **La categoría la asigna el jurado de sede, pero cada tipo de desafío se inclina a una** (sección 5):
+   - **Innovación:** dispositivos de detección, localización o control.
+   - **Impacto Social:** necesidades de personas.
+   - **50/50:** reutilizar materiales, ambiente y ciudad.
+9. **Reglas nuevas de 2026:**
+   - Prototipo a escala de material reciclable en el video, movido por una persona.
+   - Citas APA en el reporte.
+   - Descalificación por plagio o abuso de IA.
+
+   Todo esto premia aún más lo físico y demostrable.
+10. **Sugerencia de partida para UNI-RUPAP (inferencia):** un desafío de necesidad básica o material tangible, con una solución física de bajo costo y una capa técnica, contada con fuerte impacto en una comunidad nicaragüense con nombre, y **orientada a Impacto Social salvo que la idea sea un mecanismo técnico muy novedoso**.
+
+---
+
+## 2. El embudo: cómo se gana
+
+| Etapa | Nicaragua 2023 | 2024 | 2025 |
 |---|---|---|---|
-| 2025 | 02 Reciclado textil | 2 | The Last Resort (2.º Inn., Chile), HojaBeta (3.º IS, Chile) |
-| 2025 | 04 Sistema de alerta temprana | 2 | AESIR (3.º Inn., Colombia), Idronix (2.º IS, El Salvador) |
-| 2025 | 05 Huertos verticales | 1 | **STEM Synergy (1.º Inn., Nicaragua)** |
-| 2025 | 01 Aprovechamiento Tetra Pak | 1 | **Mentes Volcánicas (1.º IS, Nicaragua, UNI-RUPAP)** |
-| 2024 | 01 Micropresas o microembalses | **3** | **TECHRIDERS (1.º Inn., Nicaragua)**, Tecnobioq (3.º Inn., México), UNABINNOVA (2.º IS, Chile) |
-| 2024 | 08 Reducción de desperdicios alimentarios | 2 | Mexitech (1.º IS, México), Catalizadores del Cambio (2.º Inn., Chile) |
-| 2024 | 03 Enlazando generaciones | 1 | Los Innovadores (3.º IS, Argentina) |
-| 2023 | 08 Tratar de estar mejor (bienestar / salud mental) | **3** | Mentes Conectadas (1.º IS, Ecuador), Vida e Saúde (2.º IS, Brasil), El Octágono (3.º IS, Argentina) |
-| 2023 | 05 Vivienda digna | 2 | **Güegüense Pinolero (1.º Inn., Nicaragua)**, **Nicarq Sinergy (2.º IS, Nicaragua)** |
-| 2023 | 02, 03, 04 y 09 | 1 cada uno | HIT, EcoRally Explorers, Mexcol Innova, Ingeniu's Version CT |
+| Sedes con premios | 45 | 48 | 51 |
+| Primeros lugares de sede que compiten a nivel nacional | 83 | 90 | 96 |
+| Podios nacionales (3 por categoría) | 6 | 6 | 6 |
+| 1.er lugar latinoamericano | Innovación | Innovación | Innovación e Impacto Social |
 
-**Desafíos de 2024 sin podio internacional:** Empaques contaminantes, Aguacate, Evacuación, Escombros y Parquímetro desatendido.
+**Del 1.º nacional de Nicaragua al podio latinoamericano:**
 
-**Patrones:**
-- **Agua (micropresas, agua segura, fugas, alerta temprana) es el tema más premiado**, y el que más ha ganado Nicaragua: TECHRIDERS y Hydrostudio en 2024.
-- **Residuos que se convierten en valor** (textil, Tetra Pak, desperdicio de alimentos) es el segundo bloque fuerte.
-- **Vivienda y alimentos** son necesidades básicas que en Nicaragua se resuelven con soluciones integrales y ganan.
-- **Salud mental o bienestar** gana en Impacto Social (2023), pero con apps que se quedan en 2.º y 3.º.
-- **(Inferencia)** Los ganadores eligen desafíos de **gran problema social con solución física visible**. No buscan el desafío «raro» para tener menos competencia: compiten en los desafíos grandes y ganan por ejecución.
+| Año | 1.º nacional Innovación | Latam | 1.º nacional Impacto Social | Latam |
+|---|---|---|---|---|
+| 2025 | STEM Synergy (UAM) · «PlantBee» · Huertos verticales | **1.º** | **Mentes Volcánicas (UNI-RUPAP)** · «ReVida Móvil» · Tetra Pak | **1.º** |
+| 2024 | TECHRIDERS (UNI-RUSB) · Micropresas | **1.º** | Hydrostudio (UNCSM) · Micropresas | – |
+| 2023 | Güegüense Pinolero (UNM) · Vivienda digna | **1.º** | Nicarq Sinergy (UNI-RUSB) · «BioInnova» · Vivienda digna | **2.º** |
 
-**En Nicaragua, el podio nacional también se concentra:**
-- **2024:** los dos 1.os nacionales fueron del desafío 01 Micropresas (TECHRIDERS y Hydrostudio).
-- **2023:** los dos 1.os nacionales fueron del desafío 05 Vivienda digna (Güegüense Pinolero y Nicarq Sinergy).
-- **2025:** los dos 1.os fueron de desafíos «tangibles»: Huertos verticales y Tetra Pak.
+**Su sede, UNI-RUPAP (los primeros lugares de sede):**
 
----
-
-## 3. ¿Qué tipo de idea gana?
-
-**Ideas conocidas de ganadores 2023–2025:**
-
-| Tipo de solución | Ejemplos | Resultado |
+| Año | Innovación | Impacto Social |
 |---|---|---|
-| **Infraestructura física + capa inteligente** | TECHRIDERS: micropresa con sensores (calidad de agua, ultrasónico), captación, tratamiento y app; Apanás; 1 M L/año, 200 familias, −50 % de pérdida de cultivos | **1.º Inn. 2024** |
-| **Infraestructura física de bajo costo** | UNABINNOVA: micropresas modulares sin maquinaria pesada · Hydrostudio: microembalse de bambú | 2.º IS 2024 · 1.º IS Nicaragua 2024 |
-| **Solución integral para necesidades básicas** | Güegüense Pinolero «DIGNA»: vivienda modular de 44,18 m² con bambú, piso de llanta reciclada, filtro SODIS, fosa FAFA y panel solar de 400 W | **1.º Inn. 2023** |
-| | MT Soluciones Creativas (UNI-RUPAP, 2021): vivienda con 2 turbinas eólicas, biodigestor, compost y cosecha de agua filtrada | **1.º Inn. 2021** |
-| **Residuo convertido en producto de valor (proceso nuevo)** | Catalizadores del Cambio «Beetle Protein»: 365 t/año de desechos alimentan larvas → harina con 53 % de proteína | 2.º Inn. 2024 |
-| | HojaBeta «CarboTextil»: pirólisis de textiles → carbón activado (300 g/kg) + reinserción social | 3.º IS 2025 |
-| | The Last Resort: biorrefinería textil con economía circular | 2.º Inn. 2025 |
-| **Producción de alimentos en espacio reducido** | STEM Synergy y Búhos Tarimoro (México): huertos verticales | **1.º Inn. 2025** · 1.º Inn. México |
-| **Robot o dispositivo** | MARELIK Y SUS PERSAS (Argentina): vehículo con «submarino» y sonar que recorre las cañerías y avisa dónde está la fuga | 1.º Inn. Argentina 2025 |
-| **App o solución digital pura** | El Octágono «#Appibara» (salud mental con mascota capibara) · Los Innovadores «Educar RV» | **Solo 3.os lugares** IS 2023 y 2024 |
+| 2025 | Ingenio · «SAT KUNAN» · Alerta temprana → no llegó al podio nacional | **Mentes Volcánicas · «ReVida Móvil» · Tetra Pak → 1.º nacional y 1.º latam** |
+| 2024 | UNITechnos · «Nuvis Collecta» · Micropresas → no llegó | Volcanic · «IGNI» · Evacuación → no llegó |
+| 2023 | IngenioNica · «Vivienda Digna, Vida Plena» · Vivienda digna → no llegó | **Tlacatlyani · Alimentación de calidad → 3.º nacional** |
+
+**(Inferencia)**
+- En RUPAP, los primeros lugares de Innovación no han pasado del nivel de sede, aunque dos de ellos trabajaron los mismos desafíos que ganaron el país ese año (vivienda 2023 y micropresas 2024).
+- La diferencia estuvo en la ejecución y el pitch. Comparar esos videos es lo más útil que pueden hacer hoy (sección 7).
+
+**Universidades de Nicaragua (2023–2025):**
+
+| Universidad | 1.os de sede | Podios nacionales | Conversión |
+|---|---|---|---|
+| UNI | 26 | 5 | 19 % |
+| UNAN | 61 | 5 | 8 % |
+| UAM | 6 | 2 | 33 % |
+
+---
+
+## 3. Qué desafíos ganan
+
+**Podio latinoamericano por desafío (todos los países):**
+
+| Año | Desafío | 1.os de sede (todos los países) | Podios latam |
+|---|---|---|---|
+| 2025 | 02 Reciclado textil | 43 | 2 (Chile) |
+| 2025 | 04 Sistema de alerta temprana | 43 | 2 (Colombia, El Salvador) |
+| 2025 | 05 Huertos verticales | 51 | **1.º Innovación, Nicaragua** |
+| 2025 | 01 Aprovechamiento Tetra Pak | 50 | **1.º Impacto Social, Nicaragua (UNI-RUPAP)** |
+| 2024 | 01 Micropresas o microembalses | 57 | **3, incluido el 1.º de Innovación, Nicaragua** |
+| 2024 | 08 Reducción de desperdicios alimentarios | 41 | 2, incluido el 1.º de Impacto Social, México |
+| 2024 | 03 Enlazando generaciones | 36 | 1 (3.º, Argentina) |
+| 2023 | 08 Tratar de estar mejor | 50 | 3, incluido el 1.º de Impacto Social, Ecuador |
+| 2023 | 05 Vivienda digna | 26 | **1.º Innovación y 2.º Impacto Social, Nicaragua** |
+
+**Sin ningún podio latinoamericano:**
+- **2025:** Fugas de agua, Salud móvil, Residuos en playas, Niños migrantes y Logística ante desastres.
+- **2024:** Aguacate, Empaques, Evacuación, Escombros y Parquímetro.
+- **2023:** Revalorización de residuos, Movilidad y Crowdsensing.
 
 **Patrones:**
-1. **Lo tangible le gana a lo puramente digital.** De los 1.os lugares internacionales 2023–2025 cuya idea conocemos, ninguno fue una app pura. Falta la idea de Mentes Conectadas (1.º IS 2023, salud mental), que podría serlo. Con la regla 2026 del prototipo físico a escala, esto pesa todavía más.
-2. **La tecnología es un medio, no el centro.** Sensores, una app o un panel solar se suman a una solución física que resuelve algo básico (agua, comida, techo, residuos).
-3. **Hay sistema, no producto suelto.** Los nicaragüenses que ganan combinan 3 a 5 componentes: captación, tratamiento, monitoreo y uso, o estructura, agua, saneamiento y energía.
-4. **Materiales locales y baratos**: bambú, llanta reciclada, residuos y envases. Esto refuerza la factibilidad económica y la sustentabilidad ambiental, que son los criterios 3 y 4.
-5. **Siempre hay un beneficiario concreto**: una comunidad con nombre, familias o agricultores.
-6. **Transformar residuos con un proceso técnico** (pirólisis, biorrefinería, bioconversión con insectos) suena muy innovador al jurado y gana en Innovación.
+- **Los ganadores no huyen de los desafíos populares.** Micropresas, Tetra Pak y Huertos estaban entre los más elegidos y ahí salieron los campeones. Ganan por ejecución.
+- **Temas que ganan:**
+  1. agua para comunidades o cultivos;
+  2. vivienda y techo;
+  3. reutilizar un residuo para una comunidad (Tetra Pak, textil, comida);
+  4. producir alimentos.
+- **Temas que rinden poco en Nicaragua:**
+  - dispositivos de localización o alerta (Siempre en contacto, Alerta temprana);
+  - soluciones de bienestar o digitales (Enlazando generaciones, Salud móvil);
+  - desafíos urbanos (Parquímetro, Movilidad).
 
 ---
 
-## 4. Innovación vs. Impacto Social (cómo «orientar» la categoría)
+## 4. Qué tipo de idea gana
 
-La categoría la decide el jurado de la sede. Las bases dicen que las propuestas «compiten naturalmente en ambas categorías». Lo que se observa:
+| Tipo de solución | Ejemplos ganadores | Resultado |
+|---|---|---|
+| **Infraestructura física con capa inteligente** | TECHRIDERS: micropresa con sensores, tratamiento y app en Apanás (1 M L al año, 200 familias, −50 % de pérdida de cultivos) | **1.º latam Innovación 2024** |
+| **Solución integral para una necesidad básica** | Güegüense Pinolero «DIGNA»: vivienda modular de 44,18 m² con bambú, piso de llanta reciclada, filtro solar de agua, fosa FAFA y panel de 400 W | **1.º latam Innovación 2023** |
+| | Nicarq Sinergy «BioInnova»: vivienda rápida, económica y sustentable | 2.º latam Impacto Social 2023 |
+| **Producción de alimentos en poco espacio** | STEM Synergy «PlantBee»: huerto vertical | **1.º latam Innovación 2025** |
+| **Reutilizar un residuo para una comunidad** | Mentes Volcánicas «ReVida Móvil»: Tetra Pak | **1.º latam Impacto Social 2025** |
+| **Residuo convertido en producto de valor** | «Beetle Protein»: desechos de comida alimentan larvas que dan harina con 53 % de proteína · «CarboTextil»: pirólisis de textiles para obtener carbón activado (300 g/kg) | 2.º latam Innovación 2024 · 3.º Impacto Social 2025 |
+| **App o solución solo digital** | «#Appibara» (salud mental) · «EducaRV» | Solo 3.os lugares latam |
 
-| Lo lleva a INNOVACIÓN | Lo lleva a IMPACTO SOCIAL |
-|---|---|
-| Un componente técnico nuevo: sensores, un proceso químico o biológico, un nuevo material, un mecanismo | Beneficiarios vulnerables claros: comunidad rural, adultos mayores, niñez, mujeres, personas con discapacidad |
-| La pregunta es «¿cómo funciona?», y la respuesta sorprende | La pregunta es «¿a quién le cambia la vida?», y la respuesta conmueve |
-| Ejemplos: micropresa inteligente, vivienda DIGNA, huertos verticales, carbón activado | Ejemplos: Tetra Pak (Mentes Volcánicas), salud mental (2023), Enlazando generaciones, reinserción social |
-| Cifras técnicas: litros, %, W, rendimiento | Cifras humanas: familias, personas, empleos, inclusión |
-
-**(Inferencia) Estrategia para la sede UNI-RUPAP:**
-- Es una sede de ingeniería, así que es probable que muchos equipos presenten soluciones técnicas y que **Innovación esté más reñida**. El antecedente: Mentes Volcánicas salió de RUPAP por Impacto Social y llegó al 1.º latinoamericano.
-- **Recomendación por defecto:** una solución con un componente técnico sólido y demostrable, pero contada con **fuerte impacto social** (beneficiarios, comunidad, empleo, inclusión). Así puede competir en las dos categorías y el jurado la ubica donde destaque más.
-- **El día del evento se decide caso por caso** según los desafíos.
+**Patrones de la idea:**
+- **La tecnología es un medio:** sensores o una app se suman a algo físico que resuelve agua, comida, techo o residuos.
+- **Es un sistema de 3 a 5 componentes**, no un producto suelto. DIGNA juntaba estructura, agua, saneamiento y energía; TECHRIDERS, captación, tratamiento, sensores y app.
+- **Materiales locales y baratos** (bambú, llanta, Tetra Pak, residuos): suben la prefactibilidad y la sustentabilidad, que son los criterios 3 y 4.
+- **Hay un beneficiario con nombre:** «la comunidad de Apanás», familias o agricultores.
+- **Cifras concretas:** litros, familias, porcentaje de pérdida, toneladas, gramos por kilo.
 
 ---
 
-## 5. Cómo estructuran la idea y el pitch (lo que se sabe)
+## 5. Hacia qué categoría se inclina cada tipo de desafío
 
-Lo que **sí está documentado** (noticias y bases):
-- **Nombre propio de la solución:** «DIGNA», «Beetle Protein», «CarboTextil», «#Appibara», «Educar RV», «Alertar». Casi todos los ganadores bautizan su solución.
-- **Cifras de impacto concretas** en el pitch y en las notas:
-  - TECHRIDERS: 1 M L/año, 200 familias, −50 % de pérdidas.
-  - Beetle Protein: 365 t/año, 53 % de proteína.
-  - CarboTextil: 300 g por kg.
-  - L'Cuack (2021): «129.000 millones de mascarillas por mes» como dato del problema.
-- **Lugar real:** Apanás (TECHRIDERS), el desierto de Atacama (HojaBeta), «la comunidad de…».
-- **Equipo multidisciplinario:** se menciona en casi todas las notas (Química, Mecatrónica, Industrial, Bioingeniería…).
-- **El jurado nacional e internacional solo ve el video y el reporte.** Todo lo importante tiene que estar ahí.
+Porcentaje de premios de sede en cada categoría, en todos los países (detalle en `datos/analisis_sirli.md`, sección 2):
 
-**Estructura recomendada para el video de 2 minutos.** Sale de los patrones de arriba y de las reglas 2026; **hay que confirmarla viendo los videos ganadores** (sección 6).
+| Tipo de desafío | Ejemplos (% de premios en Impacto Social) | Se inclina a |
+|---|---|---|
+| **Personas y necesidades humanas** | Niños migrantes 92 % · Enlazando generaciones 84 % · Tratar de estar mejor 83 % · Alimentación 81 % · Salud móvil mujeres 80 % · **Vivienda digna 80 %** · Desperdicio alimentario 77 % · Agua segura 65 % · **Micropresas 61 %** | **Impacto Social** |
+| **Materiales, residuos, ambiente y ciudad** | **Tetra Pak 46 %** · Textil 49 % · **Huertos 49 %** · Alerta temprana 41 % · Logística en desastres 51 % · Playas 43 % · Empaques 45 % · Escombros 59 % · Aguacate 40 % · Revalorización de residuos 38 % · Gris a verde 43 % · Movilidad 47 % · Crowdsensing 50 % | **Ambas (decide la solución)** |
+| **Dispositivos de detección, localización o control** | Siempre en contacto 8 % · Parquímetro 15 % · Fugas de agua 19 % · Evacuación 31 % | **Innovación** |
+
+**Cómo usarlo el día del evento:**
+- **Clasificar los desafíos 2026** en estas tres familias permite prever en qué categoría caerá la solución.
+- **Truco ganador:** en un desafío «de personas», una solución con un **mecanismo técnico fuerte** puede ganar **Innovación**, donde ese desafío tiene menos competencia. Así lo hicieron Güegüense Pinolero (vivienda) y TECHRIDERS (micropresas).
+- **Ruta probada en su sede:** el camino al podio nacional ha sido **Impacto Social** (2 de 2).
+
+---
+
+## 6. Cómo estructuran el pitch
+
+**Lo que está documentado:**
+- **Nombre propio de la solución**, en el título del video y en el pitch.
+- **Cifras de impacto concretas.**
+- **Un lugar real.**
+- **Equipo multidisciplinario.**
+- **Los jurados nacional e internacional solo ven el video y el reporte.**
+
+**Estructura sugerida para el video de 2 minutos** (hay que ajustarla después de ver los videos de la sección 7):
 
 | Segundos | Qué se ve | Qué se dice |
 |---|---|---|
-| 0–10 | Escena o dato que impacta (foto real del problema en Nicaragua) | Una cifra o pregunta fuerte sobre el problema |
-| 10–30 | La comunidad o persona afectada (lugar con nombre) | El problema raíz y a cuántos afecta (dato con fuente) |
+| 0–10 | Escena o dato real del problema en Nicaragua | Una cifra o pregunta fuerte |
+| 10–30 | La comunidad o persona afectada (lugar con nombre) | El problema raíz y a cuántos afecta, con fuente |
 | 30–45 | Nombre y logo de la solución | Qué es, en una frase |
-| 45–80 | **El prototipo a escala de material reciclable funcionando, movido por una persona del equipo** (regla 2026) + esquema animado | Cómo funciona, paso a paso, sus 3 a 5 componentes |
-| 80–100 | Tabla simple de costos, aliados y etapas | Cuánto cuesta, quién paga, cómo se sostiene (prefactibilidad) |
+| 45–80 | **Prototipo a escala de material reciclable, movido por alguien del equipo** + esquema animado | Cómo funciona, con sus 3 a 5 componentes |
+| 80–100 | Tabla simple de costos, aliados y etapas | Cuánto cuesta, quién paga y cómo se sostiene |
 | 100–112 | Cifras de impacto grandes en pantalla | Beneficiarios, ahorro, toneladas, ODS |
 | 112–120 | Equipo + nombre de la solución | Frase de cierre memorable |
 
-Unas 250–280 palabras de voz en off, subtítulos siempre, audio limpio y nada con derechos de autor.
+Unas 250–280 palabras de voz en off, con subtítulos y sin música con derechos de autor.
 
 ---
 
-## 6. Lo que falta y cómo completarlo (hoy, antes del Rally)
+## 7. Videos para ver hoy (en este orden)
 
-1. **Ver los videos ganadores.** Es lo único que falta para el análisis del «qué traían los videos».
-   - En un navegador, abran `https://sirli.org/ganadores/internacional/2025`, `/2024` y `/2023`. Cada ganador tiene un enlace «Ver video».
-   - **Prioridad:**
-     1. Mentes Volcánicas 2025 (su sede).
-     2. STEM Synergy 2025.
-     3. TECHRIDERS 2024.
-     4. Güegüense Pinolero 2023.
-     5. Catalizadores del Cambio 2024.
-     6. HojaBeta 2025.
-   - Anoten, o peguen la transcripción («⋯ → Mostrar transcripción» en YouTube), y pásenlas al **Prompt 1**, o a mí si habilitan el acceso a red.
-2. **Ganadores de sede.** Con acceso a red a sirli.org, `herramientas/descargar_sirli.py` baja todos los ganadores de sede, nacionales e internacionales 2023–2025, con sus links de video y el banco de desafíos.
-3. **Confirmar la hora de inicio con la líder o el líder de sede.** Lo calculado: viernes 16 de octubre de 09:00 a sábado 17 de octubre a las 13:00 (hora de Nicaragua).
+Para cada video anoten:
+- los primeros 10 segundos;
+- cómo muestran el prototipo;
+- qué cifras dan;
+- cómo explican costos y aliados;
+- cómo cierran.
+
+**A. Ganadores nicaragüenses (lo que el jurado premia):**
+1. Mentes Volcánicas «ReVida Móvil» (UNI-RUPAP, 1.º latam IS 2025): https://youtu.be/_JSUKR1bPnE
+2. STEM Synergy «PlantBee» (UAM, 1.º latam Innovación 2025): https://youtu.be/JhqjBm20DXo
+3. TECHRIDERS (UNI-RUSB, 1.º latam Innovación 2024): https://youtu.be/MIvlD31HfIk
+4. Güegüense Pinolero «Vivienda digna» (UNM, 1.º latam Innovación 2023): https://youtu.be/AjtVryXaGDc
+5. Nicarq Sinergy «BioInnova» (UNI-RUSB, 2.º latam IS 2023): https://www.youtube.com/watch?v=5dVqVY9Ugeg
+
+**B. Comparaciones (mismo desafío y año: uno ganó, el otro no):**
+
+| Ganó | No pasó de la sede | Qué comparar |
+|---|---|---|
+| Mentes Volcánicas «ReVida Móvil» (1.º sede, 1.º nacional y latam) | Equipo Alfa «ReCreaPak» (2.º sede RUPAP 2025): https://youtu.be/-nxwmYPG4PM | Misma sede, mismo desafío (Tetra Pak) y misma categoría |
+| TECHRIDERS (1.º nacional y latam 2024) | UNITechnos «Nuvis Collecta» (1.º Innovación RUPAP 2024): https://youtu.be/-ZIsRZpxmqw | Micropresas, misma categoría |
+| Güegüense Pinolero (1.º nacional y latam 2023) | IngenioNica «Vivienda Digna, Vida Plena» (1.º Innovación RUPAP 2023): https://youtu.be/mxs5wIXsqS8 | Vivienda, misma categoría |
+
+**C. Otros 1.os latinoamericanos:**
+- Mexitech (desperdicio alimentario, 2024): https://youtu.be/ZEI3Ua6Ksm0
+- Mentes Conectadas «Connected Mind» (2023): https://www.youtube.com/watch?v=Ac6xyM_Vgzs
+
+Todos los demás links están en `datos/ganadores_sirli_2023_2025.csv`. Las notas o transcripciones se pueden pegar en el **Prompt 1** o pasármelas a mí.
+
+---
+
+## 8. Reglas de decisión para el día del evento
+
+1. **Prioridad a desafíos de necesidad básica o material tangible:** agua, techo, alimentos, reutilizar residuos para una comunidad. Son los que convierten en Nicaragua.
+2. **No descartar un desafío por popular.** Los campeones salieron de los más elegidos; lo que importa es poder ejecutarlo mejor que nadie.
+3. **Con cautela:** desafíos de dispositivos de alerta o localización, bienestar digital o problemas urbanos. Rinden poco en Nicaragua, salvo que haya una idea física muy fuerte y demostrable.
+4. **Solución = sistema físico de bajo costo + capa técnica sencilla + comunidad con nombre + cifras.**
+5. **Categoría:**
+   - **Por defecto, Impacto Social**, la ruta probada en RUPAP.
+   - **Innovación** solo si hay un mecanismo técnico claramente novedoso, sobre todo en un desafío «de personas», donde Innovación tiene menos competencia.
+6. **Prototipo reciclado a escala, construible en menos de 8 horas** y que se vea funcionar en cámara.
+7. **Nombre propio y memorable desde la primera hora**, para usarlo en el video, el reporte y el TikTok.
