@@ -1,5 +1,26 @@
 # Análisis de los desafíos 2026 — equipo UNI-RUPAP
 
+## DECISIÓN CON EL PERFIL DEL EQUIPO (4 Sistemas, 1 Arquitectura, 1 Economía y Finanzas)
+
+| Desafío | Datos 2023–2025 (sede → Nicaragua → latam) | Encaje con el equipo | Puntaje (1–5) |
+|---|---|---|---|
+| **05 Reservorios** | Agua: **lo que más gana en Latinoamérica (7 podios)**; en Nicaragua sus 2 podios fueron **1.os nacionales** (TECHRIDERS, Hydrostudio), aunque convierte poco (4 %) por saturación | **Perfecto.** El desafío pide 3 cosas y el equipo tiene las 3: monitoreo inteligente (**Sistemas**), infraestructura verde (**Arquitectura**) y gestión comunitaria e institucional con costos (**Economía**). Además, la maqueta a escala la lidera Arquitectura | **4,23** |
+| 03 Polinizadores | Mejor conversión en Nicaragua (18 %); PlantBee 1.º latam; muestra chica | Bueno: el desafío pide «diseño ecológico o manejo del paisaje» (**Arquitectura**); Economía calcula el ingreso de miel y polinización; Sistemas queda en apoyo | 3,95 |
+| 01 Motores | Fuerte en datos (Mentes Volcánicas) | **Débil:** nadie de mecánica ni electricidad para que el kit sea creíble | 3,90 |
+| 02 Sensores de celulares | **0 de 41** podios nacionales en Nicaragua | Ideal para Sistemas, pero el patrón le juega en contra | 3,73 |
+| 04 Poda urbana | 8 % y sin 1.os | Medio (Arquitectura urbana + Economía) | 3,65 |
+| 09 Post-emergencia | 4 % y es software | Ideal para Sistemas y Economía, pero choca con la regla del prototipo físico | 3,53 |
+
+**Recomendación: 05 «Reservorio vivo», orientado a Impacto Social, con la tecnología como herramienta.** Plan B: 03.
+
+**Truco para aprovechar a Sistemas sin caer en el 02:** usar **celulares en desuso como sensores** del reservorio (nivel, lluvia, vibración del talud). Es tecnología barata, reutiliza basura electrónica y suma innovación.
+
+**Riesgos del 05 y cómo cubrirlos:**
+- **Es el desafío más competido en RUPAP** y sus primeros lugares de Innovación de 2024 y 2025 no pasaron a nivel nacional. Para diferenciarse: propuesta **integral** (los 3 pilares), una **comunidad con nombre**, **cifras** y una **maqueta que funcione**.
+- **No puede ser «otra alerta temprana»** (0 podios nacionales en 2025). El centro es el barrio protegido, el parque-reservorio y la gestión comunitaria.
+
+---
+
 ## RECOMENDACIÓN FINAL (validada con los 2.407 premios de 2023–2025)
 
 Método: cada desafío 2026 se comparó con sus desafíos parecidos de 2023–2025 y se midió cómo les fue en tres niveles: en la sede UNI-RUPAP, en Nicaragua (podios nacionales ÷ primeros lugares de sede; promedio 7 %) y en Latinoamérica. Detalle y lista de parecidos en `datos/analogos_2026.md` (`herramientas/analogos_2026.py`).
