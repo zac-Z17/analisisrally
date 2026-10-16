@@ -1,0 +1,88 @@
+# Análisis de los desafíos 2026 — equipo UNI-RUPAP (pasos 0 a 5)
+
+Desafíos tomados de https://sirli.org/desafios/banco_desafios/2026 (`datos/desafios_sirli_2026.csv`), cruzados con `informe_patrones.md` y `datos/analisis_sirli.md`.
+
+## Paso 0 — Supuestos
+- **[SUPUESTO]** El equipo es de ingeniería de la UNI, con laptop, celular y materiales sencillos. Si alguien sabe de electrónica (Arduino/ESP32) o de mecánica, sube el puntaje de las opciones 01, 05 y 06.
+- La categoría la asigna el jurado de sede. Aquí digo **hacia cuál conviene orientarla**.
+- Las cifras marcadas **[VERIFICAR]** hay que confirmarlas y citarlas en APA.
+
+## Paso 1 — Radiografía
+
+| # | Desafío | Familia → categoría probable | Parecido con lo que ya ganó en Nicaragua | Popularidad esperada en RUPAP | Veredicto |
+|---|---|---|---|---|---|
+| 01 | Segunda vida de motores eléctricos | Residuo → valor para una comunidad → **ambas** (decide el enfoque) | **Alto.** Igual que Tetra Pak 2025 (Mentes Volcánicas, su sede): reutilizar un desecho para beneficiarios concretos | Media-alta | **Muy fuerte** |
+| 02 | Sensores de celulares en desuso | Dispositivo de medición → **Innovación** | **Bajo.** Crowdsensing 2023 y Siempre en contacto 2023: 0 podios nacionales en Nicaragua | Alta (atrae a informáticos) | Riesgoso |
+| 03 | Polinizadores | Ambiente / alimentos → ambas | Medio (producción de alimentos, como PlantBee) | Baja | Pide perfil agro/biología |
+| 04 | Residuos de poda y biomasa urbana | Residuo → valor → ambas | Medio (residuo → producto, como CarboTextil) | Media | Correcto, poco «wow» |
+| 05 | Monitoreo e infraestructura verde en reservorios pluviales | **Agua** + comunidad vulnerable + sensores → ambas | **Muy alto.** Agua es el tema que más gana Nicaragua (TECHRIDERS e Hydrostudio 2024). Riesgo: si se queda en «alerta», se parece a Alerta temprana 2025 (0 podios nacionales) | **Muy alta** (civiles y electrónicos) | **Muy fuerte, pero reñido** |
+| 06 | Remoción de barro en viviendas anegadas | Dispositivo mecánico → **Innovación** | Medio-bajo (Evacuación 2024: 1 podio nacional, un 3.er lugar) | Baja-media | Fuerte si hay mecánicos |
+| 07 | Reutilización de aceite doméstico | Residuo → valor → ambas | Medio | Alta | Ideas muy repetidas (jabón, biodiésel): **riesgo de originalidad** |
+| 08 | Paneles solares en desuso | Residuo → segunda vida → ambas | Medio (residuo → valor; tema nuevo) | Media | Buena, menos competencia |
+| 09 | Priorización en la post-emergencia | Software o logística → ambas | **Bajo.** Logística ante desastres 2025: 0 podios nacionales en Nicaragua; difícil hacer prototipo físico | Media | Débil con la regla 2026 |
+
+## Paso 2 y 3 — Ideas para los 4 mejores desafíos
+
+### 01 · Motores eléctricos
+| Idea | Cómo funciona | Prototipo reciclado (en cámara) |
+|---|---|---|
+| **A. «ReMotor»: kit modular para pequeños productores** | Un acople universal y una caja de control simple convierten cualquier motor recuperado (lavadora, ventilador, caminadora) en desgranadora de maíz, despulpadora de café o molino. Se instala en un **taller comunitario** donde jóvenes aprenden a reconvertir motores (empleo). Beneficiario con nombre: una cooperativa de Matagalpa o Jinotega **[VERIFICAR cuál]** | Motor de ventilador o juguete moviendo una mini desgranadora de cartón, PVC y tapas, **desgranando de verdad** |
+| B. Bomba de riego con motor y panel recuperados | Motor de bomba o lavadora + panel solar recuperado para riego por goteo de huertos familiares en el corredor seco **[VERIFICAR zona]** | Maqueta con botellas, mangueras y una mini bomba moviendo agua |
+| C. Asistencia de movilidad | Motor de caminadora → kit que motoriza sillas de ruedas para un centro de rehabilitación | Más difícil y con riesgos de seguridad: no recomendada en 28 h |
+
+**Originalidad:** existen bicimáquinas y reúso de motores sueltos. Lo nuevo es el **kit modular estándar más el taller comunitario** que lo vuelve replicable.
+
+### 05 · Reservorios pluviales
+| Idea | Cómo funciona | Prototipo |
+|---|---|---|
+| **A. «Reservorio vivo»** | Sensor de nivel (ultrasónico con ESP32, o celular en desuso) + pluviómetro que avisan por SMS o WhatsApp al comité del barrio y a la alcaldía. Además, **infraestructura verde**: jardines de lluvia, franjas de vetiver y gaviones a la entrada del reservorio para frenar el sedimento. Comunidad: un barrio junto a un cauce de Managua **[VERIFICAR cuál]** | Maqueta del reservorio con botellas y tierra: se «llueve» agua, el sensor mide y la franja verde retiene el lodo |
+| B. Trampa de sedimentos verde + medición de turbidez | Más ambiental y menos electrónica | Maqueta con filtros de piedra y vegetación |
+| C. Brigada comunitaria con tablero | Más social y menos física | Débil en cámara |
+
+**Riesgo:** muchos equipos de RUPAP lo van a elegir. Para destacar hay que poner el peso en la **infraestructura verde y la comunidad**, no solo en la alerta.
+
+### 06 · Barro en viviendas
+**A. Kit «Lodo Fuera»:** bomba manual de diafragma hecha con un barril reciclado, raspador de palanca para interiores y carretilla de pedal. El kit queda guardado en la escuela o la iglesia del barrio. **B.** Hidrolavado manual a presión para mantener el lodo fluido antes de que se seque. **C.** Protocolo de brigada.
+**Prototipo:** mini bomba de diafragma con botella y globo que **succiona lodo de verdad** en cámara.
+
+### 08 · Paneles solares
+**A. «Segunda Luz»:** banco de prueba para clasificar paneles degradados, más kits de baja exigencia (luz y carga de celulares para escuelas rurales, o **cerco eléctrico solar para pequeños ganaderos**). Incluye un protocolo de desarme seguro para los paneles que ya no sirven.
+**Prototipo:** panel de una lámpara solar de jardín reciclada alimentando una mini lámpara o cerco en la maqueta.
+
+### Resto (una línea)
+- **02:** sismógrafo o inclinómetro comunitario con celulares para viviendas en laderas. Es técnico y atractivo, pero el patrón nicaragüense le juega en contra.
+- **03:** corredores de flores nativas y nidos de abejas meliponas en fincas o escuelas.
+- **04:** biochar o compost de la poda municipal para huertos escolares.
+- **07:** acopio de aceite en fritangas para hacer jabón o biodiésel con una cooperativa. Es el más repetido.
+- **09:** triage y priorización sin internet para los comités municipales. Es puramente digital.
+
+## Paso 4 — Matriz de puntaje (mejor idea de cada desafío, de 1 a 5)
+
+| # | Idea | Innov. 20 % | Impacto 20 % | Prefact. 15 % | Viab. téc. 10 % | Presentación 10 % | Patrones 15 % | Equipo 10 % | **Total** |
+|---|---|---|---|---|---|---|---|---|---|
+| 01 | ReMotor | 3,5 | 4,5 | 4,5 | 4,5 | 4,5 | 4,5 | 5 | **4,35** |
+| 05 | Reservorio vivo | 4 | 4,5 | 3,5 | 4 | 4 | 4,5 | 4,5 | **4,15** |
+| 06 | Lodo Fuera | 4 | 4 | 4 | 4 | 4,5 | 3 | 4,5 | **3,95** |
+| 08 | Segunda Luz | 4 | 4 | 3,5 | 4 | 4 | 3,5 | 4,5 | **3,90** |
+| 04 | Biochar de poda | 3 | 4 | 4 | 4,5 | 3,5 | 4 | 3,5 | **3,75** |
+| 02 | Sismógrafo con celulares | 4,5 | 3,5 | 4 | 4 | 3,5 | 2 | 4,5 | **3,70** |
+| 03 | Corredor de polinizadores | 3 | 4 | 4 | 4 | 3,5 | 3,5 | 2,5 | **3,53** |
+| 07 | Aceite → jabón o biodiésel | 2,5 | 4 | 4 | 4 | 3,5 | 3,5 | 3,5 | **3,53** |
+| 09 | Triage post-emergencia | 3,5 | 4 | 3,5 | 3,5 | 2,5 | 2 | 4 | **3,33** |
+
+## Paso 5 — Recomendación
+
+| | Desafío e idea | Orientar a | Prob. ganar sede → Nicaragua | Por qué |
+|---|---|---|---|---|
+| **1.ª** | **01 · ReMotor** | **Impacto Social** (cooperativa con nombre + taller que da empleo) | Alta → media-alta | Es el patrón exacto de Mentes Volcánicas: un desecho convertido en solución para una comunidad. Prototipo que **se mueve de verdad** (prueba anti-IA) y encaja perfecto con ingeniería |
+| 2.ª | 05 · Reservorio vivo | Innovación (sensores + infraestructura verde, como TECHRIDERS) | Media → alta si ganan la sede | Agua es lo que más gana Nicaragua, pero en RUPAP será el más reñido |
+| 3.ª | 06 · Lodo Fuera | Innovación | Media-alta → media | Poca competencia, demo mecánica muy visual; el historial nacional de «emergencias» es débil |
+
+**Riesgos y cómo cubrirlos:**
+- **01:** que suene a «solo reciclar motores». Hay que mostrar el **kit modular estándar**, el costo frente a una máquina nueva y un beneficiario real con cifras **[VERIFICAR]**: productores, horas de trabajo manual ahorradas e ingreso.
+- **05:** que se vea como «otra alerta temprana». El centro tiene que ser la **infraestructura verde y el comité comunitario**; el sensor es solo la capa técnica.
+- **06:** tener la bomba funcionando con lodo real antes de la hora 12.
+
+---
+**Elijan desafío y opción, y escriban: «Desarrolla el paso 6 con…».**
+Recuerden: la IA ayuda a pensar, pero el texto final del reporte y del video tiene que ser de ustedes (regla anti-IA 2026).
