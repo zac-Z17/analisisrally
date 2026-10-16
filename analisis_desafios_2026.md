@@ -1,5 +1,29 @@
 # Análisis de los desafíos 2026 — equipo UNI-RUPAP
 
+## ELECCIÓN PENSANDO EN EL EQUIPO Y EN NICARAGUA (sin copiar proyectos anteriores)
+
+Pesos: encaje con el equipo 40 % · relevancia en Nicaragua frente a la región 25 % · factible en 28 h con prototipo reciclado 20 % · estadística 2023–2025 15 %.
+
+| Desafío | Equipo (4 Sist. · 1 Arq. · 1 Eco.) | Contexto Nicaragua | Factible 28 h | Estadística | **Total** |
+|---|---|---|---|---|---|
+| **05 Reservorios** | 5 · los 3 perfiles cubren los 3 pilares que pide | 5 · inundaciones, cauces de Managua, huracanes | 4 · maqueta + sensor | 3 | **4,50** |
+| 09 Post-emergencia | 5 · software, asignación de recursos, evaluación de viviendas | 5 · huracanes, sismos | 3 · difícil hacer prototipo físico | 2 | 4,15 |
+| 02 Sensores de celulares | 4,5 · Sistemas en el centro | 3,5 · depende de la aplicación | 4,5 | 1 | 3,73 |
+| 03 Polinizadores | 3 · falta biología | 4 · agro | 4 | 3,5 | 3,53 |
+| 04 Poda urbana | 3,5 | 3 | 4 | 2,5 | 3,33 |
+| 01 Motores | 2 · falta mecánica y electricidad | 4 | 3 | 4 | 3,00 |
+| 06 Barro | 1,5 | 4,5 | 3 | 2,5 | 2,70 |
+| 08 Paneles | 2 | 2,5 · Chile y México tienen mucho más volumen | 3 | 3 | 2,48 |
+| 07 Aceite | 2 · falta química | 3 | 3 | 2 | 2,45 |
+
+**Recomendación: 05, metiendo lo que les gustaba del 02 (celulares en desuso como sensores del reservorio).**
+
+Datos de contexto:
+- **Nicaragua es el país con más competencia interna:** 269 primeros lugares de sede en 2023–2025, contra 178 de México y 174 de Argentina, por solo 6 podios nacionales al año.
+- **Ganar Nicaragua casi asegura podio latinoamericano:** 5 de los 6 campeones nacionales lo lograron. Nicaragua tiene 5 podios latinoamericanos, el país con más.
+
+---
+
 ## DECISIÓN CON EL PERFIL DEL EQUIPO (4 Sistemas, 1 Arquitectura, 1 Economía y Finanzas)
 
 | Desafío | Datos 2023–2025 (sede → Nicaragua → latam) | Encaje con el equipo | Puntaje (1–5) |
