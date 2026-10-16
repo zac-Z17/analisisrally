@@ -1,5 +1,23 @@
 # Análisis de los desafíos 2026 — equipo UNI-RUPAP
 
+## DECISIÓN DEL EQUIPO: desafío 02 «Sensores al servicio de la comunidad»
+
+**Categoría:** la asigna el jurado de sede según cómo esté planteada la solución. Recomendación: **orientar a Innovación** con un impacto social fuerte y medible.
+
+Datos de los desafíos de sensores parecidos (Crowdsensing, Siempre en contacto, Fugas de agua y Alerta temprana; 2023–2025):
+
+| | 1.os de sede | Podios nacionales | Latam |
+|---|---|---|---|
+| Innovación (todos los países) | 108 (75 %) | 16 (**15 %**) | 2 (3.os: HIT, AESIR) |
+| Impacto Social (todos los países) | 36 (25 %) | 3 (8 %) | 1 (2.º: Idronix) |
+| Nicaragua, Innovación | 32 | 0 | 0 |
+| Nicaragua, Impacto Social | 9 | 0 | 0 |
+
+- **Innovación es su categoría natural** y la que convierte mejor (15 % frente a 8 %).
+- En Nicaragua ninguna de las dos funcionó. Lo que define el resultado es **aterrizar en una necesidad básica** (agua, vivienda) **con algo físico** y una comunidad con nombre, como TECHRIDERS (sensores + agua = 1.º en Innovación en Nicaragua y en Latinoamérica 2024).
+
+---
+
 ## ELECCIÓN PENSANDO EN EL EQUIPO Y EN NICARAGUA (sin copiar proyectos anteriores)
 
 Pesos: encaje con el equipo 40 % · relevancia en Nicaragua frente a la región 25 % · factible en 28 h con prototipo reciclado 20 % · estadística 2023–2025 15 %.
