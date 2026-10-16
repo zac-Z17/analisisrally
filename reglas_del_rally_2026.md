@@ -274,3 +274,15 @@ Para completar todo esto hay que abrir en un navegador normal:
 - Las bases 2026 (PDF).
 - https://www.rallydeinnovacion.org/edicion_2026/
 - https://sirli.org/desafios/banco_desafios/2025 (y 2023, 2022, 2021).
+
+---
+
+## Actualización del 16 de octubre de 2026 (durante el Rally)
+- rallydeinnovacion.org no responde («509 Bandwidth Limit Exceeded»), probablemente por el tráfico del evento.
+- SIRLI pide usuario y contraseña para el área del equipo. La plantilla del reporte pautado y la rúbrica no son públicas: las tiene el líder del equipo dentro de SIRLI o el líder de sede.
+- La página de ANFEI 2026 (https://www.anfei.mx/actividades/registro_sedes_2026/) confirma:
+  - Etiqueta de TikTok: **#RallyLatam26**.
+  - El TikTok se evalúa de dos formas: por la opinión más favorable en la red social y por la votación de los responsables de sede.
+  - Entregables cargados en SIRLI: URL del video de YouTube, archivo del reporte pautado y URL del TikTok.
+  - El reporte pautado debe «dar cuenta de la factibilidad e impacto de la propuesta».
+  - Todo el material pasa a dominio público.
