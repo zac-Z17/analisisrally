@@ -1,4 +1,40 @@
-# Análisis de los desafíos 2026 — equipo UNI-RUPAP (pasos 0 a 5)
+# Análisis de los desafíos 2026 — equipo UNI-RUPAP
+
+## RECOMENDACIÓN FINAL (validada con los 2.407 premios de 2023–2025)
+
+Método: cada desafío 2026 se comparó con sus desafíos parecidos de 2023–2025 y se midió cómo les fue en tres niveles: en la sede UNI-RUPAP, en Nicaragua (podios nacionales ÷ primeros lugares de sede; promedio 7 %) y en Latinoamérica. Detalle y lista de parecidos en `datos/analogos_2026.md` (`herramientas/analogos_2026.py`).
+
+| Desafío 2026 | Sede: qué ganó en RUPAP en desafíos parecidos | Nicaragua: conversión a podio nacional | Latam: podios en parecidos | Lectura |
+|---|---|---|---|---|
+| **01 Motores** | **1.º IS 2025 Mentes Volcánicas (Tetra Pak)** + 2.º IS + 2.º Inn. | **10 %** (5 de 48) · **5 podios, el que más** · 1 campeón nacional | 3 (1 primero) | **El más completo en los 3 niveles** |
+| **03 Polinizadores** | **1.º IS 2023 Tlacatlyani (alimentos) → 3.º nacional** | **18 %** (3 de 17) · **la mejor conversión** · 1 campeón nacional (PlantBee) | 2 (1 primero, PlantBee) | **Mejor conversión y poca competencia**; muestra chica |
+| 08 Paneles solares | Igual que 01 (mismos parecidos) | 11 % (4 de 35) | 3 (1 primero) | Variante del 01 si el equipo es eléctrico |
+| 06 Barro | 1.º IS 2024 Volcanic (no pasó) | 14 % (3 de 21), pero **solo 3.os lugares** | 0 | Llega al podio, no a ganar |
+| 04 Poda | 2.º y 3.º | 8 % (3 de 36), sin 1.os | 0 | Medio |
+| 05 Reservorios | **1.º Inn. 2024 y 2025 (Nuvis Collecta, SAT KUNAN): ninguno pasó** | **4 %** (2 de 54) · el más saturado, pero sus 2 podios fueron **1.os nacionales** | **7 (1 primero)**, el más alto | **Todo o nada:** techo alto y riesgo alto |
+| 07 Aceite | 2.º y 3.º | 5 % (2 de 41) | 2 | Débil y repetido |
+| 09 Post-emergencia | 1.º IS 2024 Volcanic (no pasó) | 4 % (1 de 28) | 2 | Débil |
+| 02 Sensores de celulares | 1.º Inn. 2025 SAT KUNAN (no pasó) | **0 %** (0 de 41) | 3 (ningún 1.º) | **Evitar** |
+
+**Ranking final:**
+1. **01 Motores · orientar a Impacto Social.** Gana en los tres niveles: su propia sede ya ganó Nicaragua y Latinoamérica en 2025 con este mismo patrón (residuo con segunda vida para beneficiarios concretos), y es el tipo de desafío con más podios nacionales en Nicaragua.
+2. **03 Polinizadores · orientar a Impacto Social, con enfoque agro-alimentario** (productores, abejas nativas, ingreso). Es lo que mejor convierte en Nicaragua (alimentos: Tlacatlyani, Agrosave, PlantBee) y pocos equipos lo elegirán. La muestra es chica (2 desafíos parecidos).
+3. **05 Reservorios · solo si tienen gente fuerte en civil y electrónica.** Es lo que más gana en Latinoamérica, pero en RUPAP sus primeros lugares nunca pasaron a nivel nacional y es el más competido.
+
+**Evitar:** 02 (0 de 41 en Nicaragua), 09 y 07.
+
+**Por qué Impacto Social en RUPAP:** los 2 equipos de RUPAP que llegaron al podio nacional (2023 y 2025) fueron de Impacto Social. Los 3 primeros lugares de Innovación de RUPAP (vivienda, micropresas y alerta) no pasaron de la sede.
+
+**Límites:**
+- Solo se conocen los premiados.
+- El emparejamiento con desafíos anteriores es criterio nuestro.
+- Las muestras son chicas (sobre todo en 03).
+- Correlación no es causa.
+- El análisis de «digital vs. físico» por título de video **no es concluyente**: casi ningún título menciona app o plataforma.
+
+---
+
+## Análisis inicial (pasos 0 a 5, antes de validar con datos)
 
 Desafíos tomados de https://sirli.org/desafios/banco_desafios/2026 (`datos/desafios_sirli_2026.csv`), cruzados con `informe_patrones.md` y `datos/analisis_sirli.md`.
 
