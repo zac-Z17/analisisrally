@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Modo oscuro siempre: la app se usa de noche y en celulares viejos. -->
+    <style name="Theme.Sentinel" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/noche</item>
+        <item name="android:colorBackground">@color/noche</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/noche</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

@@ -27,7 +27,8 @@
 ```
 sentinel/
 ├─ README.md                  ← este archivo
-├─ prototipo-web/             ← PROTOTIPO FUNCIONAL ACTUAL (app web, un solo archivo)
+├─ android/                   ← APP ANDROID NATIVA (Kotlin + Compose); ver android/README.md
+├─ prototipo-web/             ← prototipo web (un solo archivo), se sigue usando para el video
 │  ├─ index.html              ← toda la app: HTML + CSS + JavaScript (sin framework ni build)
 │  ├─ README.md               ← cómo usarla y sus límites
 │  └─ pruebas/                ← pruebas automáticas (Playwright) + servidor de mensajes de prueba
@@ -45,9 +46,11 @@ sentinel/
 ```
 
 **Estado honesto del proyecto:**
-- Hoy **no existe un proyecto Android**: solo hay un **prototipo web** que corre en el navegador del celular.
-- El prototipo web funciona de punta a punta y se usa para validar la idea y grabar el video.
-- La meta es una **app Android** (ver la sección 5).
+- El **prototipo web** funciona de punta a punta y se usa para validar la idea y grabar el video.
+- La **app Android nativa** (`android/`, fase 2 de la sección 5) compila y pasa 37 pruebas automáticas. **Aún falta probarla en celulares reales.**
+  - Usa el mismo protocolo que la página web, así que se pueden mezclar.
+  - Detecta con la pantalla apagada y recibe alertas con la app cerrada.
+  - Detalles y pendientes en `android/README.md`.
 
 ## 3. Cómo correr el prototipo web
 
