@@ -44,7 +44,7 @@ class AcumuladorGiro {
 }
 
 /**
- * Algoritmo de detección del Sentinela (igual al del prototipo web):
+ * Algoritmo de detección del Centinela (igual al del prototipo web):
  * - INTENTO: la puerta gira más que el umbral, un golpe muy fuerte, o 3 golpes en 4 s (forcejeo).
  * - LEVE: vibración sobre el umbral leve sin intento en los 2,5 s siguientes; máximo una cada 30 s.
  * No guarda referencias a Android: se prueba con lecturas falsas.

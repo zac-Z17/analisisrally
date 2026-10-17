@@ -65,7 +65,7 @@ enum class ClaseAlerta(val clave: String, val porRed: Boolean) {
 enum class Etiqueta(val clave: String) {
     LLUVIA("lluvia"), VIENTO("viento"), ANIMAL("animal"), YO("yo"), FALSA("falsa");
 
-    /** Lluvia, viento y animal hacen al Sentinela menos sensible a vibraciones leves. */
+    /** Lluvia, viento y animal hacen al Centinela menos sensible a vibraciones leves. */
     val ajustaSensibilidad: Boolean get() = this == LLUVIA || this == VIENTO || this == ANIMAL
 
     companion object {
@@ -131,7 +131,7 @@ data class Alerta(
 /** Vecino invitado que aún no se une con el código. */
 data class Pendiente(val id: String, val nombre: String, val tel: String = "", val ref: String = "")
 
-/** Umbrales base del Sentinela (m/s² y grados). */
+/** Umbrales base del Centinela (m/s² y grados). */
 data class Calibracion(val leve: Double, val fuerte: Double, val muy: Double, val ang: Double) {
     companion object {
         val FABRICA = Calibracion(leve = 0.8, fuerte = 2.5, muy = 8.0, ang = 15.0)

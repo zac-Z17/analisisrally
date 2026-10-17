@@ -17,7 +17,7 @@ import ni.uni.nanobots.sentinel.domain.modelo.Mensaje
 import ni.uni.nanobots.sentinel.domain.modelo.Rol
 import ni.uni.nanobots.sentinel.domain.modelo.Vigilancia
 
-/** Convierte los mensajes del protocolo Sentinel a JSON y de vuelta, validando todo lo que llega. */
+/** Convierte los mensajes del protocolo Centinel a JSON y de vuelta, validando todo lo que llega. */
 object CodecMensajes {
 
     fun codificar(m: Mensaje): String = buildJsonObject {
@@ -67,7 +67,7 @@ object CodecMensajes {
         }
     }.toString()
 
-    /** null si el texto no es un mensaje válido de Sentinel. */
+    /** null si el texto no es un mensaje válido de Centinel. */
     fun decodificar(texto: String): Mensaje? {
         val o = runCatching { Json.parseToJsonElement(texto) }.getOrNull() as? JsonObject ?: return null
         val mid = o["mid"].texto()?.takeIf(Ids::valido) ?: return null

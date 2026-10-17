@@ -8,7 +8,7 @@ sealed interface Contenido {
     data class Bienvenida(val para: String, val hogar: Hogar, val cfg: Config) : Contenido
     data class Hola(val rol: Rol?, val cfgv: Long) : Contenido
 
-    /** Latido del Sentinela. [temp] solo lo envía la app Android (el navegador no la conoce). */
+    /** Latido del Centinela. [temp] solo lo envía la app Android (el navegador no la conoce). */
     data class Estado(
         val nombre: String,
         val lugar: Lugar,

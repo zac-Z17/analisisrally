@@ -30,7 +30,7 @@ import kotlin.math.roundToInt
 
 /**
  * Servicio en primer plano que mantiene viva la sesión del hogar con la app cerrada.
- * En el Sentinela además mantiene la CPU despierta y lee los sensores con la pantalla apagada.
+ * En el Centinela además mantiene la CPU despierta y lee los sensores con la pantalla apagada.
  */
 class ServicioHogar : Service() {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -49,7 +49,7 @@ class ServicioHogar : Service() {
         } else {
             0
         }
-        ServiceCompat.startForeground(this, Notificador.ID_SERVICIO, c.notificador.servicio("Sentinel está activo"), tipo)
+        ServiceCompat.startForeground(this, Notificador.ID_SERVICIO, c.notificador.servicio("Centinel está activo"), tipo)
         scope.launch {
             c.repo.esperarListo()
             launch { mantenerTexto() }

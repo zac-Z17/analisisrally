@@ -1,6 +1,7 @@
 package ni.uni.nanobots.sentinel.ui.inicio
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -27,10 +28,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -44,6 +45,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.codescanner.GmsBarcodeScannerOptions
 import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
+import ni.uni.nanobots.sentinel.R
 import ni.uni.nanobots.sentinel.domain.hogar.EstadoUnion
 import ni.uni.nanobots.sentinel.domain.modelo.Lugar
 import ni.uni.nanobots.sentinel.domain.modelo.Rol
@@ -105,7 +107,7 @@ private fun Bienvenida(rol: Rol, vm: InicioViewModel) {
     Marco(
         abajo = {
             Boton(
-                "Configurar como ${if (rol == Rol.RECEPTOR) "Receptor" else "Sentinela"}",
+                "Configurar como ${if (rol == Rol.RECEPTOR) "Receptor" else "Centinela"}",
                 vm::continuar,
                 icono = Iconos.Adelante,
             )
@@ -119,15 +121,9 @@ private fun Bienvenida(rol: Rol, vm: InicioViewModel) {
         },
     ) {
         Row(Modifier.padding(top = 18.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            Box(
-                Modifier
-                    .size(48.dp)
-                    .clip(RoundedCornerShape(15.dp))
-                    .background(Brush.linearGradient(listOf(Paleta.Azul, Paleta.Cian))),
-                contentAlignment = Alignment.Center,
-            ) { Icon(Iconos.EscudoOk, null, tint = Color.White, modifier = Modifier.size(26.dp)) }
+            Image(painterResource(R.drawable.logo_centinel), contentDescription = null, modifier = Modifier.size(52.dp))
             Column {
-                Text("Sentinel", style = Tipo.Titulo.copy(fontWeight = FontWeight.ExtraBold, fontSize = 24.sp))
+                Text("Centinel", style = Tipo.Titulo.copy(fontWeight = FontWeight.ExtraBold, fontSize = 24.sp))
                 Text("Tu celular viejo cuida tu casa", style = Tipo.T2)
             }
         }
@@ -136,7 +132,7 @@ private fun Bienvenida(rol: Rol, vm: InicioViewModel) {
             Text("Elige una opción. Puedes cambiarla después.", style = Tipo.Sub, modifier = Modifier.padding(top = 6.dp))
         }
         TarjetaRol(
-            Tono.AZUL, Iconos.EscudoOk, "EMISOR", "Sentinela",
+            Tono.AZUL, Iconos.EscudoOk, "EMISOR", "Centinela",
             "El celular viejo que va en el soporte de la puerta o ventana. Detecta golpes y aperturas con el acelerómetro y el giroscopio.",
             rol == Rol.SENTINELA,
         ) { vm.elegirRol(Rol.SENTINELA) }
@@ -204,12 +200,12 @@ private fun Unir(f: FormInicio, union: EstadoUnion, vm: InicioViewModel) {
     fun escanear() {
         val opciones = GmsBarcodeScannerOptions.Builder().setBarcodeFormats(Barcode.FORMAT_QR_CODE).build()
         GmsBarcodeScanning.getClient(ctx, opciones).startScan()
-            .addOnSuccessListener { if (!vm.codigoEscaneado(it.rawValue)) vm.avisar("Ese QR no es de Sentinel. Escribe el código de 6 números.") }
+            .addOnSuccessListener { if (!vm.codigoEscaneado(it.rawValue)) vm.avisar("Ese QR no es de Centinel. Escribe el código de 6 números.") }
             .addOnFailureListener { vm.avisar("No se pudo abrir el lector de QR. Escribe el código de 6 números.") }
     }
 
     val titulo = when (f.rol) {
-        Rol.SENTINELA -> "Vincular este Sentinela"
+        Rol.SENTINELA -> "Vincular este Centinela"
         Rol.VECINO -> "Soy vecino de confianza"
         Rol.RECEPTOR -> "Configurar Receptor"
     }
@@ -242,18 +238,18 @@ private fun Unir(f: FormInicio, union: EstadoUnion, vm: InicioViewModel) {
                 buildAnnotatedString {
                     append("Este celular será el ")
                     withStyle(SpanStyle(fontWeight = FontWeight.Bold, color = Paleta.Txt)) { append("administrador") }
-                    append(": vincula los Sentinelas, los demás receptores y los vecinos.")
+                    append(": vincula los Centinelas, los demás receptores y los vecinos.")
                 },
                 style = Tipo.Sub,
             )
             Campo("Nombre del hogar", f.casa, vm::casa, "Mi casa")
             Campo("Nombre de este equipo", f.nombre, vm::nombre, "Mi celular")
-            Campo("PIN de 4 números (protege los ajustes de los Sentinelas)", f.pin, vm::pin, "0000", codigo = true, maximo = 4)
+            Campo("PIN de 4 números (protege los ajustes de los Centinelas)", f.pin, vm::pin, "0000", codigo = true, maximo = 4)
             return@Marco
         }
         Text(
             when (f.rol) {
-                Rol.SENTINELA -> "En el celular de la familia abre Sentinel → Equipos → +. Escanea ese QR o escribe el código."
+                Rol.SENTINELA -> "En el celular de la familia abre Centinel → Equipos → +. Escanea ese QR o escribe el código."
                 Rol.VECINO -> "Tu vecino te comparte un código desde su app (Vecinos → Invitar vecino). Recibirás una alerta si alguien intenta entrar a su casa."
                 Rol.RECEPTOR -> "Para agregar otro celular, tablet o computadora de la familia. Pide el código en el celular administrador (Equipos → +)."
             },
@@ -263,7 +259,7 @@ private fun Unir(f: FormInicio, union: EstadoUnion, vm: InicioViewModel) {
         Boton("Escanear QR", { escanear() }, icono = Iconos.Escanear, estilo = EstiloBoton.SECUNDARIO, chico = true)
         when (f.rol) {
             Rol.SENTINELA -> {
-                Campo("Nombre de este Sentinela", f.nombre, vm::nombre, "Ventana cocina")
+                Campo("Nombre de este Centinela", f.nombre, vm::nombre, "Ventana cocina")
                 Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     Text("¿Dónde va el soporte?", style = Tipo.T2.copy(fontWeight = FontWeight.SemiBold))
                     Segmentado(

@@ -133,7 +133,7 @@ private fun Principal(e: EstadoApp, vm: SentinelaViewModel) {
     val u = vm.umbrales(e)
 
     Columna {
-        Chip("SENTINELA · EMISOR", Tono.AZUL, icono = Iconos.Escudo)
+        Chip("CENTINELA · EMISOR", Tono.AZUL, icono = Iconos.Escudo)
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(e.yo.nombre, style = Tipo.Titulo.copy(fontSize = 24.sp))
             Text(
@@ -190,7 +190,7 @@ private fun Principal(e: EstadoApp, vm: SentinelaViewModel) {
         }
         Spacer(Modifier.height(8.dp))
         Text(
-            "La pantalla se puede apagar: Sentinel sigue vigilando en segundo plano.",
+            "La pantalla se puede apagar: Centinel sigue vigilando en segundo plano.",
             style = Tipo.T2.copy(fontSize = 12.sp),
             textAlign = TextAlign.Center,
         )
@@ -255,7 +255,7 @@ private fun Calibracion(e: EstadoApp, vm: SentinelaViewModel) {
     val cal by vm.calibracion.collectAsStateWithLifecycle()
     val p = cal.paso
     Columna {
-        Chip("CALIBRACIÓN · ${e.yo.nombre.ifBlank { "SENTINELA" }.uppercase()}", Tono.AZUL, icono = Iconos.Actividad)
+        Chip("CALIBRACIÓN · ${e.yo.nombre.ifBlank { "CENTINELA" }.uppercase()}", Tono.AZUL, icono = Iconos.Actividad)
         Pasos(cal)
         if (p > 3) {
             IcoCaja(Iconos.Check, Tono.VERDE, 64.dp, 32.dp)
@@ -334,7 +334,7 @@ private fun Pasos(cal: EstadoCalibracion) {
 @Composable
 private fun AjustesSentinela(e: EstadoApp, ui: UiSentinela, vm: SentinelaViewModel) {
     Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding()) {
-        Cabecera("Ajustes del Sentinela", alVolver = vm::cerrarAjustes)
+        Cabecera("Ajustes del Centinela", alVolver = vm::cerrarAjustes)
         Column(
             Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 4.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -375,7 +375,7 @@ private fun AjustesSentinela(e: EstadoApp, ui: UiSentinela, vm: SentinelaViewMod
                 style = Tipo.T2,
             )
             if (ui.confirmarSalir) {
-                Confirmacion("¿Desvincular este Sentinela?", "Desvincular", vm::salir, { vm.confirmarSalir(false) })
+                Confirmacion("¿Desvincular este Centinela?", "Desvincular", vm::salir, { vm.confirmarSalir(false) })
             } else {
                 Boton("Desvincular este equipo", { vm.confirmarSalir(true) }, icono = Iconos.Basura, estilo = EstiloBoton.PELIGRO)
             }

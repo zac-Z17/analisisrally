@@ -35,7 +35,7 @@ class NtfyMensajeriaTest {
     }
 
     @Test
-    fun `escucha el flujo JSON e ignora lo que no es de Sentinel`() = runBlocking {
+    fun `escucha el flujo JSON e ignora lo que no es de Centinel`() = runBlocking {
         val m = Mensaje("mid2", "de2", 7, Contenido.Hola(Rol.SENTINELA, 1))
         val texto = CodecMensajes.codificar(m).replace("\"", "\\\"")
         val cuerpo = listOf(

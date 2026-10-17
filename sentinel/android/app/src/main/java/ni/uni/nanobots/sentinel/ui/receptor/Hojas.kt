@@ -98,7 +98,7 @@ private fun HojaVincular(e: EstadoApp, ahora: Long, vm: ReceptorViewModel) {
         val vinc = v ?: return@MarcoHoja
         Segmentado(
             listOf(
-                Opcion(Rol.SENTINELA, "Sentinela", Iconos.Escudo),
+                Opcion(Rol.SENTINELA, "Centinela", Iconos.Escudo),
                 Opcion(Rol.RECEPTOR, "Receptor", Iconos.Campana),
                 Opcion(Rol.VECINO, "Vecino", Iconos.Personas),
             ),
@@ -123,17 +123,17 @@ private fun HojaVincular(e: EstadoApp, ahora: Long, vm: ReceptorViewModel) {
         }
         val pasos = when (vinc.rol) {
             Rol.SENTINELA -> listOf(
-                "En el celular viejo, abre Sentinel y elige «Sentinela».",
+                "En el celular viejo, abre Centinel y elige «Centinela».",
                 "Escanea este QR o escribe los 6 números.",
                 "Ponle nombre: «Puerta principal», «Ventana cocina»…",
             )
             Rol.RECEPTOR -> listOf(
-                "En el otro celular o tablet abre Sentinel y elige «Receptor» → «Unirme con código».",
+                "En el otro celular o tablet abre Centinel y elige «Receptor» → «Unirme con código».",
                 "Escanea este QR o escribe los 6 números.",
                 "Ponle nombre: «Celular de mamá»…",
             )
             Rol.VECINO -> listOf(
-                "Pídele a tu vecino que instale Sentinel (o envíale el enlace por WhatsApp).",
+                "Pídele a tu vecino que instale Centinel (o envíale el enlace por WhatsApp).",
                 "Que elija «Me invitaron como vecino de confianza».",
                 "Que escriba los 6 números y su nombre.",
             )
@@ -212,7 +212,7 @@ private fun HojaDetalle(id: String, e: EstadoApp, ui: UiReceptor, ahora: Long, v
     val aj = e.cfg.ajusteDe(id)
     val (txt, tono) = estadoEquipo(eq, e.cfg, ahora)
     val desconectado = sinConexion(eq, ahora)
-    MarcoHoja(eq.nombre, "Sentinela · ${Formato.lugar(eq.lugar)}", vm::cerrarHoja) {
+    MarcoHoja(eq.nombre, "Centinela · ${Formato.lugar(eq.lugar)}", vm::cerrarHoja) {
         Tarjeta {
             Row {
                 Dato(eq.bat?.let { "$it %" } ?: "—", if (eq.carga) "Cargando" else "Batería", Modifier.weight(1f)) { IconoBateria(eq.bat) }
@@ -280,8 +280,8 @@ private fun HojaAjustes(e: EstadoApp, ui: UiReceptor, vm: ReceptorViewModel) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Icon(Iconos.Info, null, tint = Paleta.Txt2, modifier = Modifier.size(16.dp))
                 Text(
-                    "Sentinel recibe las alertas aunque la app esté cerrada, gracias a un aviso fijo en la barra de notificaciones. " +
-                        "Sentinel no usa cámara ni micrófono.",
+                    "Centinel recibe las alertas aunque la app esté cerrada, gracias a un aviso fijo en la barra de notificaciones. " +
+                        "Centinel no usa cámara ni micrófono.",
                     style = Tipo.T2,
                 )
             }

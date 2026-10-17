@@ -1,25 +1,27 @@
-# Sentinel: app Android nativa
+# Centinel: app Android nativa
 
-Es la versión Android del prototipo web (`../prototipo-web/index.html`), hecha con **Kotlin y Jetpack Compose**. Tiene las mismas pantallas, textos y colores, y usa el mismo protocolo de mensajes. Por eso **la app y la página web se entienden entre sí**: por ejemplo, un Sentinela con la app puede avisarle a un Receptor que usa la página.
+Es la versión Android del prototipo web (`../prototipo-web/index.html`), hecha con **Kotlin y Jetpack Compose**. Tiene las mismas pantallas, textos y colores, y usa el mismo protocolo de mensajes. Por eso **la app y la página web se entienden entre sí**: por ejemplo, un Centinela con la app puede avisarle a un Receptor que usa la página.
 
 ## Descargar la versión de prueba
 
 Escanea el QR con el celular o abre el enlace:
 
-<img src="qr_descarga.png" width="180" alt="QR para descargar Sentinel">
+<img src="qr_descarga.png" width="180" alt="QR para descargar Centinel">
 
-**Enlace:** https://github.com/zac-Z17/analisisrally/releases/download/sentinel-android-v0.1.0/Sentinel-prueba.apk (página de la versión: [sentinel-android-v0.1.0](https://github.com/zac-Z17/analisisrally/releases/tag/sentinel-android-v0.1.0))
+**Enlace:** https://github.com/zac-Z17/analisisrally/releases/download/centinel-android-v0.2.0/Centinel-prueba.apk (página de la versión: [centinel-android-v0.2.0](https://github.com/zac-Z17/analisisrally/releases/tag/centinel-android-v0.2.0))
 
 **Al instalarla:**
 1. Abre el archivo descargado y permite «instalar apps de este origen».
 2. Si Play Protect avisa que la app es desconocida, toca «Instalar de todas formas».
 3. Al abrirla, acepta las notificaciones y toca «No optimizar la batería».
 
+**Nombre y logo:** desde la versión 0.2.0 la app se llama **Centinel** y usa el logo de la «C» en hexágono. El nombre interno del paquete sigue siendo `ni.uni.nanobots.sentinel`: así la versión nueva se instala encima de la anterior sin perder el hogar vinculado (si se compila en la misma computadora, con la misma llave de depuración).
+
 ## Qué resuelve frente al prototipo web
 
 | Límite del prototipo web | En la app |
 |---|---|
-| El Sentinela debía tener la pantalla encendida y la página abierta | Un **servicio en primer plano** con `PARTIAL_WAKE_LOCK` lee los sensores **con la pantalla apagada** |
+| El Centinela debía tener la pantalla encendida y la página abierta | Un **servicio en primer plano** con `PARTIAL_WAKE_LOCK` lee los sensores **con la pantalla apagada** |
 | Los receptores debían tener la página abierta | El mismo servicio escucha las alertas **con la app cerrada** y abre la pantalla roja **sobre la pantalla de bloqueo** |
 | Sin temperatura | Lee la temperatura de la batería y avisa si pasa del máximo configurado («Avisar si pasa de 45 °C») |
 | La sirena no sonaba con el celular en silencio | La sirena suena por el canal de **alarma**, que no se silencia con el timbre |
@@ -101,7 +103,7 @@ ni.uni.nanobots.sentinel
 | `CalibradorTest` | Los 3 pasos y sus límites (`clamp`) |
 | `HorarioTest` | La noche pertenece al día en que empieza, la pausa, los modos manuales y el próximo inicio |
 | `CodecTest` | Lee mensajes del prototipo web, hace la ida y vuelta de todos los tipos y rechaza la basura |
-| `CoordinadorTest` | Alarma sin repetidos, vecinos pausados, gana la configuración más nueva, se ignoran las órdenes viejas, «¿Qué fue?» y **vincular un Sentinela y recibir su alerta de punta a punta** |
+| `CoordinadorTest` | Alarma sin repetidos, vecinos pausados, gana la configuración más nueva, se ignoran las órdenes viejas, «¿Qué fue?» y **vincular un Centinela y recibir su alerta de punta a punta** |
 | `NtfyMensajeriaTest` | El POST y la lectura del flujo de ntfy, contra un servidor falso |
 
 ## Pendiente

@@ -103,7 +103,7 @@ fun PestanaInicio(e: EstadoApp, ahora: Long, vm: ReceptorViewModel) {
                 Text(est.titulo, style = Tipo.Titulo.copy(fontWeight = FontWeight.ExtraBold), color = est.tono.color)
                 Text(est.sub, style = Tipo.Sub)
                 Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Chip("${ss.size} SENTINELA${if (ss.size == 1) "" else "S"}", Tono.AZUL)
+                    Chip("${ss.size} CENTINELA${if (ss.size == 1) "" else "S"}", Tono.AZUL)
                     Chip("${vv.size} VECINO${if (vv.size == 1) "" else "S"}", Tono.VIOLETA)
                 }
             }
@@ -137,7 +137,7 @@ fun PestanaInicio(e: EstadoApp, ahora: Long, vm: ReceptorViewModel) {
         }
     }
     Row(Modifier.fillMaxWidth().padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-        EtiquetaSeccion("Sentinelas", modifier = Modifier.weight(1f))
+        EtiquetaSeccion("Centinelas", modifier = Modifier.weight(1f))
         if (ss.isNotEmpty()) {
             Text(
                 "GESTIONAR",
@@ -153,9 +153,9 @@ fun PestanaInicio(e: EstadoApp, ahora: Long, vm: ReceptorViewModel) {
         Tarjeta(relleno = PaddingValues(horizontal = 16.dp, vertical = 22.dp)) {
             Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 IcoCaja(Iconos.Escudo, Tono.AZUL, 48.dp, 24.dp)
-                Text("Aún no hay Sentinelas", style = Tipo.T1)
+                Text("Aún no hay Centinelas", style = Tipo.T1)
                 Text(
-                    "Toma un celular viejo, instala Sentinel en él y elige «Sentinela». Luego escanea el código que te mostramos.",
+                    "Toma un celular viejo, instala Centinel en él y elige «Centinela». Luego escanea el código que te mostramos.",
                     style = Tipo.T2,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.widthIn(max = 280.dp),
@@ -214,7 +214,7 @@ fun PestanaEquipos(e: EstadoApp, ahora: Long, vm: ReceptorViewModel) {
     val ss = e.sentinelas
     val rr = e.receptores
     val vv = e.vecinos
-    SeccionTitulo("Sentinelas · emisores", Tono.AZUL, ss.size)
+    SeccionTitulo("Centinelas · emisores", Tono.AZUL, ss.size)
     ListaTarjeta(
         ss.map { s ->
             {
@@ -360,7 +360,7 @@ fun PestanaHorario(e: EstadoApp, ahora: Long, vm: ReceptorViewModel) {
         Fila {
             Column(Modifier.weight(1f)) {
                 Text("Avisar si pasa de ${c.tempMax} °C", style = Tipo.Cuerpo)
-                Text("El Sentinela mide la temperatura de su batería", style = Tipo.T2)
+                Text("El Centinela mide la temperatura de su batería", style = Tipo.T2)
             }
             Interruptor(c.avisoTemp, { vm.alternar(CampoCfg.AVISO_TEMP) }, "Aviso de temperatura")
         }
@@ -603,7 +603,7 @@ fun PestanaAlertas(e: EstadoApp, filtro: Filtro, ahora: Long, vm: ReceptorViewMo
         items.forEach { TarjetaAlerta(it, vecinosAvisados, vm) }
     }
     Text(
-        "Al responder «¿Qué fue?» el Sentinela ajusta su sensibilidad y da menos falsas alarmas.",
+        "Al responder «¿Qué fue?» el Centinela ajusta su sensibilidad y da menos falsas alarmas.",
         style = Tipo.T2,
         textAlign = TextAlign.Center,
         modifier = Modifier.fillMaxWidth(),

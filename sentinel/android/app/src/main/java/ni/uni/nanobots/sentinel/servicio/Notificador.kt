@@ -39,8 +39,8 @@ class Notificador(private val context: Context) {
                 NotificationChannel(CANAL_AVISOS, "Avisos", NotificationManager.IMPORTANCE_DEFAULT).apply {
                     description = "Vibraciones leves, batería baja y equipos sin conexión"
                 },
-                NotificationChannel(CANAL_SERVICIO, "Sentinel activo", NotificationManager.IMPORTANCE_LOW).apply {
-                    description = "Aviso fijo mientras Sentinel cuida la casa"
+                NotificationChannel(CANAL_SERVICIO, "Centinel activo", NotificationManager.IMPORTANCE_LOW).apply {
+                    description = "Aviso fijo mientras Centinel cuida la casa"
                     setShowBadge(false)
                 },
             ),
@@ -50,7 +50,7 @@ class Notificador(private val context: Context) {
     fun servicio(texto: String): Notification =
         NotificationCompat.Builder(context, CANAL_SERVICIO)
             .setSmallIcon(R.drawable.ic_notificacion)
-            .setContentTitle("Sentinel")
+            .setContentTitle("Centinel")
             .setContentText(texto)
             .setOngoing(true)
             .setPriority(NotificationCompat.PRIORITY_LOW)
@@ -93,7 +93,7 @@ class Notificador(private val context: Context) {
         if (!puedeNotificar()) return
         val n = NotificationCompat.Builder(context, CANAL_AVISOS)
             .setSmallIcon(R.drawable.ic_notificacion)
-            .setContentTitle("Sentinel")
+            .setContentTitle("Centinel")
             .setContentText(texto)
             .setStyle(NotificationCompat.BigTextStyle().bigText(texto))
             .setAutoCancel(true)

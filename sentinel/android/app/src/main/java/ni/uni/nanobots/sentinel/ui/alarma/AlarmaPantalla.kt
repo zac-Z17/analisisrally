@@ -113,7 +113,7 @@ fun AlarmaPantalla(a: Alerta, vm: AlarmaViewModel = viewModel(factory = fabrica 
                 textAlign = TextAlign.Center,
             )
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(a.nombre.ifBlank { "Sentinela" }, style = Tipo.T1.copy(fontSize = 19.sp, fontWeight = FontWeight.Bold), color = Color.White)
+                Text(a.nombre.ifBlank { "Centinela" }, style = Tipo.T1.copy(fontSize = 19.sp, fontWeight = FontWeight.Bold), color = Color.White)
                 Text(
                     "${Formato.fmtHora(a.t)} · ${a.detalle}",
                     style = Tipo.Cuerpo.copy(fontSize = 14.sp),
@@ -141,7 +141,7 @@ fun AlarmaPantalla(a: Alerta, vm: AlarmaViewModel = viewModel(factory = fabrica 
                     llamar(ctx, "118")
                 }, icono = Iconos.Llamar, estilo = EstiloBoton.BLANCO)
                 if (receptor) {
-                    Boton("Sonar sirena en el Sentinela", vm::sirenaRemota, icono = Iconos.Sirena, estilo = EstiloBoton.OSCURO)
+                    Boton("Sonar sirena en el Centinela", vm::sirenaRemota, icono = Iconos.Sirena, estilo = EstiloBoton.OSCURO)
                     Boton("Estoy en casa · fue falsa alarma", vm::falsaAlarma, estilo = EstiloBoton.BORDE)
                 }
                 Boton("Silenciar y cerrar", vm::cerrar, icono = Iconos.Volumen, estilo = EstiloBoton.TEXTO, chico = true)

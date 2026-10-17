@@ -86,7 +86,7 @@ class ReceptorViewModel(private val c: Contenedor) : ViewModel() {
 
     fun enlaceWhatsApp(v: Vinculacion): String {
         val casa = estado.value.hogar?.nombre.orEmpty()
-        val msj = "Te invito a ser vecino(a) de confianza de «$casa» en Sentinel. Abre este enlace y usa el código " +
+        val msj = "Te invito a ser vecino(a) de confianza de «$casa» en Centinel. Abre este enlace y usa el código " +
             "${v.codigo} (vence en 5 min): ${enlaceUnir(v)}"
         val tel = v.para?.tel.orEmpty().filter(Char::isDigit)
         return "https://wa.me/$tel?text=" + URLEncoder.encode(msj, "UTF-8").replace("+", "%20")

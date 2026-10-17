@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Logo de Centinel: la «C» del hexágono sobre azul noche. En Android 7 se usan los PNG de mipmap-*dpi. -->
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
     <background android:drawable="@drawable/ic_launcher_fondo" />
-    <foreground android:drawable="@drawable/ic_launcher_frente" />
-    <monochrome android:drawable="@drawable/ic_launcher_frente" />
+    <foreground android:drawable="@mipmap/ic_launcher_frente" />
+    <monochrome android:drawable="@mipmap/ic_launcher_mono" />
 </adaptive-icon>

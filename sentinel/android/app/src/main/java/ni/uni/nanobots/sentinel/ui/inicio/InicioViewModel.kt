@@ -63,7 +63,7 @@ class InicioViewModel(private val c: Contenedor) : ViewModel() {
             _form.update { it.copy(error = error) }
             return
         }
-        // Igual que el prototipo: al crear el hogar se abre «Vincular» para el primer Sentinela.
+        // Igual que el prototipo: al crear el hogar se abre «Vincular» para el primer Centinela.
         c.vinculador.abrir(Rol.SENTINELA)
     }
 

@@ -84,7 +84,7 @@ const val SIN_CONEXION_MS = 150_000L
 
 fun sinConexion(e: Equipo, ahora: Long) = !e.demo && ahora - e.visto > SIN_CONEXION_MS
 
-/** Estado de un Sentinela tal como lo ve un receptor. */
+/** Estado de un Centinela tal como lo ve un receptor. */
 fun estadoEquipo(e: Equipo, cfg: Config, ahora: Long): Pair<String, Tono> {
     if (sinConexion(e, ahora)) return "Sin conexión" to Tono.GRIS
     if (!e.sensoresOk) return "Sin datos de sensores" to Tono.AMBAR

@@ -74,7 +74,7 @@ fun VecinoPantalla(vm: ReceptorViewModel = viewModel(factory = fabrica { Recepto
                         Text("Cuidas la casa", style = Tipo.T2)
                         Text(e.hogar?.nombre.orEmpty(), style = Tipo.Titulo.copy(fontWeight = FontWeight.ExtraBold))
                         Text(est.titulo, style = Tipo.T1.copy(fontSize = 13.5.sp), color = est.tono.color)
-                        Text("${e.sentinelas.size} Sentinela(s) conectados", style = Tipo.T2)
+                        Text("${e.sentinelas.size} Centinela(s) conectados", style = Tipo.T2)
                     }
                 }
             }
@@ -99,7 +99,7 @@ fun VecinoPantalla(vm: ReceptorViewModel = viewModel(factory = fabrica { Recepto
             )
             NumerosEmergencia()
             Text(
-                "Sentinel te avisa aunque la app esté cerrada.",
+                "Centinel te avisa aunque la app esté cerrada.",
                 style = Tipo.T2,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),

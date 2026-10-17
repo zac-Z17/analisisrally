@@ -280,7 +280,7 @@ class Coordinador(
     private fun alEvento(m: Mensaje, c: Contenido.Evento, viejo: Boolean) {
         val est = e
         if (est.rol == Rol.SENTINELA) return
-        val nombre = c.equipoNombre.ifBlank { "Sentinela" }
+        val nombre = c.equipoNombre.ifBlank { "Centinela" }
         val a = Alerta(m.mid, c.clase, m.de, nombre, m.t, c.detalle)
         if (c.clase == ClaseAlerta.PRUEBA) {
             if (est.rol == Rol.RECEPTOR && !viejo) {
@@ -360,7 +360,7 @@ class Coordinador(
         return nueva
     }
 
-    /** Avisos de los receptores: Sentinela sin conexión, batería baja y hora de cargar. */
+    /** Avisos de los receptores: Centinela sin conexión, batería baja y hora de cargar. */
     private fun revisiones() {
         val est = e
         val t = reloj.ahora()
@@ -391,7 +391,7 @@ class Coordinador(
                 if (m == (Formato.aMin(c.cargaIni) - 10 + 1440) % 1440 && clave !in est.avisos) {
                     repo.actualizar { it.copy(avisos = it.avisos + (clave to t)) }
                     avisar(
-                        "En 10 min: hora de cargar los Sentinelas (${Formato.fmtMin(Formato.aMin(c.cargaIni))})",
+                        "En 10 min: hora de cargar los Centinelas (${Formato.fmtMin(Formato.aMin(c.cargaIni))})",
                         TipoAviso.RAYO,
                         notificar = true,
                     )
@@ -401,9 +401,9 @@ class Coordinador(
         }
     }
 
-    // ---------- Sentinela ----------
+    // ---------- Centinela ----------
 
-    /** El Sentinela detectó algo: avisa al hogar y reacciona en el propio equipo. */
+    /** El Centinela detectó algo: avisa al hogar y reacciona en el propio equipo. */
     fun emitirEvento(clase: ClaseAlerta, detalle: String, pico: Double?) {
         val est = e
         if (est.hogar == null) return
@@ -588,7 +588,7 @@ class Coordinador(
     fun sonarSirenaRemota() {
         val a = _alarma.value
         enviarHogar(Contenido.Orden(Comando.SIRENA, para = a?.equipoId, desde = e.yo.nombre))
-        avisar("Sirena activada en ${a?.nombre ?: "el Sentinela"}", TipoAviso.SIRENA)
+        avisar("Sirena activada en ${a?.nombre ?: "el Centinela"}", TipoAviso.SIRENA)
     }
 
     fun marcarFalsaAlarma() {

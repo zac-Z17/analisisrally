@@ -139,7 +139,7 @@ class CoordinadorTest {
         assertNotNull(admin.co.alarma.value)
         assertEquals("Puerta principal", admin.co.alarma.value?.nombre)
 
-        // «Fue falsa alarma» cierra la alarma y calla al Sentinela.
+        // «Fue falsa alarma» cierra la alarma y calla al Centinela.
         nuevo.efectos.sirenaSonando.value = true
         admin.co.marcarFalsaAlarma()
         runCurrent()

@@ -114,7 +114,7 @@ class Vinculador(
                 efectos.vibrar(100)
                 efectos.bip(990, 120, 0.25f)
                 val como = when (s.rol) {
-                    Rol.SENTINELA -> "Sentinela"
+                    Rol.SENTINELA -> "Centinela"
                     Rol.RECEPTOR -> "Receptor"
                     Rol.VECINO -> "vecino de confianza"
                 }

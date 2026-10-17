@@ -5,7 +5,7 @@ data class Aviso(val texto: String, val tipo: TipoAviso = TipoAviso.INFO)
 
 enum class TipoAviso { INFO, CHECK, ALERTA, VIBRACION, SIRENA, BATERIA, SIN_RED, RAYO, PAUSA, ESCUDO, CANDADO, PLAY, USUARIO }
 
-/** Datos de este Sentinela que no se guardan: batería, temperatura y si llegan lecturas. */
+/** Datos de este Centinela que no se guardan: batería, temperatura y si llegan lecturas. */
 data class DatosLocales(
     val bat: Int? = null,
     val carga: Boolean = false,
