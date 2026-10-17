@@ -45,7 +45,8 @@ class ReceptorViewModel(private val c: Contenedor) : ViewModel() {
     val vinculacion: StateFlow<Vinculacion?> = c.vinculador.vinculacion
     val ahora: StateFlow<Long> = relojUi(c)
 
-    private val _ui = MutableStateFlow(UiReceptor())
+    // Recién creado el hogar ya hay un código abierto: se muestra «Vincular» de una vez.
+    private val _ui = MutableStateFlow(UiReceptor(hoja = c.vinculador.vinculacion.value?.let { Hoja.Vincular }))
     val ui: StateFlow<UiReceptor> = _ui.asStateFlow()
 
     private val co = c.coordinador
