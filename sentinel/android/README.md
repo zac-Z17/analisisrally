@@ -2,6 +2,19 @@
 
 Es la versión Android del prototipo web (`../prototipo-web/index.html`), hecha con **Kotlin y Jetpack Compose**. Tiene las mismas pantallas, textos y colores, y usa el mismo protocolo de mensajes. Por eso **la app y la página web se entienden entre sí**: por ejemplo, un Sentinela con la app puede avisarle a un Receptor que usa la página.
 
+## Descargar la versión de prueba
+
+Escanea el QR con el celular o abre el enlace:
+
+<img src="qr_descarga.png" width="180" alt="QR para descargar Sentinel">
+
+**Enlace:** https://github.com/zac-Z17/analisisrally/releases/download/sentinel-android-v0.1.0/Sentinel-prueba.apk (página de la versión: [sentinel-android-v0.1.0](https://github.com/zac-Z17/analisisrally/releases/tag/sentinel-android-v0.1.0))
+
+**Al instalarla:**
+1. Abre el archivo descargado y permite «instalar apps de este origen».
+2. Si Play Protect avisa que la app es desconocida, toca «Instalar de todas formas».
+3. Al abrirla, acepta las notificaciones y toca «No optimizar la batería».
+
 ## Qué resuelve frente al prototipo web
 
 | Límite del prototipo web | En la app |
