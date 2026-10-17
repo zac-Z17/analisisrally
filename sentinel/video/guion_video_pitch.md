@@ -127,7 +127,8 @@
 **Escala:** la casa va a escala, pero el celular es real. Hagan la **puerta lo bastante grande** para sostenerlo (unos 25–30 cm de alto). Si les preguntan, dicen que es una «puerta a escala aumentada para el sensor».
 
 **Antes de grabar:**
-1. Abran el prototipo en los 2 o 3 celulares con internet.
+1. Instalen la **app Android** (`sentinel/android/README.md`, versión de prueba) en los 2 o 3 celulares, con internet. Si falla en algún celular, usen el prototipo web en ese equipo: se entienden entre sí.
+   - La voz dice «con la pantalla apagada». En el Sentinela usen la **app**: con ella la pantalla se apaga de verdad; en la versión web solo se oscurece.
 2. Vinculen los equipos y **calibren el Sentinela sobre la puerta de cartón**.
 3. Pongan la sensibilidad en **Alta**, porque el cartón transmite menos vibración que una puerta real.
 4. Toquen una vez la pantalla de cada celular para que suene la sirena.
