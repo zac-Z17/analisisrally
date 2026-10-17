@@ -2,6 +2,8 @@
 
 Habla con el usuario en **español**, claro y sin tecnicismos. Es un equipo universitario de Nicaragua que compite en la **sede UNI-RUPAP** (Universidad Nacional de Ingeniería, Managua) y **no tiene preferencia de categoría**. **Equipo (6):** 4 de Ingeniería en Sistemas, 1 de Arquitectura y 1 de Economía y Finanzas. Avance del día del evento en `analisis_desafios_2026.md`.
 
+> **Estado (17 oct 2026):** el equipo eligió el desafío 02 y la idea **Sentinel**. Todo el trabajo de la app está en `sentinel/`; para eso sigue `sentinel/CLAUDE.md`.
+
 ## Qué quieren de ti el día del evento
 - **Cuándo:** viernes 16 de octubre de 2026. El inicio calculado es a las 09:00, hora de Nicaragua (sin confirmar).
 - **Qué te van a pegar:** los desafíos del Rally 2026.
