@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Sentinel · Diseño de la app</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noche:#0B1220; --sup:#131C2E; --sup2:#1C2740; --borde:#2A3654;
+  --txt:#EAF0FB; --txt2:#94A3BF;
+  --azul:#2F6FEB; --azulc:#4C8DFF; --cian:#22D3EE; --violeta:#A78BFA;
+  --verde:#22C55E; --ambar:#F5A524; --rojo:#FF5A5F; --rojof:#D92D2D;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#EEF1F7;font-family:Inter,system-ui,sans-serif;color:#0E1526;width:2240px;padding:56px 64px 64px}
+.hd{display:grid;grid-template-columns:560px 1fr;gap:48px;align-items:start;margin-bottom:48px}
+.hd h1{font:800 46px/1.05 Sora;letter-spacing:-.02em}
+.hd h1 span{color:#2F6FEB}
+.hd .sub{color:#5B6680;font-size:18px;line-height:1.45;margin-top:14px}
+.hd .fuentes{margin-top:20px;display:flex;gap:28px;font-size:15px;color:#3A4560}
+.hd .fuentes b{display:block;font:700 26px Sora;color:#0E1526}
+.hd .fuentes i{font-style:normal;display:block;font:600 22px Inter;color:#0E1526}
+.pal{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.sw{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 0 #D9DFEA}
+.sw .c{height:58px;display:flex}
+.sw .c div{flex:1}
+.sw .n{padding:9px 12px 11px}
+.sw .n b{font:700 14px Inter;display:block}
+.sw .n code{font:600 13px 'JetBrains Mono';color:#3A4560}
+.sw .n span{display:block;font-size:12.5px;color:#5B6680;margin-top:3px;line-height:1.3}
+.palt{grid-column:1/-1;font:700 13px Inter;letter-spacing:.08em;text-transform:uppercase;color:#5B6680;margin-top:4px}
+
+.grid{display:grid;grid-template-columns:repeat(5,380px);justify-content:space-between;row-gap:56px}
+.ph{width:380px;height:800px;border-radius:50px;background:#05070C;padding:10px;box-shadow:0 34px 60px -26px rgba(14,21,38,.55),0 0 0 2px #1d2333 inset}
+.scr{width:360px;height:780px;border-radius:40px;overflow:hidden;background:var(--noche);color:var(--txt);position:relative;display:flex;flex-direction:column}
+.cap{margin-top:20px;padding:0 6px}
+.cap b{font:700 19px Sora}
+.cap span{display:block;color:#5B6680;font-size:15px;line-height:1.4;margin-top:5px}
+
+/* dentro del teléfono */
+.sb{height:40px;display:flex;justify-content:space-between;align-items:center;padding:4px 24px 0 28px;font:600 13.5px Inter;flex:none}
+.sb .r{display:flex;gap:6px;align-items:center}
+.cam{width:11px;height:11px;border-radius:50%;background:#000;position:absolute;left:50%;top:14px;transform:translateX(-50%);box-shadow:0 0 0 2px #0e1424}
+.ab{display:flex;align-items:center;gap:10px;padding:8px 18px 12px;flex:none}
+.ab h2{font:700 21px Sora;flex:1;letter-spacing:-.01em}
+.body{flex:1;padding:0 16px 14px;overflow:hidden;display:flex;flex-direction:column;gap:12px}
+.card{background:var(--sup);border:1px solid var(--borde);border-radius:18px;padding:14px}
+.lbl{font:700 11px Inter;letter-spacing:.09em;text-transform:uppercase;color:var(--txt2)}
+.row{display:flex;align-items:center;gap:12px}
+.ico{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:none}
+.t1{font:600 15px Inter}
+.t2{font-size:12.5px;color:var(--txt2);margin-top:2px;line-height:1.35}
+.btn{height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:8px;font:600 15px Inter;flex:none}
+.btn.pri{background:var(--azul);color:#fff}
+.btn.sec{background:var(--sup2);color:var(--txt);border:1px solid var(--borde)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:99px;font:700 10.5px Inter;letter-spacing:.06em;white-space:nowrap}
+.nav{flex:none;height:76px;border-top:1px solid var(--borde);background:#0E1628;display:grid;grid-template-columns:repeat(5,1fr);padding:9px 4px 16px}
+.nav div{display:flex;flex-direction:column;align-items:center;gap:4px;font:500 10.5px Inter;color:var(--txt2);position:relative}
+.nav .on{color:var(--azulc);font-weight:700}
+.nav .pill{width:54px;height:30px;border-radius:99px;display:grid;place-items:center}
+.nav .on .pill{background:rgba(76,141,255,.17)}
+.nav .badge{position:absolute;top:-2px;right:14px;min-width:17px;height:17px;border-radius:9px;background:var(--rojof);color:#fff;font:700 10px/17px Inter;text-align:center}
+.tg{width:44px;height:26px;border-radius:99px;background:#3A4566;position:relative;flex:none}
+.tg::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff}
+.tg.on{background:var(--azul)}
+.tg.on::after{left:21px}
+.sep{height:1px;background:var(--borde);margin:10px 0}
+.dot{width:8px;height:8px;border-radius:50%;flex:none}
+.mono{font-family:'JetBrains Mono',monospace}
+.sp{flex:1}
+</style>
+</head>
+<body>
+
+<div class="hd">
+  <div>
+    <h1>Sentinel<br><span>Diseño de la app</span></h1>
+    <p class="sub">Borrador v1 para Stitch · Equipo Nanobots · Rally 2026<br>Modo oscuro por defecto: la app se usa de noche y en celulares viejos (la pantalla oscura gasta menos y no deslumbra).</p>
+    <div class="fuentes">
+      <div><b>Sora</b>Títulos</div>
+      <div><i>Inter</i>Textos y botones</div>
+      <div><i class="mono" style="font-family:'JetBrains Mono'">482 913</i>Códigos y números</div>
+    </div>
+  </div>
+  <div class="pal" id="pal"></div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+const I = {
+  shield:'<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
+  check:'<path d="M20 6 9 17l-5-5"/>',
+  bell:'<path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/>',
+  house:'<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+  clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  phone:'<rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/>',
+  tablet:'<rect width="16" height="20" x="4" y="2" rx="2"/><path d="M12 18h.01"/>',
+  monitor:'<rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/>',
+  sliders:'<path d="M21 4h-7"/><path d="M10 4H3"/><path d="M21 12h-9"/><path d="M8 12H3"/><path d="M21 20h-5"/><path d="M12 20H3"/><path d="M14 2v4"/><path d="M8 10v4"/><path d="M16 18v4"/>',
+  therm:'<path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/>',
+  wifi:'<path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/>',
+  wifioff:'<path d="M12 20h.01"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/><path d="M5 12.859a10 10 0 0 1 5.17-2.69"/><path d="M19 12.859a10 10 0 0 0-2.007-1.523"/><path d="M2 8.82a15 15 0 0 1 4.177-2.643"/><path d="M22 8.82a15 15 0 0 0-11.288-3.764"/><path d="m2 2 20 20"/>',
+  plus:'<path d="M5 12h14"/><path d="M12 5v14"/>',
+  alert:'<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+  moon:'<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+  zap:'<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>',
+  call:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',
+  siren:'<path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/>',
+  door:'<path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><path d="M14 12v.01"/>',
+  dooropen:'<path d="M13 4h3a2 2 0 0 1 2 2v14"/><path d="M2 20h3"/><path d="M13 20h9"/><path d="M10 12v.01"/><path d="M13 4.562v16.157a1 1 0 0 1-1.242.97L5 20V5.562a2 2 0 0 1 1.515-1.94l4-1A2 2 0 0 1 13 4.561Z"/>',
+  window:'<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 12h18"/><path d="M12 3v18"/>',
+  vibrate:'<path d="m2 8 2 2-2 2 2 2-2 2"/><path d="m22 8-2 2 2 2-2 2 2 2"/><rect width="8" height="14" x="8" y="5" rx="1"/>',
+  scan:'<path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/>',
+  chev:'<path d="m9 18 6-6-6-6"/>',
+  back:'<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>',
+  msg:'<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
+  cloud:'<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>',
+  pause:'<rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/>',
+  lock:'<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+  activity:'<path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/>',
+  userplus:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/>',
+  qr:'<rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/>',
+  arrowdown:'<path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>',
+};
+I.shieldok = I.shield + '<path d="m9 12 2 2 4-4"/>';
+const ic = (n, s = 20, c = 'currentColor', w = 2) =>
+  `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" style="flex:none">${I[n]}</svg>`;
+const rgba = (h, a) => { const n = parseInt(h.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
+const C = { azul:'#2F6FEB', azulc:'#4C8DFF', cian:'#22D3EE', violeta:'#A78BFA', verde:'#22C55E', ambar:'#F5A524', rojo:'#FF5A5F', rojof:'#D92D2D', txt2:'#94A3BF' };
+const icoBox = (n, col, s = 40, is = 20) => `<div class="ico" style="width:${s}px;height:${s}px;background:${rgba(col, .15)};color:${col}">${ic(n, is)}</div>`;
+const bat = (p, col = '#EAF0FB') => `<svg width="24" height="13" viewBox="0 0 24 13" style="flex:none"><rect x=".75" y=".75" width="20" height="11.5" rx="3" fill="none" stroke="${col}" stroke-opacity=".7" stroke-width="1.5"/><rect x="2.5" y="2.5" width="${16.5 * p / 100}" height="8" rx="1.5" fill="${col}"/><rect x="22" y="4.5" width="1.6" height="4" rx=".8" fill="${col}" fill-opacity=".7"/></svg>`;
+const sb = (h, col = '#EAF0FB') => `<div class="cam"></div><div class="sb" style="color:${col}"><span>${h}</span><span class="r">${ic('wifi', 15, col, 2.4)}${bat(80, col)}</span></div>`;
+const tabs = ['house:Inicio', 'phone:Equipos', 'clock:Horario', 'users:Vecinos', 'bell:Alertas'];
+const nav = (on, badge = 0) => `<div class="nav">${tabs.map((t, i) => { const [n, l] = t.split(':'); return `<div class="${i === on ? 'on' : ''}"><span class="pill">${ic(n, 21, 'currentColor', i === on ? 2.3 : 1.8)}</span>${l}${i === 4 && badge ? `<span class="badge">${badge}</span>` : ''}</div>`; }).join('')}</div>`;
+const tg = on => `<span class="tg ${on ? 'on' : ''}"></span>`;
+const chip = (txt, col, solid = false) => `<span class="chip" style="background:${solid ? col : rgba(col, .16)};color:${solid ? '#0B1220' : col}">${txt}</span>`;
+
+// QR decorativo determinista (con los 3 cuadros de esquina)
+function qr(size) {
+  const N = 25, m = size / N; let s = '';
+  let h = 2166136261;
+  const rnd = () => { h ^= h << 13; h ^= h >>> 17; h ^= h << 5; return ((h >>> 0) % 1000) / 1000; };
+  const inF = (x, y) => (x < 8 && y < 8) || (x > N - 9 && y < 8) || (x < 8 && y > N - 9);
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) if (!inF(x, y) && rnd() > .52) s += `<rect x="${x * m}" y="${y * m}" width="${m + .3}" height="${m + .3}"/>`;
+  for (const [fx, fy] of [[0, 0], [N - 7, 0], [0, N - 7]]) {
+    s += `<rect x="${fx * m + m / 2}" y="${fy * m + m / 2}" width="${6 * m}" height="${6 * m}" rx="${m}" fill="none" stroke="#0B1220" stroke-width="${m}"/>`;
+    s += `<rect x="${(fx + 2) * m}" y="${(fy + 2) * m}" width="${3 * m}" height="${3 * m}" rx="${m * .6}"/>`;
+  }
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="#0B1220">${s}</svg>`;
+}
+// anillo de estado
+const anillo = (col, n, s = 150, label = '') => `
+  <div style="width:${s}px;height:${s}px;border-radius:50%;display:grid;place-items:center;margin:0 auto;position:relative;
+    background:radial-gradient(circle,${rgba(col, .22)} 0 38%,${rgba(col, .08)} 39% 58%,transparent 59%);">
+    <div style="position:absolute;inset:0;border-radius:50%;border:2px solid ${rgba(col, .35)}"></div>
+    <div style="position:absolute;inset:${s * .16}px;border-radius:50%;border:3px solid ${col}"></div>
+    ${ic(n, s * .3, col, 2)}
+  </div>${label}`;
+
+const P = [];   // [html de la pantalla, título, explicación, esTarjeta]
+
+// 1 · Elegir rol
+P.push([`${sb('9:15')}
+<div class="body" style="padding-top:18px;gap:14px">
+  <div class="row" style="gap:12px">
+    <div class="ico" style="width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,#2F6FEB,#22D3EE);color:#fff">${ic('shieldok', 26, '#fff', 2.2)}</div>
+    <div><div style="font:800 24px Sora;letter-spacing:-.02em">Sentinel</div><div class="t2" style="margin:0">Tu celular viejo cuida tu casa</div></div>
+  </div>
+  <div style="margin-top:10px"><div style="font:700 22px/1.2 Sora">¿Qué será este<br>dispositivo?</div><div class="t2" style="font-size:13.5px;margin-top:6px">Elige una opción. Puedes cambiarla después.</div></div>
+  <div class="card" style="border:1.5px solid ${C.azulc};background:${rgba(C.azul, .12)};padding:16px">
+    <div class="row" style="align-items:flex-start">${icoBox('shieldok', C.azulc, 46, 24)}
+      <div style="flex:1">${chip('EMISOR', C.azulc)}<div style="font:700 18px Sora;margin-top:6px">Sentinela</div>
+      <div class="t2" style="font-size:13px">El celular viejo que va en el soporte de la puerta o ventana. Detecta golpes y aperturas.</div></div>
+      <span style="color:${C.azulc};margin-top:30px">${ic('chev', 20)}</span></div>
+  </div>
+  <div class="card" style="padding:16px">
+    <div class="row" style="align-items:flex-start">${icoBox('bell', C.cian, 46, 24)}
+      <div style="flex:1">${chip('RECEPTOR', C.cian)}<div style="font:700 18px Sora;margin-top:6px">Receptor</div>
+      <div class="t2" style="font-size:13px">Recibe las alertas: tu celular, la tablet o la computadora de la casa.</div></div>
+      <span style="color:${C.txt2};margin-top:30px">${ic('chev', 20)}</span></div>
+  </div>
+  <div class="row" style="padding:4px 4px;color:${C.violeta};font:600 14px Inter;gap:10px">${ic('users', 18)} Me invitaron como vecino de confianza</div>
+  <div class="sp"></div>
+  <div class="btn sec">${ic('scan', 19)} Escanear el QR de la caja</div>
+</div>`, '1 · Elegir el rol', 'Es lo primero que ve la app: este equipo será Sentinela (emisor) o Receptor. El vecino entra por invitación.']);
+
+// 2 · Vincular
+P.push([`${sb('9:16')}
+<div class="ab">${ic('back', 22)}<h2>Vincular equipo</h2></div>
+<div class="body">
+  <div style="display:grid;grid-template-columns:1fr 1fr;background:var(--sup);border:1px solid var(--borde);border-radius:14px;padding:4px;gap:4px">
+    <div class="btn" style="height:38px;border-radius:10px;background:${C.azul};color:#fff;font-size:14px">${ic('shield', 16)} Sentinela</div>
+    <div class="btn" style="height:38px;border-radius:10px;color:${C.txt2};font-size:14px">${ic('bell', 16)} Receptor</div>
+  </div>
+  <div class="card" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:18px">
+    <div style="background:#fff;border-radius:16px;padding:12px">${qr(168)}</div>
+    <div class="mono" style="font-size:30px;letter-spacing:.12em">482 913</div>
+    <div class="row" style="gap:6px;color:${C.txt2};font-size:13px">${ic('clock', 15)} El código vence en <b style="color:#EAF0FB">4:32</b></div>
+  </div>
+  <div class="card" style="padding:12px 14px">
+    ${[['1', 'En el celular viejo, abre Sentinel y elige <b>Sentinela</b>.'], ['2', 'Escanea este código o escribe los 6 números.'], ['3', 'Ponle nombre: «Puerta principal», «Ventana cocina»…']].map(([n, t]) =>
+      `<div class="row" style="gap:10px;padding:5px 0;align-items:flex-start"><span style="width:22px;height:22px;border-radius:50%;background:${rgba(C.azulc, .18)};color:${C.azulc};font:700 12px/22px Inter;text-align:center;flex:none">${n}</span><span style="font-size:13.5px;line-height:1.4">${t}</span></div>`).join('')}
+  </div>
+  <div class="row" style="gap:8px;justify-content:center;font-size:13px;color:${C.txt2}"><span class="dot" style="background:${C.verde};box-shadow:0 0 0 4px ${rgba(C.verde, .2)}"></span>Buscando en el wifi de la casa…</div>
+</div>`, '2 · Vincular', 'El administrador (el primer receptor) muestra un QR; el equipo nuevo lo escanea. Así queda definido quién envía y quién recibe.']);
+
+// 3 · Pantalla del Sentinela (emisor)
+P.push([`<div style="position:absolute;inset:0;background:#04070D"></div><div style="position:relative;display:flex;flex-direction:column;height:100%">${sb('11:42')}
+<div class="body" style="align-items:center;text-align:center;padding-top:10px;gap:10px">
+  ${chip(ic('shield', 12, 'currentColor', 2.5) + ' SENTINELA · EMISOR', C.azulc)}
+  <div><div style="font:700 24px Sora">Ventana cocina</div><div class="t2" style="font-size:13px">Hogar «Mi casa» · conectado por wifi</div></div>
+  <div style="margin:12px 0 4px">${anillo(C.verde, 'shieldok', 176)}</div>
+  <div><div style="font:800 22px Sora;color:${C.verde};letter-spacing:.04em">VIGILANDO</div><div class="t2" style="font-size:13.5px">hasta las 4:00 a. m.</div></div>
+  <div class="card" style="width:100%;padding:12px 14px;text-align:left">
+    <div class="row" style="justify-content:space-between"><span class="lbl">Vibración en vivo</span>${chip('NORMAL', C.verde)}</div>
+    <svg width="100%" height="40" viewBox="0 0 300 40" preserveAspectRatio="none" style="margin-top:8px"><polyline fill="none" stroke="${C.verde}" stroke-width="2" stroke-linejoin="round" points="${Array.from({ length: 61 }, (_, i) => `${i * 5},${20 + Math.sin(i * 1.7) * 3 * Math.sin(i * .37) + (i === 41 ? -9 : i === 42 ? 7 : 0)}`).join(' ')}"/></svg>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%">
+    ${[[bat(82), '82 %', 'Batería'], [ic('therm', 18, C.verde), '31 °C', 'Temperatura'], [ic('wifi', 18, C.verde), 'Bien', 'Señal']].map(([i, v, l]) =>
+      `<div class="card" style="padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:4px">${i}<b style="font:700 15px Inter">${v}</b><span class="t2" style="margin:0;font-size:11.5px">${l}</span></div>`).join('')}
+  </div>
+  <div class="sp"></div>
+  <div class="t2" style="font-size:12px">La pantalla se apaga en 10 s para ahorrar batería</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%"><div class="btn sec" style="font-size:14px">${ic('vibrate', 17)} Probar</div><div class="btn sec" style="font-size:14px">${ic('lock', 17)} Ajustes</div></div>
+</div></div>`, '3 · Pantalla del Sentinela', 'Lo que muestra el celular viejo en el soporte. Fondo negro puro, se apaga solo. Los ajustes piden el PIN del administrador.']);
+
+// 4 · Inicio (receptor)
+const sent = [['door', 'Puerta principal', 'Vigilando', 82, '31 °C', C.verde], ['window', 'Ventana cocina', 'Vigilando', 64, '33 °C', C.verde], ['window', 'Ventana cuarto', 'Batería baja', 28, '30 °C', C.ambar]];
+P.push([`${sb('2:12')}
+<div class="ab"><div style="flex:1"><div class="t2" style="margin:0;font-size:12.5px">Hogar</div><h2 style="font-size:22px">Mi casa</h2></div>
+  <div class="ico" style="background:var(--sup2);border-radius:50%;width:38px;height:38px">${ic('sliders', 18)}</div></div>
+<div class="body">
+  <div class="card" style="background:linear-gradient(160deg,${rgba(C.verde, .16)},var(--sup) 60%);border-color:${rgba(C.verde, .35)};padding:16px">
+    <div class="row" style="gap:14px">${anillo(C.verde, 'shieldok', 82)}
+      <div><div style="font:800 22px Sora;color:${C.verde}">Vigilando</div><div class="t2" style="font-size:13.5px">Hasta las 4:00 a. m.</div>
+      <div class="row" style="gap:6px;margin-top:8px">${chip('3 SENTINELAS', C.azulc)}${chip('2 VECINOS', C.violeta)}</div></div></div>
+    <div style="display:grid;grid-template-columns:1.25fr 1fr;gap:8px;margin-top:14px">
+      <div class="btn pri" style="height:44px;font-size:14px">${ic('pause', 16)} Pausar 10 min</div>
+      <div class="btn sec" style="height:44px;font-size:14px">Detener</div></div>
+    <div class="t2" style="font-size:11.5px;margin-top:8px">«Pausar» sirve para abrir la puerta de noche sin que suene la alarma.</div>
+  </div>
+  <div class="lbl" style="margin-top:2px">Sentinelas</div>
+  <div class="card" style="padding:4px 14px">
+    ${sent.map(([n, t, e, b, tmp, col], i) => `<div class="row" style="padding:10px 0;${i ? 'border-top:1px solid var(--borde)' : ''}">${icoBox(n, C.azulc, 38, 19)}
+      <div style="flex:1"><div class="t1" style="font-size:14.5px">${t}</div><div class="row" style="gap:6px;margin-top:3px"><span class="dot" style="background:${col}"></span><span style="font-size:12.5px;color:${col}">${e}</span></div></div>
+      <div style="text-align:right;font-size:12px;color:${C.txt2}"><div class="row" style="gap:5px;justify-content:flex-end;color:${b < 30 ? C.ambar : '#EAF0FB'}">${bat(b, b < 30 ? C.ambar : '#EAF0FB')}${b} %</div><div style="margin-top:3px">${tmp}</div></div></div>`).join('')}
+  </div>
+  <div class="row" style="gap:10px;font-size:12.5px;color:${C.txt2};padding:0 4px">${ic('activity', 16, C.ambar)}<span><b style="color:#EAF0FB">1:05 a. m.</b> · Vibración leve en Ventana cocina (lluvia)</span></div>
+</div>${nav(0)}`, '4 · Inicio', 'Estado de la casa de un vistazo: vigilando o en reposo, pausa rápida y cómo está cada sentinela.']);
+
+// 5 · Equipos
+const fila = (n, col, t, s, extra = '') => `<div class="row" style="padding:10px 0">${icoBox(n, col, 38, 19)}<div style="flex:1"><div class="t1" style="font-size:14.5px">${t}</div><div class="t2">${s}</div></div>${extra || `<span style="color:${C.txt2}">${ic('chev', 18)}</span>`}</div>`;
+P.push([`${sb('9:20')}
+<div class="ab"><h2>Equipos</h2><div class="ico" style="background:${C.azul};border-radius:50%;width:38px;height:38px;color:#fff">${ic('plus', 20)}</div></div>
+<div class="body" style="gap:10px">
+  <div class="row" style="justify-content:space-between"><span class="lbl" style="color:${C.azulc}">Sentinelas · emisores</span>${chip('3', C.azulc)}</div>
+  <div class="card" style="padding:2px 14px">
+    ${fila('door', C.azulc, 'Puerta principal', 'Wifi de la casa · 82 %')}
+    <div class="sep" style="margin:0"></div>${fila('window', C.azulc, 'Ventana cocina', 'Wifi de la casa · 64 %')}
+    <div class="sep" style="margin:0"></div>${fila('window', C.azulc, 'Ventana cuarto', '<span style="color:#F5A524">Batería baja · 28 %</span>')}
+  </div>
+  <div class="row" style="justify-content:space-between;margin-top:4px"><span class="lbl" style="color:${C.cian}">Receptores</span>${chip('3', C.cian)}</div>
+  <div class="card" style="padding:2px 14px">
+    ${fila('phone', C.cian, 'Mi celular', 'Este equipo', chip('ADMIN', C.cian))}
+    <div class="sep" style="margin:0"></div>${fila('phone', C.cian, 'Celular de mamá', 'Recibe todas las alertas')}
+    <div class="sep" style="margin:0"></div>${fila('monitor', C.cian, 'Computadora de la sala', 'Recibe todas las alertas')}
+  </div>
+  <div class="row" style="justify-content:space-between;margin-top:4px"><span class="lbl" style="color:${C.violeta}">Vecinos de confianza</span>${chip('2', C.violeta)}</div>
+  <div class="card" style="padding:2px 14px">${fila('users', C.violeta, 'Doña Marta y Don José', 'Solo reciben alertas fuertes')}</div>
+</div>${nav(1)}`, '5 · Equipos', 'Cada rol tiene su color e ícono: sentinelas en azul (escudo), receptores en cian (celular), vecinos en violeta.']);
+
+// 6 · Horario
+const pos = h => ((h - 12 + 24) % 24) / 24 * 100;
+P.push([`${sb('9:22')}
+<div class="ab"><h2>Horario</h2></div>
+<div class="body" style="gap:10px">
+  <div class="card" style="padding:14px 14px 10px">
+    <div class="lbl">Así queda tu día</div>
+    <div style="position:relative;height:30px;border-radius:9px;background:var(--sup2);margin-top:12px;overflow:hidden">
+      <div style="position:absolute;top:0;bottom:0;left:${pos(21)}%;width:${100 / 24}%;background:${C.verde}"></div>
+      <div style="position:absolute;top:0;bottom:0;left:${pos(23)}%;width:${500 / 24}%;background:${C.azul}"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:10.5px;color:${C.txt2};margin-top:6px"><span>12 m.</span><span>6 p. m.</span><span>12 a. m.</span><span>6 a. m.</span><span>12 m.</span></div>
+    <div class="row" style="gap:14px;font-size:12px;margin-top:6px"><span class="row" style="gap:6px"><span class="dot" style="background:${C.verde}"></span>Carga</span><span class="row" style="gap:6px"><span class="dot" style="background:${C.azul}"></span>Vigilancia</span></div>
+  </div>
+  <div class="card">
+    <div class="row" style="gap:10px">${icoBox('moon', C.azulc, 34, 17)}<div class="t1" style="flex:1">Vigilancia</div>${tg(true)}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+      ${[['Empieza', '11:00 p. m.'], ['Termina', '4:00 a. m.']].map(([l, v]) => `<div style="background:var(--sup2);border-radius:12px;padding:8px 12px"><div class="t2" style="margin:0;font-size:11.5px">${l}</div><div style="font:700 18px Inter;font-variant-numeric:tabular-nums;margin-top:2px">${v}</div></div>`).join('')}
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:10px">${'LMMJVSD'.split('').map(d => `<div style="height:32px;border-radius:9px;background:${rgba(C.azulc, .18)};color:${C.azulc};font:700 13px/32px Inter;text-align:center">${d}</div>`).join('')}</div>
+  </div>
+  <div class="card">
+    <div class="row" style="gap:10px">${icoBox('zap', C.verde, 34, 17)}<div style="flex:1"><div class="t1">Carga diaria</div><div class="t2" style="margin:0">9:00 – 10:00 p. m.</div></div>${tg(true)}</div>
+    <div class="sep"></div>
+    <div class="row" style="font-size:13.5px"><span style="flex:1">Avisarme 10 min antes</span>${tg(true)}</div>
+    <div class="row" style="font-size:13.5px;margin-top:10px"><span style="flex:1">Batería mínima para vigilar</span><b class="mono">60 %</b></div>
+    <div class="row" style="font-size:13.5px;margin-top:10px"><span style="flex:1">Avisar si pasa de <b>45 °C</b></span>${tg(true)}</div>
+  </div>
+  <div class="card row" style="gap:10px;padding:12px 14px">${icoBox('house', C.violeta, 34, 17)}<div style="flex:1"><div class="t1" style="font-size:14.5px">Modo fuera de casa</div><div class="t2" style="margin:0">Vigila todo el día si la familia sale</div></div>${tg(false)}</div>
+</div>${nav(2)}`, '6 · Horario', 'Vigilancia de 11 p. m. a 4 a. m. y carga de 9 a 10 p. m. La barra muestra el día completo. También: batería mínima y aviso por calor.']);
+
+// 7 · Vecinos
+const vec = [['M', 'Doña Marta', 'Casa de al lado', true], ['J', 'Don José', 'Enfrente', true], ['K', 'Karla', 'Invitación enviada…', false]];
+P.push([`${sb('9:25')}
+<div class="ab"><h2>Vecinos de confianza</h2></div>
+<div class="body" style="gap:10px">
+  <div class="t2" style="margin:0;font-size:13.5px">Reciben la alerta solo cuando alguien intenta entrar. Puedes agregar hasta 5.</div>
+  <div class="card" style="padding:2px 14px">
+    ${vec.map(([a, n, s, ok], i) => `<div class="row" style="padding:11px 0;${i ? 'border-top:1px solid var(--borde)' : ''}">
+      <div style="width:40px;height:40px;border-radius:50%;background:${rgba(C.violeta, ok ? .22 : .1)};color:${C.violeta};font:700 16px/40px Sora;text-align:center;flex:none">${a}</div>
+      <div style="flex:1"><div class="t1" style="font-size:14.5px">${n}</div><div class="t2">${s}</div></div>${ok ? tg(true) : chip('PENDIENTE', C.ambar)}</div>`).join('')}
+  </div>
+  <div class="btn" style="background:${C.violeta};color:#0B1220">${ic('userplus', 18)} Invitar vecino</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+    ${[['msg', 'WhatsApp'], ['qr', 'Código QR'], ['users', 'Contactos']].map(([n, l]) => `<div class="card" style="padding:10px 4px;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:12px">${ic(n, 18, C.violeta)}${l}</div>`).join('')}
+  </div>
+  <div class="lbl" style="margin-top:4px">Números de emergencia</div>
+  <div class="card" style="padding:2px 14px">
+    ${[['Policía Nacional', '118'], ['Bomberos', '115'], ['Cruz Roja', '128']].map(([n, t], i) => `<div class="row" style="padding:9px 0;${i ? 'border-top:1px solid var(--borde)' : ''}"><span style="flex:1;font-size:14px">${n}</span><b class="mono" style="font-size:15px;margin-right:8px">${t}</b><span class="ico" style="width:32px;height:32px;border-radius:50%;background:${rgba(C.verde, .16)};color:${C.verde}">${ic('call', 15)}</span></div>`).join('')}
+  </div>
+</div>${nav(3)}`, '7 · Vecinos', 'Aquí se agregan los vecinos de confianza (por WhatsApp, QR o contactos) y los números de emergencia de Nicaragua.']);
+
+// 8 · Alertas (historial)
+const ev = (n, col, t, s, extra = '') => `<div class="card" style="padding:12px 14px;${col === C.rojo ? `border-color:${rgba(C.rojo, .45)};background:${rgba(C.rojo, .08)}` : ''}"><div class="row" style="align-items:flex-start">${icoBox(n, col, 38, 19)}<div style="flex:1"><div class="t1" style="font-size:14.5px">${t}</div><div class="t2">${s}</div>${extra}</div></div></div>`;
+P.push([`${sb('2:58')}
+<div class="ab"><h2>Alertas</h2></div>
+<div class="body" style="gap:9px">
+  <div class="row" style="gap:6px">${['Todas', 'Intentos', 'Leves', 'Sistema'].map((f, i) => `<span class="chip" style="height:30px;padding:0 12px;font-size:12px;letter-spacing:0;${i ? 'background:var(--sup);color:#94A3BF;border:1px solid var(--borde)' : `background:${C.azul};color:#fff`}">${f}</span>`).join('')}</div>
+  <div class="lbl">Hoy</div>
+  ${ev('dooropen', C.rojo, 'Intento de entrada', 'Puerta principal · 2:41 a. m.<br>Golpes fuertes y la puerta se abrió', `<div style="margin-top:7px">${chip('2 VECINOS AVISADOS', C.violeta)}</div>`)}
+  ${ev('vibrate', C.ambar, 'Vibración leve', 'Ventana cocina · 1:05 a. m.', `<div style="font-size:12px;margin-top:8px;color:#EAF0FB">¿Qué fue?</div><div class="row" style="gap:5px;margin-top:6px;flex-wrap:wrap">${['Lluvia', 'Viento', 'Animal', 'Fui yo'].map((x, i) => `<span class="chip" style="height:26px;letter-spacing:0;font-size:11.5px;${i ? 'background:var(--sup2);color:#94A3BF' : `background:${C.ambar};color:#0B1220`}">${x}</span>`).join('')}</div>`)}
+  <div class="lbl" style="margin-top:2px">Ayer</div>
+  ${ev('alert', C.ambar, 'Batería baja (28 %)', 'Ventana cuarto · 11:30 p. m.')}
+  ${ev('wifioff', C.txt2, 'Sin conexión por 3 min', 'Ventana cuarto · 10:58 p. m.')}
+</div>${nav(4, 1)}`, '8 · Alertas', 'Historial de la noche. Al marcar «¿Qué fue?» (lluvia, viento, animal…) el sistema aprende a no dar falsas alarmas.']);
+
+// 9 · ¡Alerta! pantalla completa
+P.push([`<div style="position:absolute;inset:0;background:radial-gradient(120% 70% at 50% 28%,#F04A4A 0%,#D92D2D 45%,#9E1B1B 100%)"></div><div style="position:relative;display:flex;flex-direction:column;height:100%">${sb('2:41', '#fff')}
+<div class="body" style="align-items:center;text-align:center;gap:10px;padding-top:26px">
+  <div style="width:190px;height:190px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,rgba(255,255,255,.28) 0 34%,rgba(255,255,255,.12) 35% 55%,rgba(255,255,255,.05) 56% 70%,transparent 71%)">${ic('alert', 62, '#fff', 2.2)}</div>
+  <div style="font:800 27px/1.1 Sora;color:#fff;letter-spacing:-.01em;margin-top:6px">¡INTENTO DE<br>ENTRADA!</div>
+  <div style="color:#fff"><div style="font:700 18px Inter">Puerta principal</div><div style="font-size:14px;opacity:.9;margin-top:3px">2:41 a. m. · golpes fuertes y apertura</div></div>
+  <div class="row" style="gap:8px;background:rgba(0,0,0,.2);color:#fff;border-radius:99px;padding:8px 14px;font-size:12.5px;margin-top:4px">${ic('users', 15)} Doña Marta y Don José ya fueron avisados</div>
+  <div class="sp"></div>
+  <div class="btn" style="width:100%;height:54px;background:#fff;color:#B42020;font-size:16px;font-weight:700">${ic('call', 19)} Llamar a la Policía · 118</div>
+  <div class="btn" style="width:100%;background:rgba(0,0,0,.22);color:#fff">${ic('siren', 19)} Sonar sirena en el Sentinela</div>
+  <div class="btn" style="width:100%;border:1.5px solid rgba(255,255,255,.7);color:#fff">Estoy en casa · fue falsa alarma</div>
+</div></div>`, '9 · ¡Alerta! (pantalla completa)', 'Suena aunque el celular esté en silencio. Le llega a la familia y a los vecinos; el botón principal llama al 118.']);
+
+// 10 · Cómo se conectan (tarjeta clara, no teléfono)
+const caja = (col, n, t, s) => `<div style="border:2px solid ${col};border-radius:16px;padding:12px 14px;background:${rgba(col, .07)}"><div class="row" style="gap:10px"><div class="ico" style="width:36px;height:36px;background:${col};color:#fff">${ic(n, 19, '#fff')}</div><b style="font:700 15px Sora;color:#0E1526">${t}</b></div><div style="font-size:13px;color:#3A4560;line-height:1.4;margin-top:8px">${s}</div></div>`;
+const flecha = (txt) => `<div class="row" style="gap:10px;padding:6px 0 6px 18px;color:#5B6680">${ic('arrowdown', 20, '#5B6680')}<div style="font-size:12.5px;line-height:1.35">${txt}</div></div>`;
+P.push([`<div style="background:#fff;width:380px;height:800px;border-radius:30px;padding:24px 22px;display:flex;flex-direction:column;color:#0E1526;box-shadow:0 1px 0 #D9DFEA">
+  <div style="font:800 22px Sora;letter-spacing:-.01em">Cómo se conectan</div>
+  <div style="font-size:13px;color:#5B6680;margin:4px 0 16px">Un «hogar» agrupa todos los equipos.</div>
+  ${caja('#2F6FEB', 'shieldok', 'Sentinelas · emisores', 'Celulares viejos en el soporte de puertas y ventanas. Solo detectan y envían.')}
+  ${flecha('<b>Wifi de la casa:</b> aviso al instante, sin internet.<br><b>Internet:</b> si la familia está fuera.')}
+  ${caja('#0EA5C6', 'bell', 'Receptores', 'Celulares, tablet o computadora de la familia. Reciben, pausan y cambian ajustes. El primero es el <b>administrador</b>.')}
+  ${flecha('Solo alertas fuertes (intento de entrada).')}
+  ${caja('#8B5CF6', 'users', 'Vecinos de confianza', 'Reciben la alerta en su app. No ven horarios ni ajustes de la casa.')}
+  <div style="margin-top:14px;background:#F4F6FB;border-radius:14px;padding:12px 14px;font-size:12.5px;line-height:1.45;color:#3A4560">
+    <b style="color:#0E1526">Reglas</b><br>• Vincular = el administrador muestra un QR y el equipo nuevo lo escanea.<br>• Cada sentinela manda un «estoy bien» cada minuto; si calla 2 min, avisa «Sentinela sin conexión».
+  </div>
+</div>`, '10 · Cómo se conectan', 'Quién es emisor, quién es receptor y por dónde viaja la alerta.', true]);
+
+// paleta
+const pal = [
+  ['Noche', ['#0B1220'], 'Fondo de la app'], ['Superficie', ['#131C2E'], 'Tarjetas'], ['Superficie 2', ['#1C2740'], 'Campos y botones secundarios'],
+  ['Borde', ['#2A3654'], 'Líneas y bordes'], ['Texto', ['#EAF0FB'], 'Texto principal'], ['Texto suave', ['#94A3BF'], 'Texto secundario'],
+  ['Azul Sentinel', ['#2F6FEB', '#4C8DFF'], 'Botones (oscuro) · íconos (claro) · Sentinelas'], ['Cian', ['#22D3EE'], 'Receptores'], ['Violeta', ['#A78BFA'], 'Vecinos de confianza'],
+  ['Verde', ['#22C55E'], 'Vigilando · todo bien · carga'], ['Ámbar', ['#F5A524'], 'Atención: batería, calor, vibración leve'], ['Rojo', ['#FF5A5F', '#D92D2D'], 'Intento de entrada · fondo de la alerta'],
+];
+document.getElementById('pal').innerHTML = `<div class="palt">Base (modo oscuro)</div>` + pal.map((p, i) =>
+  (i === 6 ? `<div class="palt">Acentos y estados</div>` : '') +
+  `<div class="sw"><div class="c">${p[1].map(c => `<div style="background:${c}"></div>`).join('')}</div><div class="n"><b>${p[0]}</b><code>${p[1].join(' · ')}</code><span>${p[2]}</span></div></div>`).join('');
+
+document.getElementById('grid').innerHTML = P.map(([h, t, d, tarjeta], i) =>
+  `<div class="item" data-i="${i + 1}">${tarjeta ? h : `<div class="ph"><div class="scr">${h}</div></div>`}<div class="cap"><b>${t}</b><span>${d}</span></div></div>`).join('');
+</script>
+</body>
+</html>
