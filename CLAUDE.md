@@ -42,6 +42,7 @@ Habla con el usuario en **español**, claro y sin tecnicismos. Es un equipo univ
 | `herramientas/titulos_videos.py` | Agrega a los ganadores el título de su video de YouTube (servicio oEmbed) |
 | `herramientas/analizar.py` | Genera `datos/analisis_sirli.md` |
 | `herramientas/unir_datos.py` | Arma los CSV de noticias |
+| `sentinel/` | Proyecto Sentinel (desafío 02): prototipo web, diseño, reporte y guía para la app Android (`sentinel/README.md`) |
 
 Al publicarse los desafíos 2026 en sirli.org (`/desafios/banco_desafios/2026`), se pueden bajar con `python herramientas/descargar_sirli.py 2026` (crea `datos/desafios_sirli_2026.csv`; si `datos/sirli_html/desafios_2026.html` quedó guardado de antes de la publicación, bórralo primero). YouTube bloquea desde la nube la descarga de subtítulos y la lectura de páginas de video: no intentes saltarte ese bloqueo.
 

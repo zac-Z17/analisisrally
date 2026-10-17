@@ -1,6 +1,6 @@
 # Sentinel: prototipo funcional
 
-Es una app web que funciona en el navegador del celular. Usa el diseño de Stitch y la guía `diseno_app/diseno_app_sentinel.md`. Todo está en un solo archivo: `index.html`.
+Es una app web que funciona en el navegador del celular. Usa el diseño de Stitch y la guía `../diseno/diseno_app_sentinel.md`. Todo está en un solo archivo: `index.html`.
 
 ## Cómo abrirla
 
@@ -8,7 +8,7 @@ Es una app web que funciona en el navegador del celular. Usa el diseño de Stitc
 - **Enlace estable con GitHub Pages:**
   1. En GitHub, ir a **Settings → Pages → Build and deployment → Deploy from a branch**.
   2. Elegir la rama `claude/fervent-galileo-gdwbzo`, carpeta `/ (root)`, y guardar.
-  3. Al minuto queda en `https://zac-z17.github.io/analisisrally/prototipo/`.
+  3. Al minuto queda en `https://zac-z17.github.io/analisisrally/sentinel/prototipo-web/`.
 - **Requisitos:** usar **Chrome en Android**, porque el sitio debe ser https para que el navegador entregue los sensores. En iPhone, Safari pide permiso para los sensores.
 
 ## Prueba con 2 celulares (5 minutos)
@@ -60,4 +60,4 @@ Es una app web que funciona en el navegador del celular. Usa el diseño de Stitc
 ## Archivos
 
 - `index.html`: la app completa (HTML, CSS y JavaScript, sin dependencias salvo el generador de QR de cdnjs y las fuentes de Google).
-- `../diseno_app/stitch/`: las pantallas que generó Stitch, como referencia.
+- `../diseno/stitch/`: las pantallas que generó Stitch, como referencia.

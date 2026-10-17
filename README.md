@@ -70,6 +70,9 @@ Los 2.os y 3.os lugares, todos los países, las sedes y los links de video está
 ## Pendiente
 - **Ver los videos ganadores.** Desde la nube no se pueden leer los subtítulos de YouTube. La lista priorizada, con links y comparaciones, está en `informe_patrones.md`, sección 7.
 
+## Proyecto Sentinel
+Todo lo del proyecto (prototipo, diseño, reporte y la guía para hacer la app Android) está en `sentinel/`. Para trabajarlo en el IDE, abran esa carpeta y empiecen por `sentinel/README.md`.
+
 ## Fuentes principales
 - SIRLI, sistema oficial del Rally (ganadores y banco de desafíos): https://sirli.org/ganadores/
 - Sitio oficial y bases 2026: https://www.rallydeinnovacion.org/edicion_2026/

@@ -1,0 +1,13 @@
+{
+  "name": "sentinel-pruebas",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "relay": "node relay_prueba.mjs",
+    "e2e": "node prueba_e2e.mjs capturas",
+    "ajustes": "node prueba_ajustes.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "1.56.1"
+  }
+}

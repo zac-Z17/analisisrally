@@ -1,2 +1,4 @@
 datos/sirli_html/
 __pycache__/
+node_modules/
+sentinel/prototipo-web/pruebas/capturas/
