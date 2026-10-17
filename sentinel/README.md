@@ -43,7 +43,7 @@ sentinel/
 │  ├─ fuente/                 ← código de la maqueta (HTML) y script que la renderiza
 │  └─ stitch/                 ← pantallas que generó Google Stitch (screen.png + code.html con Tailwind) y DESIGN.md
 ├─ reporte/                   ← borradores del reporte del Rally (problema, solución, costos, referencias)
-└─ video/guion_video_pitch.md ← guion del video de 2 min (escenas, voz, tomas y maqueta)
+└─ video/                     ← guion del video de 2 min: guion_pitch_centinel_v2.md (versión del equipo corregida) y guion_video_pitch.md (borrador inicial)
 ```
 
 **Estado honesto del proyecto:**
