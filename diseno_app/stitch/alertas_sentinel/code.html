@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary-container": "#004119", "on-error": "#690005", "on-tertiary-container": "#ffffff", "tertiary": "#2fd9f4", "on-primary-container": "#fffeff", "inverse-primary": "#0056cf", "surface-variant": "#2e3544", "on-tertiary-fixed-variant": "#004e5a", "error": "#ffb4ab", "on-primary": "#002c71", "outline": "#8c90a0", "on-surface": "#dce2f6", "on-secondary-fixed-variant": "#005321", "surface-bright": "#323949", "accent-purple": "#A78BFA", "surface-container-lowest": "#070e1c", "on-secondary-fixed": "#002109", "alarm-red": "#FF5A5F", "tertiary-fixed-dim": "#2fd9f4", "sentinel-light": "#4C8DFF", "surface-container-low": "#151b2a", "on-surface-variant": "#c2c6d6", "tertiary-container": "#008294", "primary-fixed-dim": "#b1c5ff", "on-secondary": "#003915", "secondary-fixed": "#6bff8f", "on-primary-fixed": "#001947", "primary-container": "#2f6feb", "secondary-container": "#00b954", "background": "#0c1321", "surface-container": "#19202e", "on-tertiary-fixed": "#001f25", "on-background": "#dce2f6", "surface": "#131C2E", "on-primary-fixed-variant": "#00419f", "secondary-fixed-dim": "#4ae176", "secondary": "#4ae176", "surface-container-high": "#232a39", "surface-container-highest": "#2e3544", "primary": "#b1c5ff", "text-primary": "#EAF0FB", "surface-dim": "#0c1321", "on-tertiary": "#00363e", "alarm-red-dark": "#D92D2D", "outline-variant": "#424654", "error-container": "#93000a", "inverse-on-surface": "#2a3040", "surface-elevated": "#1C2740", "tertiary-fixed": "#a2eeff", "surface-tint": "#b1c5ff", "primary-fixed": "#dae2ff", "inverse-surface": "#dce2f6", "warning-amber": "#F5A524", "border-subtle": "#2A3654", "on-error-container": "#ffdad6", "text-muted": "#94A3BF" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "gutter": "1rem", "space-sm": "0.5rem", "space-md": "1rem", "margin": "1.25rem", "space-lg": "1.5rem", "space-xl": "2rem" }, "fontFamily": { "label-sm": ["Inter"], "label-md": ["Inter"], "display-lg": ["Sora"], "headline-lg": ["Sora"], "body-lg": ["Inter"], "metric-lg": ["JetBrains Mono"], "code-sm": ["JetBrains Mono"], "metric-md": ["JetBrains Mono"], "body-sm": ["Inter"], "body-md": ["Inter"], "headline-sm": ["Sora"], "headline-md": ["Sora"] }, "fontSize": { "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "display-lg": ["32px", { "lineHeight": "40px", "fontWeight": "800" }], "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "metric-lg": ["28px", { "lineHeight": "34px", "fontWeight": "600" }], "code-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "metric-md": ["16px", { "lineHeight": "22px", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#0c1321;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-background/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.25)]"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></div><span class="font-headline-sm text-headline-sm text-text-primary tracking-tight">Alertas</span></div><div class="flex items-center gap-space-sm"><button aria-label="Configuración" class="w-11 h-11 flex items-center justify-center rounded-xl bg-surface-elevated/40 text-on-surface-variant hover:text-text-primary transition-colors"><span class="material-symbols-outlined text-[22px]">settings</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-space-xs"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-background min-h-screen"><div class="flex flex-col w-full pb-6">
+<!-- House / Subhead Context Ribbon -->
+<div class="px-margin pt-1 pb-3 flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-sentinel-light text-[18px]">roofing</span>
+<span class="font-label-md text-label-md text-text-muted">Mi casa</span>
+<span class="inline-block w-1 h-1 rounded-full bg-outline"></span>
+<span class="font-code-sm text-code-sm text-secondary">3 Centinelas activos</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-code-sm text-code-sm">
+<span class="inline-block w-2 h-2 rounded-full bg-alarm-red animate-pulse"></span>
+<span>1 crítico hoy</span>
+</div>
+</div>
+<!-- Filter Chips (Horizontal Scrollable) -->
+<div class="px-margin pb-4 flex items-center gap-2 overflow-x-auto no-scrollbar" id="filter-bar">
+<button class="filter-chip flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-primary-container text-on-primary-container font-label-md text-label-md shadow-sm transition-all flex-shrink-0" data-filter="all" type="button">
+<span>Todas</span>
+<span class="text-[11px] px-1.5 py-0.2 rounded-full bg-surface-container-lowest/30 font-metric-md">4</span>
+</button>
+<button class="filter-chip flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-surface-container text-on-surface-variant hover:text-text-primary font-label-md text-label-md transition-all flex-shrink-0" data-filter="intentos" type="button">
+<span class="w-2 h-2 rounded-full bg-alarm-red"></span>
+<span>Intentos</span>
+</button>
+<button class="filter-chip flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-surface-container text-on-surface-variant hover:text-text-primary font-label-md text-label-md transition-all flex-shrink-0" data-filter="leves" type="button">
+<span class="w-2 h-2 rounded-full bg-warning-amber"></span>
+<span>Leves</span>
+</button>
+<button class="filter-chip flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-surface-container text-on-surface-variant hover:text-text-primary font-label-md text-label-md transition-all flex-shrink-0" data-filter="sistema" type="button">
+<span class="material-symbols-outlined text-[16px] text-sentinel-light">tune</span>
+<span>Sistema</span>
+</button>
+</div>
+<!-- Feed Container -->
+<div class="px-margin flex flex-col gap-space-lg">
+<!-- Group: HOY -->
+<div class="flex flex-col gap-3" data-group="hoy">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-text-primary tracking-wide">Hoy</span>
+<span class="font-code-sm text-code-sm text-text-muted">Jueves, 2:45 a. m.</span>
+</div>
+<!-- CRITICAL INTRUSION CARD -->
+<article class="event-card relative rounded-xl bg-surface-container-lowest overflow-hidden shadow-xl shadow-alarm-red/10 transition-transform active:scale-[0.99]" data-category="intentos">
+<!-- Ambient Glow Backing -->
+<div class="absolute -top-12 -right-12 w-44 h-44 rounded-full bg-alarm-red/20 blur-3xl pointer-events-none"></div>
+<div class="absolute inset-y-0 left-0 w-1.5 bg-alarm-red"></div>
+<div class="p-4 pl-5 flex flex-col gap-3 relative z-10">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-alarm-red/20 flex items-center justify-center text-alarm-red">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">crisis_alert</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-alarm-red font-display-lg leading-tight">Intento de entrada</span>
+<span class="font-body-sm text-body-sm text-text-muted">Puerta principal · Sensor Centinela #1</span>
+</div>
+</div>
+<span class="font-metric-md text-metric-md text-alarm-red font-semibold">2:41 a. m.</span>
+</div>
+<p class="font-body-md text-body-md text-text-primary bg-surface-container/60 p-3 rounded-lg">
+            Golpes fuertes detectados en el marco y apertura forzada del pestillo magnético.
+          </p>
+<!-- Badges & Action Bar -->
+<div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+<div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent-purple/20 text-accent-purple font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">groups</span>
+<span>2 VECINOS AVISADOS</span>
+</div>
+<button class="inline-flex items-center gap-1 text-sentinel-light hover:text-primary font-label-md text-label-md" onclick="alert('Abriendo registro del evento y audio capturado.')" type="button">
+<span>Ver detalles</span>
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</article>
+<!-- LIGHT VIBRATION / COMMUNITY LEARNING CARD -->
+<article class="event-card relative rounded-xl bg-surface-container overflow-hidden shadow-md shadow-warning-amber/5" data-category="leves">
+<div class="absolute inset-y-0 left-0 w-1.5 bg-warning-amber"></div>
+<div class="p-4 pl-5 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-warning-amber/15 flex items-center justify-center text-warning-amber">
+<span class="material-symbols-outlined text-[20px]">vibration</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-text-primary">Vibración leve</span>
+<span class="font-body-sm text-body-sm text-text-muted">Ventana cocina · Giroscopio 0.38G</span>
+</div>
+</div>
+<span class="font-metric-md text-metric-md text-text-muted">1:05 a. m.</span>
+</div>
+<!-- Interactive Learning Pill Section -->
+<div class="rounded-xl bg-surface-container-high p-3 flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-warning-amber text-[18px]">psychology</span>
+                ¿Qué provocó este movimiento?
+              </span>
+<span class="font-label-sm text-label-sm text-secondary font-medium flex items-center gap-1" id="saved-indicator">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                Guardado
+              </span>
+</div>
+<!-- Chips Selector -->
+<div class="grid grid-cols-4 gap-1.5 pt-1" id="calibration-options">
+<button class="calibration-btn flex flex-col items-center justify-center py-2 px-1 rounded-lg bg-warning-amber text-on-secondary-fixed font-label-md text-label-md shadow-sm transition-all" data-label="Lluvia" type="button">
+<span class="material-symbols-outlined text-[18px]">rainy</span>
+<span class="text-[12px] mt-0.5 font-medium">Lluvia</span>
+</button>
+<button class="calibration-btn flex flex-col items-center justify-center py-2 px-1 rounded-lg bg-surface-elevated text-on-surface-variant hover:text-text-primary font-label-md text-label-md transition-all" data-label="Viento" type="button">
+<span class="material-symbols-outlined text-[18px]">air</span>
+<span class="text-[12px] mt-0.5 font-medium">Viento</span>
+</button>
+<button class="calibration-btn flex flex-col items-center justify-center py-2 px-1 rounded-lg bg-surface-elevated text-on-surface-variant hover:text-text-primary font-label-md text-label-md transition-all" data-label="Animal" type="button">
+<span class="material-symbols-outlined text-[18px]">pets</span>
+<span class="text-[12px] mt-0.5 font-medium">Animal</span>
+</button>
+<button class="calibration-btn flex flex-col items-center justify-center py-2 px-1 rounded-lg bg-surface-elevated text-on-surface-variant hover:text-text-primary font-label-md text-label-md transition-all" data-label="Fui yo" type="button">
+<span class="material-symbols-outlined text-[18px]">person</span>
+<span class="text-[12px] mt-0.5 font-medium">Fui yo</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted pt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">lightbulb</span>
+              Tu respuesta calibra la sensibilidad comunitaria nocturna.
+            </p>
+</div>
+</div>
+</article>
+</div>
+<!-- Group: AYER -->
+<div class="flex flex-col gap-3" data-group="ayer">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-text-primary tracking-wide">Ayer</span>
+<span class="font-code-sm text-code-sm text-text-muted">Miércoles</span>
+</div>
+<!-- SYSTEM CARD: BATTERY -->
+<article class="event-card relative rounded-xl bg-surface-container overflow-hidden" data-category="sistema">
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-warning-amber/15 flex items-center justify-center text-warning-amber flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">battery_alert</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-text-primary truncate">Batería baja (28 %)</span>
+<span class="w-1.5 h-1.5 rounded-full bg-warning-amber flex-shrink-0"></span>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted truncate">Ventana cuarto · Poner en carga guiada</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1 flex-shrink-0">
+<span class="font-metric-md text-metric-md text-text-muted">11:30 p. m.</span>
+<span class="font-label-sm text-label-sm text-sentinel-light cursor-pointer">Resolver</span>
+</div>
+</div>
+</article>
+<!-- SYSTEM CARD: CONNECTIVITY DISCONNECT -->
+<article class="event-card relative rounded-xl bg-surface-container overflow-hidden" data-category="sistema">
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-surface-variant flex items-center justify-center text-on-surface-variant flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">wifi_off</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-text-primary truncate">Sin conexión por 3 min</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary flex-shrink-0" title="Restablecido"></span>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted truncate">Ventana cuarto · Reconectado automáticamente</span>
+</div>
+</div>
+<span class="font-metric-md text-metric-md text-text-muted flex-shrink-0">10:58 p. m.</span>
+</div>
+</article>
+</div>
+<!-- Trust & Neighbor Guard Network Card -->
+<div class="rounded-xl bg-gradient-to-r from-surface-container-high to-surface-container p-4 flex items-center justify-between gap-3 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-accent-purple/20 text-accent-purple flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">shield_with_heart</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-primary">Red de Vecinos alerta</span>
+<span class="font-body-sm text-body-sm text-text-muted">Doña Marta y Don José reciben alertas urgentes</span>
+</div>
+</div>
+<button class="w-9 h-9 rounded-lg bg-surface-elevated text-on-surface-variant flex items-center justify-center hover:text-text-primary" onclick="alert('Gestionar vecinos de confianza')" type="button">
+<span class="material-symbols-outlined text-[20px]">manage_accounts</span>
+</button>
+</div>
+<!-- Empty feedback state placeholder (toggled via JS filtering) -->
+<div class="hidden flex-col items-center justify-center py-12 px-6 text-center" id="empty-state">
+<div class="w-14 h-14 rounded-full bg-surface-container-high flex items-center justify-center text-secondary mb-3">
+<span class="material-symbols-outlined text-[30px]">verified_user</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Todo despejado</h3>
+<p class="font-body-md text-body-md text-text-muted mt-1 max-w-xs">
+        No hay alertas que coincidan con este filtro. Tus centinelas siguen vigilando en silencio.
+      </p>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    // 1. Filter Chips Logic
+    const filterButtons = document.querySelectorAll('.filter-chip');
+    const cards = document.querySelectorAll('.event-card');
+    const emptyState = document.getElementById('empty-state');
+    const groups = document.querySelectorAll('[data-group]');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Switch styling
+        filterButtons.forEach(b => {
+          b.classList.remove('bg-primary-container', 'text-on-primary-container');
+          b.classList.add('bg-surface-container', 'text-on-surface-variant');
+        });
+        btn.classList.add('bg-primary-container', 'text-on-primary-container');
+        btn.classList.remove('bg-surface-container', 'text-on-surface-variant');
+
+        const filter = btn.dataset.filter;
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.classList.remove('hidden');
+            visibleCount++;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+
+        // Hide date group headers if no children inside
+        groups.forEach(group => {
+          const visibleInGroup = group.querySelectorAll('.event-card:not(.hidden)').length;
+          if (visibleInGroup === 0) {
+            group.classList.add('hidden');
+          } else {
+            group.classList.remove('hidden');
+          }
+        });
+
+        // Handle empty view
+        if (visibleCount === 0) {
+          emptyState.classList.remove('hidden');
+          emptyState.classList.add('flex');
+        } else {
+          emptyState.classList.add('hidden');
+          emptyState.classList.remove('flex');
+        }
+      });
+    });
+
+    // 2. Interactive "Community Calibration" Buttons
+    const calibrationButtons = document.querySelectorAll('.calibration-btn');
+    const savedIndicator = document.getElementById('saved-indicator');
+
+    calibrationButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Reset all buttons to unselected state
+        calibrationButtons.forEach(b => {
+          b.className = 'calibration-btn flex flex-col items-center justify-center py-2 px-1 rounded-lg bg-surface-elevated text-on-surface-variant hover:text-text-primary font-label-md text-label-md transition-all';
+        });
+
+        // Highlight chosen
+        btn.className = 'calibration-btn flex flex-col items-center justify-center py-2 px-1 rounded-lg bg-warning-amber text-on-secondary-fixed font-label-md text-label-md shadow-sm transition-all scale-[1.04]';
+
+        // Flash confirmation
+        if (savedIndicator) {
+          savedIndicator.innerHTML = '<span class="material-symbols-outlined text-[14px]">check_circle</span> Calibrado';
+          savedIndicator.classList.add('animate-pulse');
+          setTimeout(() => {
+            savedIndicator.classList.remove('animate-pulse');
+          }, 1200);
+        }
+      });
+    });
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-background/85 backdrop-blur-xl shadow-[0_-1px_12px_rgba(0,0,0,0.3)]" data-active-classes="text-sentinel-light font-label-md"><div class="flex justify-around items-center h-16 px-space-xs"><a class="flex flex-col items-center justify-center flex-1 h-full gap-0.5 text-text-muted transition-colors" data-path="inicio" href="#"><span class="material-symbols-outlined text-[24px]">home</span><span class="font-label-sm text-label-sm tracking-tight">Inicio</span></a><a class="flex flex-col items-center justify-center flex-1 h-full gap-0.5 text-text-muted transition-colors" data-path="equipos" href="#"><span class="material-symbols-outlined text-[24px]">smartphone</span><span class="font-label-sm text-label-sm tracking-tight">Equipos</span></a><a class="flex flex-col items-center justify-center flex-1 h-full gap-0.5 text-text-muted transition-colors" data-path="horario" href="#"><span class="material-symbols-outlined text-[24px]">schedule</span><span class="font-label-sm text-label-sm tracking-tight">Horario</span></a><a class="flex flex-col items-center justify-center flex-1 h-full gap-0.5 text-text-muted transition-colors" data-path="vecinos" href="#"><span class="material-symbols-outlined text-[24px]">group</span><span class="font-label-sm text-label-sm tracking-tight">Vecinos</span></a><a aria-current="page" class="flex flex-col items-center justify-center flex-1 h-full gap-0.5 transition-colors relative text-sentinel-light font-label-md" data-path="alertas" href="#"><div class="relative flex items-center justify-center"><span class="material-symbols-outlined text-[24px]">notifications</span><span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-alarm-red"></span></div><span class="font-label-sm text-label-sm tracking-tight">Alertas</span></a></div></nav></body></html>

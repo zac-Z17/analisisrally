@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_blank" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: 'class', theme: { extend: { colors: { 'on-primary-container': '#fffeff', 'secondary-fixed': '#6bff8f', 'error': '#ffb4ab', 'inverse-primary': '#0056cf', 'accent-purple': '#A78BFA', 'tertiary-fixed': '#a2eeff', 'surface-container-low': '#151b2a', 'surface-variant': '#2e3544', 'on-background': '#dce2f6', 'on-surface': '#dce2f6', 'border-subtle': '#2A3654', 'secondary-container': '#00b954', 'on-primary-fixed': '#001947', 'on-tertiary-container': '#ffffff', 'outline-variant': '#424654', 'text-muted': '#94A3BF', 'surface-dim': '#0c1321', 'on-secondary-fixed': '#002109', 'primary-fixed-dim': '#b1c5ff', 'tertiary-fixed-dim': '#2fd9f4', 'secondary': '#4ae176', 'on-tertiary': '#00363e', 'tertiary': '#2fd9f4', 'primary-fixed': '#dae2ff', 'background': '#0c1321', 'on-primary': '#002c71', 'alarm-red-dark': '#D92D2D', 'alarm-red': '#FF5A5F', 'on-secondary-fixed-variant': '#005321', 'on-secondary-container': '#004119', 'outline': '#8c90a0', 'on-surface-variant': '#c2c6d6', 'surface-container': '#19202e', 'on-secondary': '#003915', 'on-tertiary-fixed-variant': '#004e5a', 'text-primary': '#EAF0FB', 'surface-container-lowest': '#070e1c', 'surface-container-highest': '#2e3544', 'surface': '#131C2E', 'tertiary-container': '#008294', 'on-error': '#690005', 'surface-container-high': '#232a39', 'surface-tint': '#b1c5ff', 'secondary-fixed-dim': '#4ae176', 'sentinel-light': '#4C8DFF', 'on-tertiary-fixed': '#001f25', 'on-error-container': '#ffdad6', 'inverse-on-surface': '#2a3040', 'inverse-surface': '#dce2f6', 'warning-amber': '#F5A524', 'surface-elevated': '#1C2740', 'on-primary-fixed-variant': '#00419f', 'error-container': '#93000a', 'primary-container': '#2f6feb', 'surface-bright': '#323949', 'primary': '#b1c5ff' }, borderRadius: { 'DEFAULT': '0.25rem', 'lg': '0.5rem', 'xl': '0.75rem', 'full': '9999px' }, spacing: { 'gutter': '1rem', 'space-sm': '0.5rem', 'space-lg': '1.5rem', 'space-xs': '0.25rem', 'space-md': '1rem', 'margin': '1.25rem', 'space-xl': '2rem' }, fontFamily: { 'metric-lg': ['JetBrains Mono'], 'body-sm': ['Inter'], 'headline-md': ['Sora'], 'display-lg': ['Sora'], 'body-md': ['Inter'], 'code-sm': ['JetBrains Mono'], 'metric-md': ['JetBrains Mono'], 'label-md': ['Inter'], 'body-lg': ['Inter'], 'label-sm': ['Inter'], 'headline-sm': ['Sora'], 'headline-lg': ['Sora'] }, fontSize: { 'metric-lg': ['28px', { lineHeight: '34px', fontWeight: '600' }], 'body-sm': ['12px', { lineHeight: '16px', fontWeight: '400' }], 'headline-md': ['20px', { lineHeight: '28px', fontWeight: '600' }], 'display-lg': ['32px', { lineHeight: '40px', fontWeight: '800' }], 'body-md': ['14px', { lineHeight: '20px', fontWeight: '400' }], 'code-sm': ['12px', { lineHeight: '16px', fontWeight: '400' }], 'metric-md': ['16px', { lineHeight: '22px', fontWeight: '500' }], 'label-md': ['14px', { lineHeight: '20px', fontWeight: '600' }], 'body-lg': ['16px', { lineHeight: '24px', fontWeight: '400' }], 'label-sm': ['11px', { lineHeight: '14px', fontWeight: '500' }], 'headline-sm': ['18px', { lineHeight: '24px', fontWeight: '600' }], 'headline-lg': ['24px', { lineHeight: '32px', fontWeight: '700' }] } } } }</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#0c1321;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background font-body-md text-text-primary flex flex-col min-h-screen"><main class="flex flex-col relative w-full pt-safe pb-safe bg-background min-h-screen"><div class="flex flex-col w-full relative overflow-hidden select-none px-margin pb-space-xl">
+<!-- Glowing Emergency Ambient Gradient Overlay -->
+<div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-alarm-red via-alarm-red-dark to-surface-container-lowest opacity-95"></div>
+<!-- Subtle Strobe Radial Glow behind Hero Badge -->
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 w-80 h-80 bg-alarm-red rounded-full blur-3xl opacity-40 pointer-events-none animate-pulse"></div>
+<!-- Content Container: Emergency High Priority Layout -->
+<div class="relative z-10 flex flex-col items-center text-center w-full pt-space-lg">
+<!-- Top System Emergency Chip -->
+<div class="flex items-center gap-space-xs bg-surface-container-lowest/40 backdrop-blur-md px-space-md py-1.5 rounded-full mb-space-lg">
+<span class="w-2.5 h-2.5 rounded-full bg-text-primary animate-ping"></span>
+<span class="font-code-sm text-code-sm text-text-primary font-semibold tracking-wider uppercase">Alarma Activa · Nivel Crítico</span>
+</div>
+<!-- Concentric Beacon Rings with Central Warning Shield/Triangle -->
+<div class="relative flex items-center justify-center my-space-md w-48 h-48">
+<!-- Outer Pulsing Ring 3 -->
+<div class="absolute inset-0 rounded-full bg-on-primary-container/10 animate-ping opacity-60"></div>
+<!-- Outer Concentric Ring 2 -->
+<div class="absolute inset-2 rounded-full bg-on-primary-container/15 flex items-center justify-center">
+<!-- Concentric Ring 1 -->
+<div class="w-36 h-36 rounded-full bg-on-primary-container/20 flex items-center justify-center backdrop-blur-sm">
+<!-- Central Solid Alarm Emblem Core -->
+<div class="w-24 h-24 rounded-full bg-on-primary-container shadow-2xl flex items-center justify-center transform active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined text-alarm-red-dark text-5xl" style="font-variation-settings: 'FILL' 1, 'wght' 700;">
+              warning
+            </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Critical Headline & Trigger Point -->
+<div class="mt-space-md space-y-space-xs w-full max-w-sm">
+<h1 class="font-display-lg text-display-lg tracking-tight text-on-primary-container uppercase font-extrabold drop-shadow-md">
+        ¡Intento de entrada!
+      </h1>
+<p class="font-headline-md text-headline-md text-on-primary-container/95 font-bold">
+        Puerta principal
+      </p>
+<div class="flex items-center justify-center gap-1.5 text-on-primary-container/85 font-metric-md text-body-sm pt-0.5">
+<span class="material-symbols-outlined text-body-md">schedule</span>
+<span>2:41 a. m. · Golpes fuertes y apertura detectada</span>
+</div>
+</div>
+<!-- Sentinel Visual Proof Live Card -->
+<div class="w-full max-w-sm bg-surface-container-lowest/50 backdrop-blur-md rounded-xl p-space-md mt-space-lg flex flex-col gap-space-sm text-left">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-sentinel-light text-body-lg">sensors</span>
+<span class="font-label-md text-label-md text-text-primary">Sentinela emisor: Puerta</span>
+</div>
+<span class="font-code-sm text-code-sm bg-alarm-red-dark/70 text-on-primary-container px-2 py-0.5 rounded-full font-bold">
+          IMPACTO 4.8G
+        </span>
+</div>
+<!-- Telemetry Graphic / Micro Sparkline & Status -->
+<div class="flex items-center justify-between bg-surface-container-lowest/40 rounded-lg p-space-sm">
+<div class="flex flex-col">
+<span class="font-code-sm text-label-sm text-text-muted">Acelerómetro X/Y/Z</span>
+<span class="font-metric-md text-metric-md text-on-primary-container font-mono tracking-tight">Vibración continua</span>
+</div>
+<!-- Live Waveform Inline SVG -->
+<svg class="w-28 h-7 text-alarm-red" fill="none" viewbox="0 0 112 28">
+<path d="M0 14h20l4-10 6 22 5-16 4 9 4-5h12l4-12 6 24 6-18 4 10 4-4h23" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+</svg>
+</div>
+<!-- Neighbors & Auto-Alert Network Notification Pill -->
+<div class="flex items-center gap-space-sm bg-surface-container/60 rounded-lg p-space-sm mt-0.5">
+<div class="w-7 h-7 rounded-full bg-accent-purple/20 flex items-center justify-center flex-shrink-0 text-accent-purple">
+<span class="material-symbols-outlined text-metric-md">diversity_3</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex-1 leading-snug">
+<span class="text-text-primary font-semibold">Doña Marta y Don José</span> ya fueron avisados automáticamente.
+        </p>
+</div>
+</div>
+<!-- Emergency Response CTAs (52px Touch-Optimized Stack) -->
+<div class="w-full max-w-sm mt-space-xl flex flex-col gap-space-sm">
+<!-- Primary Priority 1: Call Police (White High Contrast) -->
+<a class="flex items-center justify-center gap-space-sm w-full h-[52px] rounded-xl bg-on-primary-container text-alarm-red-dark shadow-2xl active:scale-[0.98] transition-transform font-headline-sm text-headline-sm font-bold no-underline" href="tel:118">
+<span class="material-symbols-outlined text-alarm-red-dark text-headline-lg" style="font-variation-settings: 'FILL' 1;">
+          call
+        </span>
+<span>Llamar a la Policía · 118</span>
+</a>
+<!-- Secondary Priority 2: Trigger Siren on Device (High Impact Dark Card) -->
+<button class="flex items-center justify-center gap-space-sm w-full h-[52px] rounded-xl bg-surface-container-lowest/80 text-on-primary-container active:scale-[0.98] transition-transform font-label-md text-label-md shadow-md" id="sirenBtn" type="button">
+<span class="material-symbols-outlined text-alarm-red text-headline-sm" style="font-variation-settings: 'FILL' 1;">
+          campaign
+        </span>
+<span id="sirenText">Sonar sirena en el Sentinela</span>
+</button>
+<!-- False Alarm / Safe Dismissal Button -->
+<button class="flex items-center justify-center gap-space-xs w-full h-[52px] rounded-xl bg-transparent text-on-primary-container/85 hover:text-on-primary-container active:scale-[0.98] transition-all font-body-md text-body-md font-medium" id="dismissBtn" type="button">
+<span class="material-symbols-outlined text-metric-md">check_circle</span>
+<span>Estoy en casa · fue falsa alarma</span>
+</button>
+</div>
+<!-- Safety Micro-Copy -->
+<div class="mt-space-md text-center max-w-xs">
+<span class="font-code-sm text-label-sm text-on-primary-container/70 tracking-tight">
+        Alarma audible activada en receptores vinculados
+      </span>
+</div>
+</div>
+<!-- Interactive State Logic -->
+<script>
+    const sirenBtn = document.getElementById('sirenBtn');
+    const sirenText = document.getElementById('sirenText');
+    let sirenActive = false;
+
+    if (sirenBtn && sirenText) {
+      sirenBtn.addEventListener('click', () => {
+        sirenActive = !sirenActive;
+        if (sirenActive) {
+          sirenBtn.classList.remove('bg-surface-container-lowest/80');
+          sirenBtn.classList.add('bg-alarm-red-dark');
+          sirenText.textContent = 'Sirena sonando a 105dB (Tocar para parar)';
+        } else {
+          sirenBtn.classList.remove('bg-alarm-red-dark');
+          sirenBtn.classList.add('bg-surface-container-lowest/80');
+          sirenText.textContent = 'Sonar sirena en el Sentinela';
+        }
+      });
+    }
+
+    const dismissBtn = document.getElementById('dismissBtn');
+    if (dismissBtn) {
+      dismissBtn.addEventListener('click', () => {
+        const confirmSilence = confirm('¿Confirmas que es una falsa alarma y deseas desactivar el aviso a tu red de seguridad?');
+        if (confirmSilence) {
+          dismissBtn.innerHTML = '<span class="material-symbols-outlined text-metric-md">lock_open</span> Alarma desactivada';
+          dismissBtn.classList.add('text-secondary');
+        }
+      });
+    }
+  </script>
+</div></main></body></html>

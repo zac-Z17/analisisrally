@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary-container": "#004119", "on-error": "#690005", "on-tertiary-container": "#ffffff", "tertiary": "#2fd9f4", "on-primary-container": "#fffeff", "inverse-primary": "#0056cf", "surface-variant": "#2e3544", "on-tertiary-fixed-variant": "#004e5a", "error": "#ffb4ab", "on-primary": "#002c71", "outline": "#8c90a0", "on-surface": "#dce2f6", "on-secondary-fixed-variant": "#005321", "surface-bright": "#323949", "accent-purple": "#A78BFA", "surface-container-lowest": "#070e1c", "on-secondary-fixed": "#002109", "alarm-red": "#FF5A5F", "tertiary-fixed-dim": "#2fd9f4", "sentinel-light": "#4C8DFF", "surface-container-low": "#151b2a", "on-surface-variant": "#c2c6d6", "tertiary-container": "#008294", "primary-fixed-dim": "#b1c5ff", "on-secondary": "#003915", "secondary-fixed": "#6bff8f", "on-primary-fixed": "#001947", "primary-container": "#2f6feb", "secondary-container": "#00b954", "background": "#0c1321", "surface-container": "#19202e", "on-tertiary-fixed": "#001f25", "on-background": "#dce2f6", "surface": "#131C2E", "on-primary-fixed-variant": "#00419f", "secondary-fixed-dim": "#4ae176", "secondary": "#4ae176", "surface-container-high": "#232a39", "surface-container-highest": "#2e3544", "primary": "#b1c5ff", "text-primary": "#EAF0FB", "surface-dim": "#0c1321", "on-tertiary": "#00363e", "alarm-red-dark": "#D92D2D", "outline-variant": "#424654", "error-container": "#93000a", "inverse-on-surface": "#2a3040", "surface-elevated": "#1C2740", "tertiary-fixed": "#a2eeff", "surface-tint": "#b1c5ff", "primary-fixed": "#dae2ff", "inverse-surface": "#dce2f6", "warning-amber": "#F5A524", "border-subtle": "#2A3654", "on-error-container": "#ffdad6", "text-muted": "#94A3BF" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "gutter": "1rem", "space-sm": "0.5rem", "space-md": "1rem", "margin": "1.25rem", "space-lg": "1.5rem", "space-xl": "2rem" }, "fontFamily": { "label-sm": ["Inter"], "label-md": ["Inter"], "display-lg": ["Sora"], "headline-lg": ["Sora"], "body-lg": ["Inter"], "metric-lg": ["JetBrains Mono"], "code-sm": ["JetBrains Mono"], "metric-md": ["JetBrains Mono"], "body-sm": ["Inter"], "body-md": ["Inter"], "headline-sm": ["Sora"], "headline-md": ["Sora"] }, "fontSize": { "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "display-lg": ["32px", { "lineHeight": "40px", "fontWeight": "800" }], "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "metric-lg": ["28px", { "lineHeight": "34px", "fontWeight": "600" }], "code-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "metric-md": ["16px", { "lineHeight": "22px", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#0c1321;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-background/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.25)]"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></div><span class="font-headline-sm text-headline-sm text-text-primary tracking-tight">Vecinos</span></div><div class="flex items-center gap-space-sm"><button aria-label="Configuración" class="w-11 h-11 flex items-center justify-center rounded-xl bg-surface-elevated/40 text-on-surface-variant hover:text-text-primary transition-colors"><span class="material-symbols-outlined text-[22px]">settings</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-space-xs"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-background min-h-screen"><div class="flex flex-col w-full px-margin pb-6 gap-space-lg">
+<!-- Selector de Red / Hogar Contextual -->
+<div class="flex items-center justify-between bg-surface-container-low px-space-md py-space-sm rounded-xl">
+<div class="flex items-center gap-space-sm">
+<div class="w-2 h-2 rounded-full bg-accent-purple shadow-[0_0_8px_#A78BFA]"></div>
+<span class="font-label-md text-label-md text-text-primary">Red Comunitaria • Mi casa</span>
+</div>
+<span class="font-code-sm text-code-sm text-accent-purple px-2 py-0.5 rounded-full bg-accent-purple/10 font-medium">2/5 cupos</span>
+</div>
+<!-- Header Textual & Propósito de Seguridad -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<h1 class="font-headline-md text-headline-md text-text-primary tracking-tight">Vecinos de confianza</h1>
+<span class="material-symbols-outlined text-accent-purple text-[20px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<p class="font-body-md text-body-md text-text-muted leading-relaxed">
+      Reciben la alerta crítica solo si se detecta un intento de entrada forzada. No ven la actividad de tus cámaras ni rutinas del hogar.
+    </p>
+</div>
+<!-- Lista de Vecinos Vinculados -->
+<div class="flex flex-col gap-space-sm">
+<!-- Vecino 1: Doña Marta -->
+<div class="flex items-center justify-between p-space-md bg-surface rounded-xl shadow-sm hover:bg-surface-elevated/70 transition-all">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="relative flex-shrink-0">
+<div class="w-12 h-12 rounded-full bg-accent-purple/20 flex items-center justify-center text-accent-purple font-headline-sm text-headline-sm">
+            M
+          </div>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-secondary ring-2 ring-surface"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md text-text-primary truncate">Doña Marta</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted truncate">Casa de al lado • Frente al portón</span>
+</div>
+</div>
+<button aria-checked="true" class="relative inline-flex h-7 w-12 flex-shrink-0 cursor-pointer rounded-full bg-secondary p-0.5 transition-colors duration-200 ease-in-out focus:outline-none" onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true'); this.classList.toggle('bg-secondary'); this.classList.toggle('bg-surface-container-highest'); this.querySelector('span').classList.toggle('translate-x-5');" role="switch" type="button">
+<span class="pointer-events-none inline-block h-6 w-6 translate-x-5 transform rounded-full bg-on-secondary shadow-md ring-0 transition duration-200 ease-in-out"></span>
+</button>
+</div>
+<!-- Vecino 2: Don José -->
+<div class="flex items-center justify-between p-space-md bg-surface rounded-xl shadow-sm hover:bg-surface-elevated/70 transition-all">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="relative flex-shrink-0">
+<div class="w-12 h-12 rounded-full bg-accent-purple/20 flex items-center justify-center text-accent-purple font-headline-sm text-headline-sm">
+            J
+          </div>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-secondary ring-2 ring-surface"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md text-text-primary truncate">Don José</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted truncate">Enfrente • Casa #14</span>
+</div>
+</div>
+<button aria-checked="true" class="relative inline-flex h-7 w-12 flex-shrink-0 cursor-pointer rounded-full bg-secondary p-0.5 transition-colors duration-200 ease-in-out focus:outline-none" onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true'); this.classList.toggle('bg-secondary'); this.classList.toggle('bg-surface-container-highest'); this.querySelector('span').classList.toggle('translate-x-5');" role="switch" type="button">
+<span class="pointer-events-none inline-block h-6 w-6 translate-x-5 transform rounded-full bg-on-secondary shadow-md ring-0 transition duration-200 ease-in-out"></span>
+</button>
+</div>
+<!-- Vecino 3: Karla (Pendiente) -->
+<div class="flex items-center justify-between p-space-md bg-surface/80 rounded-xl shadow-sm">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="relative flex-shrink-0">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center text-text-muted font-headline-sm text-headline-sm">
+            K
+          </div>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-warning-amber ring-2 ring-surface animate-pulse"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-text-primary truncate">Karla</span>
+<div class="flex items-center gap-1.5">
+<span class="font-body-sm text-body-sm text-text-muted truncate">Invitación enviada por WhatsApp</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 flex-shrink-0">
+<span class="px-2.5 py-1 rounded-full bg-warning-amber/15 text-warning-amber font-code-sm text-[11px] font-semibold tracking-wide">
+          PENDIENTE
+        </span>
+<button aria-label="Reenviar invitación" class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-text-muted hover:text-text-primary transition-transform duration-300" onclick="this.classList.add('rotate-180'); setTimeout(() =&gt; this.classList.remove('rotate-180'), 400);" title="Reenviar enlace de invitación">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Botones de Acción e Invitación Rápida -->
+<div class="flex flex-col gap-space-sm">
+<!-- Botón Primario Púrpura -->
+<button class="w-full h-12 rounded-xl bg-accent-purple text-on-primary-container font-label-md text-label-md flex items-center justify-center gap-2 shadow-lg shadow-accent-purple/20 active:scale-[0.98] transition-transform">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+<span>Invitar vecino de confianza</span>
+</button>
+<!-- Fila de Acciones Secundarias / Compartir -->
+<div class="grid grid-cols-3 gap-space-sm pt-1">
+<button class="flex flex-col items-center justify-center py-2.5 px-1 bg-surface-elevated rounded-xl hover:bg-surface-bright transition-colors group">
+<div class="w-8 h-8 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary mb-1 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted group-hover:text-text-primary">WhatsApp</span>
+</button>
+<button class="flex flex-col items-center justify-center py-2.5 px-1 bg-surface-elevated rounded-xl hover:bg-surface-bright transition-colors group">
+<div class="w-8 h-8 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary mb-1 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[18px]">qr_code_2</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted group-hover:text-text-primary">Código QR</span>
+</button>
+<button class="flex flex-col items-center justify-center py-2.5 px-1 bg-surface-elevated rounded-xl hover:bg-surface-bright transition-colors group">
+<div class="w-8 h-8 rounded-full bg-sentinel-light/20 flex items-center justify-center text-sentinel-light mb-1 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[18px]">contacts</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted group-hover:text-text-primary">Contactos</span>
+</button>
+</div>
+</div>
+<!-- Protocolo de Seguridad / Tarjeta Informativa -->
+<div class="flex items-start gap-3 p-space-md bg-surface-container rounded-xl">
+<span class="material-symbols-outlined text-sentinel-light text-[22px] flex-shrink-0 mt-0.5">shield_with_heart</span>
+<div class="flex flex-col gap-0.5">
+<span class="font-label-md text-label-md text-text-primary">¿Cómo reacciona tu red?</span>
+<p class="font-body-sm text-body-sm text-text-muted leading-relaxed">
+        Ante una intrusión, sus teléfonos sonarán al máximo volumen incluso en "No molestar", mostrando tu dirección exacta y un botón de llamada directa.
+      </p>
+</div>
+</div>
+<!-- Sección: Números de Emergencia (Nicaragua) -->
+<div class="flex flex-col gap-space-sm pt-2">
+<div class="flex items-center justify-between">
+<span class="font-code-sm text-code-sm text-text-muted uppercase tracking-wider font-semibold">
+        NÚMEROS DE EMERGENCIA (NICARAGUA)
+      </span>
+<span class="font-label-sm text-label-sm text-secondary flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+        Líneas directas
+      </span>
+</div>
+<!-- Directorio de Emergencia Directa -->
+<div class="flex flex-col gap-2">
+<!-- 1. Policía Nacional -->
+<div class="flex items-center justify-between p-space-md bg-surface rounded-xl">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-xl bg-sentinel-light/15 flex items-center justify-center text-sentinel-light">
+<span class="material-symbols-outlined text-[22px]">local_police</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-primary">Policía Nacional</span>
+<span class="font-body-sm text-body-sm text-text-muted">Central de Patrullaje</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="font-metric-md text-metric-md text-text-primary tracking-wider">118</span>
+<a aria-label="Llamar a la Policía Nacional al 118" class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-on-secondary shadow-md shadow-secondary/20 hover:scale-105 active:scale-95 transition-transform" href="tel:118">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">call</span>
+</a>
+</div>
+</div>
+<!-- 2. Bomberos Unificados -->
+<div class="flex items-center justify-between p-space-md bg-surface rounded-xl">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-xl bg-alarm-red/15 flex items-center justify-center text-alarm-red">
+<span class="material-symbols-outlined text-[22px]">local_fire_department</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-primary">Bomberos</span>
+<span class="font-body-sm text-body-sm text-text-muted">Cuerpo Unificado</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="font-metric-md text-metric-md text-text-primary tracking-wider">115</span>
+<a aria-label="Llamar a los Bomberos al 115" class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-on-secondary shadow-md shadow-secondary/20 hover:scale-105 active:scale-95 transition-transform" href="tel:115">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">call</span>
+</a>
+</div>
+</div>
+<!-- 3. Cruz Roja / Cruz Blanca -->
+<div class="flex items-center justify-between p-space-md bg-surface rounded-xl">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-xl bg-alarm-red/15 flex items-center justify-center text-alarm-red">
+<span class="material-symbols-outlined text-[22px]">medical_services</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-primary">Cruz Roja</span>
+<span class="font-body-sm text-body-sm text-text-muted">Atención Prehospitalaria</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="font-metric-md text-metric-md text-text-primary tracking-wider">128</span>
+<a aria-label="Llamar a la Cruz Roja al 128" class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-on-secondary shadow-md shadow-secondary/20 hover:scale-105 active:scale-95 transition-transform" href="tel:128">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">call</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-background/85 backdrop-blur-xl shadow-[0_-1px_12px_rgba(0,0,0,0.3)]" data-active-classes="text-sentinel-light font-label-md"><div class="flex justify-around items-center h-16 px-space-xs"><a class="flex flex-col items-center justify-center flex-1 h-full gap-0.5 text-text-muted transition-colors" data-path="inicio" href="#"><span class="material-symbols-outlined text-[24px]">home</span><span class="font-label-sm text-label-sm tracking-tight">Inicio</span></a><a class="flex flex-col items-center justify-center flex-1 h-full gap-0.5 text-text-muted transition-colors" data-path="equipos" href="#"><span class="material-symbols-outlined text-[24px]">smartphone</span><span class="font-label-sm text-label-sm tracking-tight">Equipos</span></a><a class="flex flex-col items-center justify-center flex-1 h-full gap-0.5 text-text-muted transition-colors" data-path="horario" href="#"><span class="material-symbols-outlined text-[24px]">schedule</span><span class="font-label-sm text-label-sm tracking-tight">Horario</span></a><a aria-current="page" class="flex flex-col items-center justify-center flex-1 h-full gap-0.5 transition-colors text-sentinel-light font-label-md" data-path="vecinos" href="#"><span class="material-symbols-outlined text-[24px]">group</span><span class="font-label-sm text-label-sm tracking-tight">Vecinos</span></a><a class="flex flex-col items-center justify-center flex-1 h-full gap-0.5 text-text-muted transition-colors relative" data-path="alertas" href="#"><div class="relative flex items-center justify-center"><span class="material-symbols-outlined text-[24px]">notifications</span><span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-alarm-red"></span></div><span class="font-label-sm text-label-sm tracking-tight">Alertas</span></a></div></nav></body></html>

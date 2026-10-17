@@ -1,0 +1,1429 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0B1220">
+<meta name="description" content="Prototipo de Sentinel: convierte un celular viejo en un sensor de seguridad para la casa.">
+<title>Sentinel</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Crect width=%2224%22 height=%2224%22 rx=%226%22 fill=%22%232F6FEB%22/%3E%3Cpath d=%22M18 12.5c0 3.8-2.6 5.6-5.7 6.7a.8.8 0 0 1-.6 0C8.6 18.1 6 16.3 6 12.5V7.3a.8.8 0 0 1 .8-.8c1.5 0 3.4-.9 4.7-2a.9.9 0 0 1 1 0c1.3 1.1 3.2 2 4.7 2a.8.8 0 0 1 .8.8z%22 fill=%22none%22 stroke=%22white%22 stroke-width=%221.8%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* Sentinel — prototipo funcional. Modo oscuro (la app se usa de noche y en celulares viejos). */
+:root{
+  --noche:#0B1220; --sup:#131C2E; --sup2:#1C2740; --borde:#2A3654; --negro:#04070D;
+  --txt:#EAF0FB; --txt2:#94A3BF;
+  --azul:#2F6FEB; --azulc:#4C8DFF; --cian:#22D3EE; --violeta:#A78BFA;
+  --verde:#22C55E; --ambar:#F5A524; --rojo:#FF5A5F; --rojof:#D92D2D; --gris:#7C89A6;
+  --azul-f:rgba(76,141,255,.15); --cian-f:rgba(34,211,238,.15); --violeta-f:rgba(167,139,250,.16);
+  --verde-f:rgba(34,197,94,.15); --ambar-f:rgba(245,165,36,.16); --rojo-f:rgba(255,90,95,.14); --gris-f:rgba(124,137,166,.16);
+  --f-tit:Sora,Inter,system-ui,sans-serif;
+  --f-txt:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{background:var(--noche)}
+body{min-height:100vh;min-height:100dvh;background:var(--noche);color:var(--txt);font:15px/1.4 var(--f-txt);-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer;text-align:inherit}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--azulc);outline-offset:2px}
+[hidden]{display:none!important}
+.i{flex:none}
+#app{max-width:480px;margin:0 auto;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+
+/* estructura */
+.cab{display:flex;align-items:center;gap:12px;padding:calc(env(safe-area-inset-top,0px) + 14px) max(18px,env(safe-area-inset-right,0px)) 10px max(18px,env(safe-area-inset-left,0px))}
+.cab h1{font:700 22px/1.2 var(--f-tit);letter-spacing:-.01em}
+.cab .pre{font-size:12.5px;color:var(--txt2)}
+.sp{flex:1}
+.cont{flex:1;display:flex;flex-direction:column;gap:12px;padding:4px max(16px,env(safe-area-inset-right,0px)) calc(104px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.cont.sin-nav{padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+.card{background:var(--sup);border:1px solid var(--borde);border-radius:18px;padding:14px}
+.lista{padding:2px 14px}
+.fila{display:flex;align-items:center;gap:12px;padding:11px 0;width:100%}
+.lista>.fila+.fila,.lista>.fila+.vacio{border-top:1px solid var(--borde)}
+.ico{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:none;color:var(--c,var(--azulc));background:var(--cf,var(--azul-f))}
+.ico.r{border-radius:50%}
+.t1{font-weight:600;font-size:15px}
+.t2{font-size:12.5px;color:var(--txt2);margin-top:2px;line-height:1.35}
+.lbl{font:700 11px var(--f-txt);letter-spacing:.09em;text-transform:uppercase;color:var(--txt2)}
+.seccion{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+.tit{font:700 22px/1.2 var(--f-tit);letter-spacing:-.01em;text-wrap:balance}
+.sub{font-size:13.5px;color:var(--txt2);margin-top:6px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.num{font-variant-numeric:tabular-nums}
+.chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:99px;font:700 10.5px var(--f-txt);letter-spacing:.06em;white-space:nowrap;color:var(--c,var(--azulc));background:var(--cf,var(--azul-f))}
+.dot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--c,var(--verde))}
+.c-azul{--c:var(--azulc);--cf:var(--azul-f)} .c-cian{--c:var(--cian);--cf:var(--cian-f)} .c-violeta{--c:var(--violeta);--cf:var(--violeta-f)}
+.c-verde{--c:var(--verde);--cf:var(--verde-f)} .c-ambar{--c:var(--ambar);--cf:var(--ambar-f)} .c-rojo{--c:var(--rojo);--cf:var(--rojo-f)} .c-gris{--c:var(--gris);--cf:var(--gris-f)}
+.txt-c{color:var(--c)}
+
+/* botones */
+.btn{min-height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:15px;padding:0 16px;width:100%;text-align:center}
+.btn.pri{background:var(--azul);color:#fff}
+.btn.sec{background:var(--sup2);border:1px solid var(--borde)}
+.btn.vio{background:var(--violeta);color:var(--noche)}
+.btn.peligro{background:var(--rojo-f);color:var(--rojo);border:1px solid rgba(255,90,95,.35)}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.btn.chico{min-height:40px;font-size:14px;border-radius:12px}
+.icobtn{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--sup2);flex:none}
+.icobtn.pri{background:var(--azul);color:#fff}
+.enlace{display:flex;align-items:center;gap:10px;font-weight:600;font-size:14px;color:var(--c);padding:6px 4px}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tres{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+
+/* interruptor y segmentado */
+.tg{width:46px;height:28px;border-radius:99px;background:#3A4566;position:relative;flex:none;transition:background .15s}
+.tg::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:left .15s}
+.tg[aria-checked="true"]{background:var(--azul)}
+.tg[aria-checked="true"]::after{left:21px}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;background:var(--sup);border:1px solid var(--borde);border-radius:14px;padding:4px;gap:4px}
+.seg button{min-height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:14px;font-weight:600;color:var(--txt2)}
+.seg button[aria-pressed="true"]{background:var(--azul);color:#fff}
+
+/* formularios */
+.campo{display:flex;flex-direction:column;gap:6px}
+.campo label{font-size:12.5px;color:var(--txt2);font-weight:600}
+.entrada{background:var(--sup2);border:1px solid var(--borde);border-radius:12px;min-height:48px;padding:10px 14px;width:100%;font-size:16px}
+.entrada:focus{border-color:var(--azulc);outline:none}
+.entrada.codigo{font-family:var(--f-mono);font-size:26px;letter-spacing:.3em;text-align:center}
+input[type="time"].entrada{font-family:var(--f-txt);font-weight:700;font-size:18px}
+.err{color:var(--rojo);font-size:13px}
+
+/* bienvenida */
+.marca{display:flex;align-items:center;gap:12px}
+.logo{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,var(--azul),var(--cian));color:#fff;flex:none}
+.marca b{display:block;font:800 24px/1.1 var(--f-tit);letter-spacing:-.02em}
+.marca span{font-size:12.5px;color:var(--txt2)}
+.rol{display:flex;gap:12px;align-items:flex-start;width:100%;background:var(--sup);border:1.5px solid var(--borde);border-radius:18px;padding:16px}
+.rol[aria-pressed="true"]{border-color:var(--c);background:var(--cf)}
+.rol h3{font:700 18px var(--f-tit);margin-top:6px}
+.marcar{width:24px;height:24px;border-radius:50%;border:2px solid var(--borde);flex:none;display:grid;place-items:center;margin-top:2px}
+.rol[aria-pressed="true"] .marcar{background:var(--c);border-color:var(--c);color:var(--noche)}
+.pie{font-size:12px;color:var(--txt2);text-align:center}
+
+/* estado */
+.anillo{width:var(--s,150px);height:var(--s,150px);border-radius:50%;display:grid;place-items:center;flex:none;position:relative;color:var(--c);
+  background:radial-gradient(circle,var(--cf) 0 38%,transparent 39% 58%,transparent 59%)}
+.anillo::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--cf)}
+.anillo::after{content:"";position:absolute;inset:16%;border-radius:50%;border:3px solid var(--c)}
+.anillo.late::before{animation:latir 2.4s ease-out infinite}
+@keyframes latir{0%{transform:scale(.85);opacity:1}100%{transform:scale(1.12);opacity:0}}
+.estado{background:var(--sup);border:1px solid var(--borde);border-radius:18px;padding:16px}
+.estado.c-verde{background:linear-gradient(160deg,var(--verde-f),var(--sup) 60%);border-color:rgba(34,197,94,.35)}
+.estado.c-ambar{background:linear-gradient(160deg,var(--ambar-f),var(--sup) 60%);border-color:rgba(245,165,36,.35)}
+.estado h2{font:800 22px var(--f-tit);color:var(--c)}
+
+/* barra inferior */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:#0E1628;border-top:1px solid var(--borde);padding:8px max(4px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(4px,env(safe-area-inset-left,0px))}
+.nav>div{max-width:480px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+.nav button{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;font-weight:500;color:var(--txt2);position:relative;text-align:center}
+.nav .pill{width:56px;height:30px;border-radius:99px;display:grid;place-items:center}
+.nav button[aria-current="page"]{color:var(--azulc);font-weight:700}
+.nav button[aria-current="page"] .pill{background:var(--azul-f)}
+.nav .globo{position:absolute;top:-3px;left:calc(50% + 8px);min-width:18px;height:18px;border-radius:9px;background:var(--rojof);color:#fff;font:700 10.5px/18px var(--f-txt);padding:0 5px}
+
+/* avisos */
+.banner{display:flex;align-items:center;gap:10px;border-radius:14px;padding:10px 12px;font-size:13px;font-weight:600;width:100%;color:var(--c);background:var(--cf);border:1px solid var(--cf)}
+body[data-nav="0"] #toast{bottom:auto;top:calc(env(safe-area-inset-top,0px) + 12px)}
+#toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;max-width:min(440px,calc(100% - 32px));width:max-content;background:#24304d;color:var(--txt);border:1px solid var(--borde);border-radius:14px;padding:12px 16px;font-size:14px;box-shadow:0 12px 32px rgba(0,0,0,.45);display:flex;gap:10px;align-items:center}
+
+/* hojas (paneles) */
+.hoja{position:fixed;inset:0;z-index:40;background:var(--noche);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.hoja>div{max-width:480px;margin:0 auto;min-height:100%;display:flex;flex-direction:column}
+
+/* horario */
+.barra{position:relative;height:30px;border-radius:9px;background:var(--sup2);overflow:hidden;margin-top:12px}
+.barra span{position:absolute;top:0;bottom:0}
+.barra i{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--txt)}
+.marcas{display:flex;justify-content:space-between;font-size:10.5px;color:var(--txt2);margin-top:6px}
+.dias{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:10px}
+.dias button{height:36px;border-radius:10px;font-weight:700;font-size:13px;text-align:center;background:var(--sup2);color:var(--txt2)}
+.dias button[aria-pressed="true"]{background:var(--azul-f);color:var(--azulc)}
+
+/* alertas */
+.filtros{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.filtros button{height:32px;padding:0 14px;border-radius:99px;font-size:12.5px;font-weight:600;background:var(--sup);border:1px solid var(--borde);color:var(--txt2);white-space:nowrap}
+.filtros button[aria-pressed="true"]{background:var(--azul);border-color:var(--azul);color:#fff}
+.ev{display:flex;gap:12px;align-items:flex-start}
+.ev.critico{border-color:rgba(255,90,95,.45);background:linear-gradient(160deg,var(--rojo-f),var(--sup) 70%)}
+.que{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.que button{height:30px;padding:0 12px;border-radius:99px;font-size:12px;font-weight:600;background:var(--sup2);color:var(--txt2)}
+.que button[aria-pressed="true"]{background:var(--ambar);color:var(--noche)}
+.vacio{padding:18px 4px;text-align:center;color:var(--txt2);font-size:13.5px}
+
+/* sentinela */
+.sent{background:var(--negro);min-height:100vh;min-height:100dvh}
+.grafica{width:100%;height:56px;display:block;margin-top:8px}
+.dato{padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center}
+.dato b{font-size:15px}
+.oscuro{position:fixed;inset:0;z-index:30;background:#000;display:flex;align-items:flex-end;justify-content:center;padding-bottom:calc(40px + env(safe-area-inset-bottom,0px));color:#3b465e;font-size:13px;text-align:center}
+.destello{animation:destello .9s ease-out}
+@keyframes destello{0%{box-shadow:inset 0 0 0 999px rgba(255,90,95,.35)}100%{box-shadow:inset 0 0 0 999px rgba(255,90,95,0)}}
+.pasos{display:flex;gap:6px;justify-content:center}
+.pasos span{width:28px;height:5px;border-radius:3px;background:var(--borde)}
+.pasos span.ok{background:var(--azulc)}
+.cuenta{font:800 46px var(--f-tit);color:var(--azulc)}
+
+/* qr */
+.qr{background:#fff;border-radius:16px;padding:12px;display:grid;place-items:center}
+.qr img{display:block;image-rendering:pixelated;max-width:100%}
+
+/* alarma a pantalla completa */
+#alarma{position:fixed;inset:0;z-index:80;background:radial-gradient(120% 70% at 50% 28%,#F04A4A 0%,var(--rojof) 45%,#9E1B1B 100%);color:#fff;overflow-y:auto}
+#alarma>div{max-width:480px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:calc(env(safe-area-inset-top,0px) + 22px) max(20px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px))}
+.pulso{width:180px;height:180px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,rgba(255,255,255,.28) 0 34%,rgba(255,255,255,.12) 35% 55%,rgba(255,255,255,.05) 56% 70%,transparent 71%);animation:pulso 1.1s ease-in-out infinite}
+@keyframes pulso{50%{transform:scale(1.07)}}
+#alarma h2{font:800 30px/1.1 var(--f-tit);letter-spacing:-.01em}
+.btn.blanco{background:#fff;color:#B42020;font-weight:700;font-size:16px;min-height:56px}
+.btn.oscuro2{background:rgba(0,0,0,.24);color:#fff}
+.btn.borde{border:1.5px solid rgba(255,255,255,.75);color:#fff}
+.pild{display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.22);border-radius:99px;padding:8px 14px;font-size:13px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="alarma" hidden></div>
+<div id="toast" hidden role="status" aria-live="polite"></div>
+<noscript><p style="padding:24px">Sentinel necesita JavaScript.</p></noscript>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+'use strict';
+/* ==========================================================================
+   Sentinel · prototipo funcional (Rally Latinoamericano de Innovación 2026)
+   Una sola página con tres modos: Sentinela (emisor), Receptor y Vecino.
+   - Sensores: DeviceMotionEvent (acelerómetro + giroscopio) del navegador.
+   - Mensajes entre equipos: servicio de mensajería ntfy (por defecto ntfy.sh;
+     se cambia en Ajustes o con ?relay=...) y, entre pestañas del mismo
+     navegador, BroadcastChannel.
+   - Datos de cada equipo: localStorage. Para probar varios equipos en una
+     misma computadora, abrir cada pestaña con ?perfil=nombre.
+   ========================================================================== */
+
+// ---------- utilidades ----------
+const $ = (s, r = document) => r.querySelector(s);
+const ahora = () => Date.now();
+const ALF = 'abcdefghijkmnpqrstuvwxyz23456789';
+const rid = (n = 10) => Array.from(crypto.getRandomValues(new Uint8Array(n)), b => ALF[b % 32]).join('');
+const codigo6 = () => String(100000 + (crypto.getRandomValues(new Uint32Array(1))[0] % 900000));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+const mediana = arr => { const s = [...arr].sort((x, y) => x - y); return s.length ? s[Math.floor(s.length / 2)] : 0; };
+const aMin = hhmm => { const [h, m] = String(hhmm || '0:0').split(':').map(Number); return (h || 0) * 60 + (m || 0); };
+const fmtMin = min => { min = ((min % 1440) + 1440) % 1440; let h = Math.floor(min / 60); const m = min % 60, ap = h < 12 ? 'a. m.' : 'p. m.'; h = h % 12 || 12; return `${h}:${String(m).padStart(2, '0')} ${ap}`; };
+const fmtHora = t => { const d = new Date(t); return fmtMin(d.getHours() * 60 + d.getMinutes()); };
+const hace = t => { const s = Math.round((ahora() - t) / 1000); if (s < 60) return 'hace un momento'; const m = Math.round(s / 60); if (m < 60) return `hace ${m} min`; return `hace ${Math.round(m / 60)} h`; };
+function diaDe(t) {
+  const d = new Date(t), h = new Date(), ay = new Date(); ay.setDate(h.getDate() - 1);
+  if (d.toDateString() === h.toDateString()) return 'Hoy';
+  if (d.toDateString() === ay.toDateString()) return 'Ayer';
+  return d.toLocaleDateString('es', { weekday: 'long', day: 'numeric', month: 'long' });
+}
+const listaNombres = n => n.length <= 1 ? (n[0] || '') : n.slice(0, -1).join(', ') + ' y ' + n[n.length - 1];
+const lugarTxt = l => l === 'ventana' ? 'ventana' : 'puerta';
+
+// ---------- íconos (Lucide, licencia ISC) ----------
+const I = {
+  shield: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
+  bell: '<path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/>',
+  house: '<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+  clock: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  phone: '<rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/>',
+  monitor: '<rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/>',
+  sliders: '<path d="M21 4h-7"/><path d="M10 4H3"/><path d="M21 12h-9"/><path d="M8 12H3"/><path d="M21 20h-5"/><path d="M12 20H3"/><path d="M14 2v4"/><path d="M8 10v4"/><path d="M16 18v4"/>',
+  therm: '<path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/>',
+  wifi: '<path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/>',
+  wifioff: '<path d="M12 20h.01"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/><path d="M5 12.859a10 10 0 0 1 5.17-2.69"/><path d="M19 12.859a10 10 0 0 0-2.007-1.523"/><path d="M2 8.82a15 15 0 0 1 4.177-2.643"/><path d="M22 8.82a15 15 0 0 0-11.288-3.764"/><path d="m2 2 20 20"/>',
+  plus: '<path d="M5 12h14"/><path d="M12 5v14"/>',
+  alert: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+  moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+  zap: '<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>',
+  call: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',
+  siren: '<path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/>',
+  door: '<path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><path d="M14 12v.01"/>',
+  dooropen: '<path d="M13 4h3a2 2 0 0 1 2 2v14"/><path d="M2 20h3"/><path d="M13 20h9"/><path d="M10 12v.01"/><path d="M13 4.562v16.157a1 1 0 0 1-1.242.97L5 20V5.562a2 2 0 0 1 1.515-1.94l4-1A2 2 0 0 1 13 4.561Z"/>',
+  window: '<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 12h18"/><path d="M12 3v18"/>',
+  vibrate: '<path d="m2 8 2 2-2 2 2 2-2 2"/><path d="m22 8-2 2 2 2-2 2 2 2"/><rect width="8" height="14" x="8" y="5" rx="1"/>',
+  scan: '<path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/>',
+  chev: '<path d="m9 18 6-6-6-6"/>',
+  back: '<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>',
+  arrowr: '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+  msg: '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
+  pause: '<rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/>',
+  play: '<path d="M6 3v18l15-9z"/>',
+  lock: '<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+  activity: '<path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/>',
+  userplus: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/>',
+  qr: '<rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/>',
+  x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  check: '<path d="M20 6 9 17l-5-5"/>',
+  trash: '<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
+  info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+  battery: '<rect width="16" height="10" x="2" y="7" rx="2"/><path d="M22 11v2"/>',
+  share: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98"/><path d="m15.41 6.51-6.82 3.98"/>',
+  volume: '<path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/>',
+};
+I.shieldok = I.shield + '<path d="m9 12 2 2 4-4"/>';
+const ic = (n, s = 20, w = 2) => `<svg class="i" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n] || ''}</svg>`;
+const icoBox = (n, cls, s = 40, is = 20) => `<span class="ico ${cls}" style="width:${s}px;height:${s}px">${ic(n, is)}</span>`;
+const bat = (p, col = 'currentColor') => `<svg class="i" width="24" height="13" viewBox="0 0 24 13" aria-hidden="true"><rect x=".75" y=".75" width="20" height="11.5" rx="3" fill="none" stroke="${col}" stroke-opacity=".7" stroke-width="1.5"/><rect x="2.5" y="2.5" width="${16.5 * clamp(p ?? 0, 0, 100) / 100}" height="8" rx="1.5" fill="${col}"/><rect x="22" y="4.5" width="1.6" height="4" rx=".8" fill="${col}" fill-opacity=".7"/></svg>`;
+const tg = (on, act, etiqueta) => `<button class="tg" role="switch" aria-checked="${!!on}" aria-label="${esc(etiqueta)}" data-act="${act}"></button>`;
+
+// ---------- estado guardado en este equipo ----------
+const PARAMS = new URLSearchParams(location.search);
+const PERFIL = (PARAMS.get('perfil') || '').replace(/[^\w-]/g, '').slice(0, 20);
+const CLAVE = 'sentinel.prototipo.v1' + (PERFIL ? '.' + PERFIL : '');
+const RELAY_DEF = 'https://ntfy.sh';
+const cfgBase = () => ({
+  v: 0, modo: 'auto', modoHasta: 0, pausaHasta: 0,
+  auto: true, inicio: '23:00', fin: '04:00', dias: [1, 1, 1, 1, 1, 1, 1],
+  carga: true, cargaIni: '21:00', cargaFin: '22:00', aviso10: true, batMin: 60,
+  avisoTemp: true, tempMax: 45, fuera: false,
+  equipos: {},      // id -> { nivel: 'baja'|'media'|'alta', ajuste: 1, sirena: true }
+  vecinosOff: {},   // id del vecino -> true si no recibe alertas
+});
+const base = () => ({
+  yo: { id: rid(8), nombre: '', rol: null, lugar: 'puerta', ref: '' },
+  hogar: null, admin: false, cfg: cfgBase(), equipos: {}, pendientes: [], alertas: [],
+  cal: null, relay: RELAY_DEF, demo: false, avisos: {},
+});
+// lo que llega de otros equipos se valida antes de usarlo
+const ID_OK = /^[a-z0-9]{2,24}$/;
+const txt = (v, n = 40) => String(v ?? '').slice(0, n);
+function limpiarCfg(x) {
+  const c = cfgBase(); if (!x || typeof x !== 'object') return c;
+  const hhmm = v => typeof v === 'string' && /^\d{2}:\d{2}$/.test(v), num = v => typeof v === 'number' && isFinite(v);
+  for (const k of ['v', 'modoHasta', 'pausaHasta', 'batMin', 'tempMax']) if (num(x[k])) c[k] = x[k];
+  for (const k of ['auto', 'carga', 'aviso10', 'avisoTemp', 'fuera']) if (typeof x[k] === 'boolean') c[k] = x[k];
+  for (const k of ['inicio', 'fin', 'cargaIni', 'cargaFin']) if (hhmm(x[k])) c[k] = x[k];
+  if (['auto', 'on', 'off'].includes(x.modo)) c.modo = x.modo;
+  if (Array.isArray(x.dias) && x.dias.length === 7) c.dias = x.dias.map(d => (d ? 1 : 0));
+  if (x.equipos && typeof x.equipos === 'object') for (const [id, e] of Object.entries(x.equipos)) {
+    if (ID_OK.test(id) && e && typeof e === 'object') c.equipos[id] = { nivel: ['baja', 'media', 'alta'].includes(e.nivel) ? e.nivel : 'media', ajuste: num(e.ajuste) ? clamp(e.ajuste, 1, 2.5) : 1, sirena: e.sirena !== false };
+  }
+  if (x.vecinosOff && typeof x.vecinosOff === 'object') for (const id of Object.keys(x.vecinosOff)) if (ID_OK.test(id)) c.vecinosOff[id] = true;
+  return c;
+}
+function limpiarHogar(h) {
+  if (!h || !ID_OK.test(h.id)) return null;
+  return { id: h.id, nombre: txt(h.nombre) || 'Mi casa', pin: /^\d{4}$/.test(h.pin) ? h.pin : '' };
+}
+let S = cargar();
+function cargar() {
+  try {
+    const x = JSON.parse(localStorage.getItem(CLAVE) || 'null');
+    if (x && x.yo) { const b = base(); return { ...b, ...x, cfg: limpiarCfg(x.cfg) }; }
+  } catch (e) { /* sin almacenamiento: se trabaja en memoria */ }
+  return base();
+}
+function guardar() { try { localStorage.setItem(CLAVE, JSON.stringify(S)); } catch (e) { /* sin almacenamiento */ } }
+if (PARAMS.get('relay')) S.relay = PARAMS.get('relay');
+
+// estado de pantalla (no se guarda)
+const U = { rol: 'sentinela', codigo: '', modoRec: 'crear', esperando: false, error: '', tab: 'inicio', hoja: null, filtro: 'todas', vinc: null, alarma: null, pin: '', pinOk: false };
+
+// ---------- mensajería entre equipos ----------
+const Bus = {
+  fuentes: {}, manejadores: {}, vistos: new Set(), conectado: null,
+  bc: ('BroadcastChannel' in window) ? new BroadcastChannel('sentinel-prototipo') : null,
+  url(topic) { return S.relay.replace(/\/+$/, '') + '/' + topic; },
+  enviar(topic, msg) {
+    const m = { ...msg, mid: rid(10), de: S.yo.id, t: ahora() };
+    this.vistos.add(m.mid);
+    try { this.bc?.postMessage({ topic, m }); } catch (e) { /* sin canal local */ }
+    if (!S.demo) {
+      fetch(this.url(topic), { method: 'POST', body: JSON.stringify(m) })
+        .then(r => this.estado(r.ok)).catch(() => this.estado(false));
+    }
+    return m;
+  },
+  escuchar(topic, fn, since) {
+    this.dejar(topic);
+    this.manejadores[topic] = fn;
+    return new Promise(res => {
+      let listo = false; const fin = () => { if (!listo) { listo = true; res(); } };
+      setTimeout(fin, 4000);
+      if (S.demo) return fin();
+      try {
+        const es = new EventSource(this.url(topic) + '/sse' + (since ? '?since=' + since : ''));
+        this.fuentes[topic] = es;
+        es.onopen = () => { this.estado(true); fin(); };
+        es.onerror = () => this.estado(false);
+        es.onmessage = e => {
+          try { const d = JSON.parse(e.data); if (d.event && d.event !== 'message') return; this.entregar(topic, JSON.parse(d.message)); } catch (er) { /* mensaje ajeno */ }
+        };
+      } catch (e) { this.estado(false); fin(); }
+    });
+  },
+  dejar(topic) { this.fuentes[topic]?.close(); delete this.fuentes[topic]; delete this.manejadores[topic]; },
+  dejarTodo() { Object.keys(this.fuentes).forEach(t => this.dejar(t)); this.manejadores = {}; },
+  entregar(topic, m) {
+    if (!m || typeof m !== 'object' || !ID_OK.test(m.mid) || !ID_OK.test(m.de) || this.vistos.has(m.mid) || m.de === S.yo.id) return;
+    this.vistos.add(m.mid);
+    this.manejadores[topic]?.(m);
+  },
+  estado(ok) { if (this.conectado !== ok) { this.conectado = ok; pintarRed(); } },
+};
+if (Bus.bc) Bus.bc.onmessage = e => Bus.entregar(e.data.topic, e.data.m);
+const tHogar = () => 'snt-' + S.hogar.id;
+const tVinc = c => 'snt-v-' + c;
+
+// ---------- sonido y vibración ----------
+const Sonido = {
+  ctx: null, sirena: null,
+  activar() {
+    try {
+      if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+      if (this.ctx.state === 'suspended') this.ctx.resume().then(pintarAudio);
+    } catch (e) { /* sin audio */ }
+    pintarAudio();
+  },
+  listo() { return !!this.ctx && this.ctx.state === 'running'; },
+  bip(f = 880, d = .15, vol = .3) {
+    if (!this.listo()) return;
+    const c = this.ctx, o = c.createOscillator(), g = c.createGain();
+    o.frequency.value = f; g.gain.setValueAtTime(vol, c.currentTime); g.gain.exponentialRampToValueAtTime(.001, c.currentTime + d);
+    o.connect(g).connect(c.destination); o.start(); o.stop(c.currentTime + d);
+  },
+  sonarSirena(seg = 0) {
+    if (!this.listo() || this.sirena) return;
+    const c = this.ctx, o = c.createOscillator(), lfo = c.createOscillator(), lg = c.createGain(), g = c.createGain();
+    o.type = 'sawtooth'; o.frequency.value = 950; lfo.frequency.value = 1.6; lg.gain.value = 420;
+    lfo.connect(lg).connect(o.frequency); g.gain.value = .5; o.connect(g).connect(c.destination);
+    o.start(); lfo.start(); this.sirena = { o, lfo };
+    if (seg) setTimeout(() => this.callar(), seg * 1000);
+  },
+  callar() { if (!this.sirena) return; try { this.sirena.o.stop(); this.sirena.lfo.stop(); } catch (e) { /* ya parado */ } this.sirena = null; },
+};
+document.addEventListener('pointerdown', () => Sonido.activar(), { capture: true });
+const vibrar = p => { try { navigator.vibrate?.(p); } catch (e) { /* sin vibración */ } };
+
+// ---------- vigilancia y horario ----------
+function enHorario(cfg, d = new Date()) {
+  if (!cfg.auto) return false;
+  const m = d.getHours() * 60 + d.getMinutes(), i = aMin(cfg.inicio), f = aMin(cfg.fin), dia = (d.getDay() + 6) % 7;
+  if (i === f) return !!cfg.dias[dia];
+  if (i < f) return m >= i && m < f && !!cfg.dias[dia];
+  if (m >= i) return !!cfg.dias[dia];          // la noche pertenece al día en que empieza
+  if (m < f) return !!cfg.dias[(dia + 6) % 7];
+  return false;
+}
+function estadoVig(cfg = S.cfg, t = ahora()) {
+  if (cfg.pausaHasta > t) return 'pausa';
+  if (cfg.modo === 'off' && (!cfg.modoHasta || t < cfg.modoHasta)) return 'reposo';
+  if (cfg.fuera || cfg.modo === 'on' || enHorario(cfg, new Date(t))) return 'vigilando';
+  return 'reposo';
+}
+function proximoInicio(cfg = S.cfg) {
+  if (!cfg.auto) return 0;
+  const hoy = new Date(); hoy.setSeconds(0, 0);
+  for (let d = 0; d < 8; d++) {
+    const c = new Date(hoy); c.setDate(hoy.getDate() + d); c.setHours(0, aMin(cfg.inicio), 0, 0);
+    if (c.getTime() > ahora() && cfg.dias[(c.getDay() + 6) % 7]) return c.getTime();
+  }
+  return 0;
+}
+function textoEstado(cfg = S.cfg) {
+  const e = estadoVig(cfg);
+  if (e === 'pausa') return { e, titulo: 'En pausa', sub: `Vuelve en ${Math.max(1, Math.ceil((cfg.pausaHasta - ahora()) / 60000))} min`, cls: 'c-ambar' };
+  if (e === 'vigilando') {
+    const sub = cfg.fuera ? 'Modo fuera de casa: todo el día' : cfg.modo === 'on' ? 'Activada a mano' : `Hasta las ${fmtMin(aMin(cfg.fin))}`;
+    return { e, titulo: 'Vigilando', sub, cls: 'c-verde' };
+  }
+  const pi = proximoInicio(cfg);
+  let sub = 'El horario automático está apagado';
+  if (pi) {
+    const dd = new Date(pi), hoy = new Date(), man = new Date(); man.setDate(hoy.getDate() + 1);
+    const cuando = dd.toDateString() === hoy.toDateString() ? 'hoy' : dd.toDateString() === man.toDateString() ? 'mañana' : 'el ' + dd.toLocaleDateString('es', { weekday: 'long' });
+    sub = `Se activa ${cuando} a las ${fmtHora(pi)}`;
+  }
+  if (cfg.modo === 'off' && cfg.modoHasta > ahora()) sub = 'Detenida a mano. ' + sub;
+  return { e, titulo: 'En reposo', sub, cls: 'c-gris' };
+}
+const vigilandoAhora = () => estadoVig() === 'vigilando';
+
+// ---------- batería (solo navegadores que la informan) ----------
+const Bat = {
+  nivel: null, carga: null,
+  async iniciar() {
+    try {
+      const b = await navigator.getBattery();
+      const up = () => { this.nivel = Math.round(b.level * 100); this.carga = b.charging; pintarDatosSentinela(); };
+      up(); b.addEventListener('levelchange', up); b.addEventListener('chargingchange', up);
+    } catch (e) { /* el navegador no informa la batería */ }
+  },
+};
+
+// ---------- detección con acelerómetro y giroscopio ----------
+const NIVELES = { alta: { k: .6, ang: 10 }, media: { k: 1, ang: 15 }, baja: { k: 1.6, ang: 25 } };
+const CAL_DEF = { leve: .8, fuerte: 2.5, muy: 8, ang: 15 };
+const Sensor = {
+  on: false, hayDatos: false, ultimoDato: 0, g: null, muestras: [],
+  ang: 0, golpes: [], ultGolpe: 0, ultIntento: -1e9, ultLeve: -1e9, levePend: 0, picoLeve: 0,
+  pruebaHasta: 0, calib: null,
+  async iniciar() {
+    if (this.on) return true;
+    try {
+      if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+        if (await DeviceMotionEvent.requestPermission() !== 'granted') return false;   // iPhone
+      }
+    } catch (e) { return false; }
+    window.addEventListener('devicemotion', e => this.dato(e));
+    this.on = true;
+    return true;
+  },
+  umbrales() {
+    const c = S.cal || CAL_DEF, eq = S.cfg.equipos[S.yo.id] || {}, n = NIVELES[eq.nivel || 'media'] || NIVELES.media;
+    return { leve: c.leve * n.k * (eq.ajuste || 1), fuerte: c.fuerte * n.k, muy: c.muy * n.k, ang: c.ang * n.ang / 15 };
+  },
+  dato(e) {
+    const t = performance.now();
+    let dt = e.interval || 16; if (dt > 1) dt /= 1000;            // Chrome da milisegundos
+    let a = 0;
+    const ac = e.acceleration, q = e.accelerationIncludingGravity;
+    if (ac && ac.x != null) a = Math.hypot(ac.x, ac.y, ac.z);
+    else if (q && q.x != null) {                                  // sin aceleración lineal: se resta la gravedad
+      if (!this.g) this.g = { x: q.x, y: q.y, z: q.z };
+      this.g.x = .9 * this.g.x + .1 * q.x; this.g.y = .9 * this.g.y + .1 * q.y; this.g.z = .9 * this.g.z + .1 * q.z;
+      a = Math.hypot(q.x - this.g.x, q.y - this.g.y, q.z - this.g.z);
+    } else return;
+    const rr = e.rotationRate;
+    const r = rr ? Math.hypot(rr.alpha || 0, rr.beta || 0, rr.gamma || 0) : 0;   // grados por segundo
+    this.hayDatos = true; this.ultimoDato = ahora();
+    this.muestras.push({ t, a }); while (this.muestras.length && t - this.muestras[0].t > 4000) this.muestras.shift();
+    if (r > 4) this.ang += r * dt; else this.ang = Math.max(0, this.ang - 12 * dt);
+    if (this.calib) return this.calib(a, r, dt);
+    this.analizar(a, t);
+  },
+  analizar(a, t) {
+    const prueba = ahora() < this.pruebaHasta;
+    if (!vigilandoAhora() && !prueba) { this.ang = 0; this.golpes = []; this.levePend = 0; return; }
+    if (t - this.ultIntento < (prueba ? 3000 : 20000)) return;
+    const U2 = this.umbrales();
+    if (this.ang > U2.ang) return this.intento(`La ${lugarTxt(S.yo.lugar)} se abrió (giró ${Math.round(this.ang)}°)`, a, prueba);
+    if (a > U2.muy) return this.intento('Golpe muy fuerte', a, prueba);
+    if (a > U2.fuerte && t - this.ultGolpe > 180) { this.ultGolpe = t; this.golpes.push(t); }
+    this.golpes = this.golpes.filter(x => t - x < 4000);
+    if (this.golpes.length >= 3) return this.intento('Golpes fuertes repetidos (forcejeo)', a, prueba);
+    if (a > U2.leve) { this.picoLeve = Math.max(this.picoLeve, a); if (!this.levePend) this.levePend = t; }
+  },
+  revisarLeve() {
+    const t = performance.now();
+    if (!this.levePend || t - this.levePend < 2500) return;
+    const pico = this.picoLeve; this.levePend = 0; this.picoLeve = 0;
+    if (t - this.ultIntento < 5000) return;
+    if (ahora() < this.pruebaHasta) return emitirEvento('prueba', 'Vibración leve detectada', pico);
+    if (t - this.ultLeve > 30000 && vigilandoAhora()) { this.ultLeve = t; emitirEvento('leve', `Vibración rara en la ${lugarTxt(S.yo.lugar)}`, pico); }
+  },
+  intento(detalle, a, prueba) {
+    this.ultIntento = performance.now(); this.golpes = []; this.ang = 0; this.levePend = 0;
+    emitirEvento(prueba ? 'prueba' : 'intento', detalle, a);
+  },
+  simular(tipo) {
+    this.intento(tipo === 'apertura' ? `La ${lugarTxt(S.yo.lugar)} se abrió (simulado)` : 'Golpe muy fuerte (simulado)', 9, ahora() < this.pruebaHasta);
+  },
+};
+function picosDe(arr, umbral) {
+  const p = []; let ult = -99;
+  for (let i = 1; i < arr.length - 1; i++) if (arr[i] > umbral && arr[i] >= arr[i - 1] && arr[i] >= arr[i + 1] && i - ult > 8) { p.push(arr[i]); ult = i; }
+  return p;
+}
+
+// ---------- calibración del Sentinela (3 pasos) ----------
+const Cal = {
+  paso: 0, midiendo: false, fin: 0, datos: [], maxAng: 0, res: {}, timer: null,
+  empezar(p) {
+    this.paso = p; this.midiendo = true; this.datos = []; this.maxAng = 0; Sensor.ang = 0;
+    this.fin = ahora() + (p === 1 ? 5000 : 10000);
+    Sensor.calib = a => { this.datos.push(a); this.maxAng = Math.max(this.maxAng, Sensor.ang); };
+    clearInterval(this.timer); this.timer = setInterval(() => this.tic(), 200);
+    render();
+  },
+  tic() {
+    const rest = this.fin - ahora();
+    const el = $('#calRest'); if (el) el.textContent = Math.max(0, Math.ceil(rest / 1000));
+    if (this.paso === 3) {
+      const n = picosDe(this.datos, (this.res.leve || CAL_DEF.leve) * .8).length;
+      const en = $('#calN'); if (en) en.textContent = Math.min(n, 3);
+      if (n >= 3) return this.terminar();
+    }
+    if (this.paso === 2) {
+      const en = $('#calN'); if (en) en.textContent = Math.round(this.maxAng) + '°';
+      if (this.maxAng > 25 && Sensor.ang < 3 && rest < 8000) return this.terminar();
+    }
+    if (rest <= 0) this.terminar();
+  },
+  terminar() {
+    clearInterval(this.timer); Sensor.calib = null; this.midiendo = false;
+    const d = this.datos, p = this.paso;
+    if (p === 1) { const s = [...d].sort((x, y) => x - y); const p95 = s.length ? s[Math.floor(s.length * .95)] : .1; this.res.leve = clamp(p95 * 5, .35, 1.6); this.res.ok1 = d.length > 20; }
+    if (p === 2) { this.res.giro = Math.round(this.maxAng); this.res.ang = this.maxAng > 6 ? clamp(this.maxAng * .45, 8, 30) : CAL_DEF.ang; this.res.ok2 = this.maxAng > 6; }
+    if (p === 3) { const pk = picosDe(d, (this.res.leve || CAL_DEF.leve) * .8); this.res.golpes = Math.min(pk.length, 3); this.res.fuerte = pk.length ? clamp(mediana(pk) * 1.25, 1.2, 6) : CAL_DEF.fuerte; this.res.ok3 = pk.length > 0; }
+    this.paso = p + 1;
+    vibrar(80); Sonido.bip(990, .12, .2);
+    render();
+  },
+  guardar(fabrica) {
+    if (fabrica) S.cal = { ...CAL_DEF };
+    else { const f = this.res.fuerte || CAL_DEF.fuerte; S.cal = { leve: this.res.leve || CAL_DEF.leve, fuerte: f, muy: Math.max(f * 3, 6), ang: this.res.ang || CAL_DEF.ang }; }
+    this.paso = 0; this.res = {}; guardar(); enviarEstado(); render();
+  },
+};
+
+// ---------- eventos y mensajes ----------
+function registrarAlerta(a) {
+  if (S.alertas.some(x => x.mid === a.mid)) return false;
+  S.alertas.unshift(a); S.alertas = S.alertas.slice(0, 120); guardar();
+  return true;
+}
+function emitirEvento(clase, detalle, pico) {
+  if (!S.hogar) return;
+  const m = Bus.enviar(tHogar(), { tipo: 'evento', clase, detalle, pico: pico ? +(+pico).toFixed(2) : null, equipo: { id: S.yo.id, nombre: S.yo.nombre } });
+  if (clase !== 'prueba') registrarAlerta({ mid: m.mid, clase, equipoId: S.yo.id, nombre: S.yo.nombre, t: m.t, detalle });
+  // reacción en el propio Sentinela
+  const pant = $('#app'); pant?.classList.remove('destello'); void pant?.offsetWidth; pant?.classList.add('destello');
+  $('.oscuro')?.remove(); ultimoToque = ahora();
+  if (clase === 'intento') { if ((S.cfg.equipos[S.yo.id]?.sirena ?? true)) Sonido.sonarSirena(15); vibrar([300, 100, 300]); }
+  else if (clase === 'prueba') { Sonido.bip(1200, .12, .25); setTimeout(() => Sonido.bip(1500, .12, .25), 160); toast('Detectado: ' + detalle); }
+  else Sonido.bip(660, .12, .15);
+  if (S.yo.rol === 'sentinela') render();
+}
+function enviarEstado() {
+  if (!S.hogar || S.yo.rol !== 'sentinela') return;
+  Bus.enviar(tHogar(), { tipo: 'estado', rol: 'sentinela', nombre: S.yo.nombre, lugar: S.yo.lugar, vig: estadoVig(), bat: Bat.nivel, carga: Bat.carga, sensores: Sensor.hayDatos ? 'ok' : 'sin', cfgv: S.cfg.v });
+}
+function latido() {
+  if (!S.hogar || S.demo) return;
+  if (S.yo.rol === 'sentinela') enviarEstado();
+  else Bus.enviar(tHogar(), { tipo: 'presencia', rol: S.yo.rol, nombre: S.yo.nombre, ref: S.yo.ref || '', admin: S.admin, cfgv: S.cfg.v });
+}
+function publicarCfg() {
+  S.cfg.v = ahora(); guardar();
+  if (S.hogar) Bus.enviar(tHogar(), { tipo: 'cfg', cfg: S.cfg });
+  alCambiarCfg();
+}
+let ultimaVig = null;
+function alCambiarCfg() {
+  if (S.yo.rol === 'sentinela') { const v = estadoVig(); if (v !== ultimaVig) { ultimaVig = v; enviarEstado(); } }
+  render();
+}
+const respondidos = {};
+function alMensaje(m) {
+  const viejo = ahora() - (m.t || 0) > 90000;
+  switch (m.tipo) {
+    case 'estado': case 'presencia': if (S.yo.rol !== 'sentinela') actualizarEquipo(m); break;
+    case 'hola':
+      setTimeout(latido, 300 + Math.random() * 1500);
+      if (S.yo.rol === 'receptor' && (m.cfgv || 0) < S.cfg.v) enviarCfgA(m.de);
+      break;
+    case 'cfg':
+      if (m.cfg && m.cfg.v > S.cfg.v) { S.cfg = limpiarCfg(m.cfg); guardar(); alCambiarCfg(); }
+      break;
+    case 'evento': alEvento(m, viejo); break;
+    case 'cmd': if (!viejo) alComando(m); break;
+    case 'etiqueta': { const a = S.alertas.find(x => x.mid === m.alerta); if (a && ['lluvia', 'viento', 'animal', 'yo', 'falsa'].includes(m.que)) { a.que = m.que; guardar(); refrescar(); } break; }
+  }
+}
+function enviarCfgA(id) {
+  if (respondidos[id] === S.cfg.v) return;
+  respondidos[id] = S.cfg.v;
+  setTimeout(() => Bus.enviar(tHogar(), { tipo: 'cfg', cfg: S.cfg }), Math.random() * 1200);
+}
+function actualizarEquipo(m) {
+  if (!['sentinela', 'receptor', 'vecino'].includes(m.rol)) return;
+  const prev = S.equipos[m.de] || {};
+  const volvio = prev.offAvisado;
+  const bat = Number.isFinite(m.bat) ? clamp(Math.round(m.bat), 0, 100) : (m.rol === 'sentinela' ? null : prev.bat);
+  S.equipos[m.de] = { ...prev, id: m.de, rol: m.rol, nombre: txt(m.nombre) || prev.nombre || 'Equipo', lugar: m.lugar === 'ventana' ? 'ventana' : 'puerta', ref: txt(m.ref ?? prev.ref), admin: !!(m.admin ?? prev.admin),
+    vig: ['vigilando', 'reposo', 'pausa'].includes(m.vig) ? m.vig : prev.vig, bat, carga: !!m.carga, sensores: m.sensores === 'sin' ? 'sin' : 'ok', visto: Math.max(Number(m.t) || 0, prev.visto || 0), offAvisado: false };
+  if (volvio && S.yo.rol === 'receptor') toast(`${m.nombre} volvió a conectarse`);
+  if (S.yo.rol === 'receptor' && m.rol === 'sentinela' && (m.cfgv || 0) < S.cfg.v) enviarCfgA(m.de);
+  guardar(); refrescar();
+}
+function alEvento(m, viejo) {
+  if (!['intento', 'leve', 'prueba', 'bateria', 'calor'].includes(m.clase)) return;
+  const eq = { id: m.de, nombre: txt(m.equipo?.nombre) || 'Sentinela' };
+  const a = { mid: m.mid, clase: m.clase, equipoId: eq.id, nombre: eq.nombre, t: Number(m.t) || ahora(), detalle: txt(m.detalle, 120) };
+  if (S.yo.rol === 'sentinela') return;
+  if (m.clase === 'prueba') { if (S.yo.rol === 'receptor' && !viejo) { toast(`${eq.nombre}: ${a.detalle}`, 'check'); Sonido.bip(1200, .1, .2); } return; }
+  if (S.yo.rol === 'vecino' && m.clase !== 'intento') return;
+  const nuevo = registrarAlerta(a);
+  if (!nuevo || viejo) return refrescar();
+  if (m.clase === 'intento') {
+    if (S.yo.rol === 'vecino' && S.cfg.vecinosOff[S.yo.id]) return refrescar();
+    mostrarAlarma(a);
+  } else if (m.clase === 'leve') { toast(`Vibración leve en ${eq.nombre}`, 'vibrate'); Sonido.bip(660, .15, .2); vibrar(120); }
+  else toast(`${eq.nombre}: ${a.detalle}`, 'alert');
+  refrescar();
+}
+function alComando(m) {
+  const paraMi = !m.para || m.para === S.yo.id;
+  if (!paraMi) return;
+  if (m.cmd === 'sirena' && S.yo.rol === 'sentinela') { Sonido.sonarSirena(20); toast('Sirena activada desde ' + (txt(m.desde) || 'un receptor'), 'siren'); render(); }
+  if (m.cmd === 'callar') Sonido.callar();
+  if (m.cmd === 'probar' && S.yo.rol === 'sentinela') {
+    Sensor.pruebaHasta = ahora() + 15000; Sonido.bip(990, .12, .25); toast('Prueba: golpea o mueve la ' + lugarTxt(S.yo.lugar), 'vibrate');
+    setTimeout(() => Bus.enviar(tHogar(), { tipo: 'evento', clase: 'prueba', detalle: Sensor.hayDatos ? 'Recibió la orden. Golpéalo o muévelo para probar.' : 'Recibió la orden, pero no tiene datos de sensores', equipo: { id: S.yo.id, nombre: S.yo.nombre } }), 200);
+  }
+  if (m.cmd === 'resuelta') {
+    const a = S.alertas.find(x => x.mid === m.alerta);
+    if (a) { a.que = m.falsa ? 'falsa' : a.que; a.resuelta = true; guardar(); }
+    if (U.alarma && U.alarma.mid === m.alerta) cerrarAlarma(false);
+    if (S.yo.rol === 'sentinela') Sonido.callar();
+    toast((txt(m.desde) || 'La familia') + (m.falsa ? ' marcó la alerta como falsa alarma' : ' atendió la alerta'), 'check');
+    refrescar();
+  }
+  if (m.cmd === 'desvincular' && m.para === S.yo.id) { reiniciar(); toast('Este equipo fue desvinculado del hogar'); }
+}
+
+// ---------- vinculación ----------
+async function unirse() {
+  const codigo = ($('#fCodigo')?.value || '').replace(/\D/g, '');
+  const nombre = ($('#fNombre')?.value || '').trim();
+  const ref = ($('#fRef')?.value || '').trim();
+  if (codigo.length !== 6) { U.error = 'Escribe los 6 números del código.'; return render(); }
+  if (!nombre) { U.error = 'Ponle un nombre a este equipo.'; return render(); }
+  S.yo.rol = U.rol; S.yo.nombre = nombre; S.yo.ref = ref; S.yo.lugar = U.lugar || 'puerta';
+  U.codigo = codigo; U.error = ''; U.esperando = true; render();
+  if (U.rol === 'sentinela') Sensor.iniciar();   // pide el permiso con el toque (iPhone)
+  let hecho = false;
+  await Bus.escuchar(tVinc(codigo), m => {
+    if (hecho || m.tipo !== 'bienvenida' || m.para !== S.yo.id) return;
+    hecho = true; Bus.dejar(tVinc(codigo));
+    const hogar = limpiarHogar(m.hogar); if (!hogar) return;
+    S.hogar = hogar; S.cfg = limpiarCfg(m.cfg); S.admin = false; U.esperando = false; guardar();
+    toast(`Listo: unido a «${hogar.nombre}»`, 'check'); vibrar(100); arrancar();
+  });
+  const pedir = () => { if (!hecho) Bus.enviar(tVinc(codigo), { tipo: 'solicitud', rol: S.yo.rol, nombre: S.yo.nombre, lugar: S.yo.lugar, ref: S.yo.ref }); };
+  for (let i = 0; i < 5 && !hecho; i++) { pedir(); await new Promise(r => setTimeout(r, 5000)); }
+  if (!hecho) { Bus.dejar(tVinc(codigo)); U.esperando = false; U.error = 'No hubo respuesta. Revisa que el código siga en pantalla en el celular de la familia (vence en 5 min) y que ambos tengan internet.'; render(); }
+}
+function crearHogar() {
+  const casa = ($('#fCasa')?.value || '').trim() || 'Mi casa';
+  const nombre = ($('#fNombre')?.value || '').trim() || 'Mi celular';
+  const pin = ($('#fPin')?.value || '').replace(/\D/g, '');
+  if (pin.length !== 4) { U.error = 'El PIN debe tener 4 números.'; return render(); }
+  S.yo.rol = 'receptor'; S.yo.nombre = nombre; S.hogar = { id: rid(12), nombre: casa, pin }; S.admin = true;
+  S.cfg = cfgBase(); S.cfg.v = ahora(); U.error = ''; guardar();
+  arrancar();
+  setTimeout(() => abrirVincular('sentinela'), 400);
+}
+function abrirVincular(rol = 'sentinela') {
+  cerrarVinc();
+  const v = { rol, codigo: codigo6(), vence: ahora() + 5 * 60000, unidos: [] };
+  U.vinc = v; U.hoja = 'vincular'; render();
+  if (S.demo) return;
+  Bus.escuchar(tVinc(v.codigo), m => {
+    if (m.tipo !== 'solicitud' || !U.vinc || U.vinc.codigo !== v.codigo) return;
+    Bus.enviar(tVinc(v.codigo), { tipo: 'bienvenida', para: m.de, hogar: S.hogar, cfg: S.cfg });
+    if (!v.unidos.includes(m.de)) {
+      v.unidos.push(m.de);
+      if (!['sentinela', 'receptor', 'vecino'].includes(m.rol)) return;
+      S.equipos[m.de] = { ...(S.equipos[m.de] || {}), id: m.de, rol: m.rol, nombre: txt(m.nombre) || 'Equipo', lugar: m.lugar === 'ventana' ? 'ventana' : 'puerta', ref: txt(m.ref), visto: ahora() };
+      if (m.rol === 'vecino') S.pendientes = S.pendientes.filter(p => p.nombre.toLowerCase() !== String(m.nombre).toLowerCase());
+      guardar(); vibrar(100); Sonido.bip(990, .12, .25);
+      toast(`${S.equipos[m.de].nombre} se unió como ${({ sentinela: 'Sentinela', receptor: 'Receptor', vecino: 'vecino de confianza' })[m.rol]}`, 'check');
+      render();
+    }
+  });
+}
+function cerrarVinc() { if (U.vinc) Bus.dejar(tVinc(U.vinc.codigo)); U.vinc = null; }
+function enlaceUnir(codigo, rol) {
+  const url = new URL(location.href); url.hash = ''; url.search = '';
+  if (S.relay !== RELAY_DEF) url.searchParams.set('relay', S.relay);
+  return url.toString().replace(/#$/, '') + '#unir-' + codigo + '-' + rol[0];
+}
+
+// ---------- arranque ----------
+const T = {};
+async function arrancar() {
+  render();
+  if (!S.hogar) return;
+  const esSent = S.yo.rol === 'sentinela';
+  if (!S.demo) {
+    await Bus.escuchar(tHogar(), alMensaje, esSent ? null : '3m');
+    Bus.enviar(tHogar(), { tipo: 'hola', rol: S.yo.rol, cfgv: S.cfg.v });
+    latido();
+  }
+  clearInterval(T.latido); T.latido = setInterval(latido, esSent ? 60000 : 120000);
+  if (esSent) { Bat.iniciar(); Sensor.iniciar(); pedirPantallaEncendida(); ultimaVig = estadoVig(); }
+}
+function reiniciar() {
+  Bus.dejarTodo(); clearInterval(T.latido); Sonido.callar();
+  const relay = S.relay; S = base(); S.relay = relay; guardar();
+  Object.assign(U, { rol: 'sentinela', hoja: null, tab: 'inicio', esperando: false, error: '', alarma: null, pinOk: false });
+  $('#alarma').hidden = true; render();
+}
+
+// pantalla siempre encendida en el Sentinela (el navegador pausa los sensores con la pantalla apagada)
+let candado = null, ultimoToque = ahora();
+async function pedirPantallaEncendida() {
+  try { if ('wakeLock' in navigator && document.visibilityState === 'visible' && !candado) { candado = await navigator.wakeLock.request('screen'); candado.addEventListener('release', () => { candado = null; }); } } catch (e) { /* sin permiso */ }
+}
+document.addEventListener('visibilitychange', () => { if (S.yo.rol === 'sentinela' && document.visibilityState === 'visible') pedirPantallaEncendida(); });
+let despertado = 0;
+document.addEventListener('pointerdown', () => { ultimoToque = ahora(); const o = $('.oscuro'); if (o) { o.remove(); despertado = ahora(); } }, { capture: true });
+document.addEventListener('click', e => { if (ahora() - despertado < 700) { e.preventDefault(); e.stopPropagation(); } }, { capture: true });
+
+// ---------- avisos ----------
+let tToast = null;
+function toast(txt, icono = 'info') {
+  const el = $('#toast'); el.innerHTML = ic(icono, 18) + `<span>${esc(txt)}</span>`; el.hidden = false;
+  clearTimeout(tToast); tToast = setTimeout(() => { el.hidden = true; }, 4200);
+}
+function pintarRed() { const el = $('#bannerRed'); if (el) el.hidden = Bus.conectado !== false || S.demo; const d = $('#datoRed'); if (d) d.innerHTML = Bus.conectado === false ? 'Sin red' : 'Bien'; }
+function pintarAudio() { const el = $('#bannerAudio'); if (el) el.hidden = Sonido.listo(); }
+
+// ---------- alarma a pantalla completa ----------
+let tTitulo = null;
+function mostrarAlarma(a) {
+  U.alarma = a;
+  const vec = Object.values(S.equipos).filter(e => e.rol === 'vecino' && !S.cfg.vecinosOff[e.id]).map(e => e.nombre);
+  const rec = S.yo.rol === 'receptor';
+  const el = $('#alarma');
+  el.innerHTML = `<div>
+    <div class="lbl" style="color:#fff;opacity:.85">Alarma activa · ${esc(S.hogar?.nombre || '')}</div>
+    <div class="pulso">${ic('alert', 62, 2.2)}</div>
+    <h2>¡INTENTO DE<br>ENTRADA!</h2>
+    <div><div style="font:700 19px var(--f-txt)">${esc(a.nombre || 'Sentinela')}</div><div style="font-size:14px;opacity:.9;margin-top:3px">${fmtHora(a.t)} · ${esc(a.detalle || '')}</div></div>
+    ${rec ? `<div class="pild">${ic('users', 15)} ${vec.length ? esc(listaNombres(vec)) + (vec.length > 1 ? ' ya fueron avisados' : ' ya fue avisado(a)') : 'Aún no hay vecinos de confianza vinculados'}</div>` : `<div class="pild">${ic('house', 15)} Tu vecino necesita ayuda. Si es seguro, enciende luces y llama.</div>`}
+    <div class="sp"></div>
+    <a class="btn blanco" href="tel:118" data-act="llamar">${ic('call', 19)} Llamar a la Policía · 118</a>
+    ${rec ? `<button class="btn oscuro2" data-act="sirenaRemota">${ic('siren', 19)} Sonar sirena en el Sentinela</button>
+    <button class="btn borde" data-act="resolver:falsa">Estoy en casa · fue falsa alarma</button>` : ''}
+    <button class="btn" style="color:#fff;opacity:.85;min-height:40px" data-act="cerrarAlarma">${ic('volume', 17)} Silenciar y cerrar</button>
+  </div>`;
+  el.hidden = false;
+  Sonido.sonarSirena(60); vibrar([600, 200, 600, 200, 600, 200, 600]);
+  clearInterval(tTitulo); let par = false;
+  tTitulo = setInterval(() => { document.title = (par = !par) ? '¡ALERTA! Sentinel' : 'Sentinel'; }, 800);
+}
+function cerrarAlarma(avisar) {
+  Sonido.callar(); vibrar(0); clearInterval(tTitulo); document.title = 'Sentinel';
+  $('#alarma').hidden = true; U.alarma = null; refrescar();
+}
+
+// ---------- acciones (clics) ----------
+const ACC = {
+  rol(r) { U.rol = r; if (r === 'vecino') { U.paso = 'unir'; } render(); },
+  continuar() { U.paso = 'unir'; U.error = ''; render(); },
+  volverRol() { U.paso = null; U.error = ''; U.esperando = false; render(); },
+  modoRec(m) { U.modoRec = m; U.error = ''; render(); },
+  lugar(l) { U.lugar = l; render(); },
+  unirse() { unirse(); },
+  crearHogar() { crearHogar(); },
+  demo() { cargarDemo(); arrancar(); toast('Demostración con datos de ejemplo', 'play'); },
+  tab(t) { U.tab = t; U.hoja = null; render(); window.scrollTo(0, 0); },
+  audio() { Sonido.activar(); Sonido.bip(880, .15, .25); },
+  pausar() { S.cfg.pausaHasta = ahora() + 10 * 60000; publicarCfg(); toast('Vigilancia en pausa por 10 minutos', 'pause'); },
+  reanudar() { S.cfg.pausaHasta = 0; publicarCfg(); },
+  detener() { S.cfg.modo = 'off'; S.cfg.modoHasta = proximoInicio(); S.cfg.pausaHasta = 0; publicarCfg(); toast('Vigilancia detenida'); },
+  activar() { S.cfg.modo = 'on'; S.cfg.modoHasta = 0; S.cfg.pausaHasta = 0; publicarCfg(); toast('Vigilancia activada', 'shieldok'); },
+  automatico() { S.cfg.modo = 'auto'; S.cfg.modoHasta = 0; publicarCfg(); },
+  vincular(rol) { abrirVincular(rol || 'sentinela'); },
+  rolVinc(rol) { if (U.vinc) { U.vinc.rol = rol; render(); } },
+  nuevoCodigo() { abrirVincular(U.vinc?.rol || 'sentinela'); },
+  cerrarHoja() { if (U.hoja === 'vincular') cerrarVinc(); U.hoja = null; U.pinOk = false; U.confirmar = null; render(); },
+  detalle(id) { U.hoja = 'detalle:' + id; render(); },
+  ajustes() { U.hoja = 'ajustes'; render(); },
+  nivel(arg) { const [id, n] = arg.split(','); S.cfg.equipos[id] = { ...(S.cfg.equipos[id] || {}), nivel: n }; publicarCfg(); },
+  sirenaEq(id) { const e = S.cfg.equipos[id] || {}; S.cfg.equipos[id] = { ...e, sirena: !(e.sirena ?? true) }; publicarCfg(); },
+  probar(id) { if (S.demo) return toast('En la demostración no hay equipos reales'); Bus.enviar(tHogar(), { tipo: 'cmd', cmd: 'probar', para: id, desde: S.yo.nombre }); toast('Orden de prueba enviada', 'vibrate'); },
+  desvincular(id) { U.confirmar = 'desv:' + id; render(); },
+  confirmarDesv(id) {
+    if (!S.demo) Bus.enviar(tHogar(), { tipo: 'cmd', cmd: 'desvincular', para: id });
+    delete S.equipos[id]; delete S.cfg.equipos[id]; U.confirmar = null; U.hoja = null; guardar(); render(); toast('Equipo desvinculado');
+  },
+  cancelar() { U.confirmar = null; render(); },
+  dia(i) { S.cfg.dias[+i] = S.cfg.dias[+i] ? 0 : 1; publicarCfg(); },
+  cfgTg(k) { S.cfg[k] = !S.cfg[k]; publicarCfg(); },
+  batMin(d) { S.cfg.batMin = clamp(S.cfg.batMin + (+d), 20, 90); publicarCfg(); },
+  vecinoTg(id) { if (S.cfg.vecinosOff[id]) delete S.cfg.vecinosOff[id]; else S.cfg.vecinosOff[id] = true; publicarCfg(); },
+  invitar() { abrirVincular('vecino'); },
+  contactos() { elegirContacto(); },
+  quitarPend(id) { S.pendientes = S.pendientes.filter(p => p.id !== id); guardar(); render(); },
+  whatsPend(id) { const p = S.pendientes.find(x => x.id === id); abrirVincular('vecino'); if (p) U.vinc.para = p; render(); },
+  filtro(f) { U.filtro = f; render(); },
+  que(arg) {
+    const [mid, q] = arg.split(','); const a = S.alertas.find(x => x.mid === mid); if (!a) return;
+    a.que = q; guardar();
+    if (!S.demo) Bus.enviar(tHogar(), { tipo: 'etiqueta', alerta: mid, que: q });
+    if (['lluvia', 'viento', 'animal'].includes(q) && a.equipoId) {
+      const e = S.cfg.equipos[a.equipoId] || {}; S.cfg.equipos[a.equipoId] = { ...e, ajuste: +clamp((e.ajuste || 1) * 1.15, 1, 2.5).toFixed(2) };
+      publicarCfg(); toast(`Listo: ${a.nombre} será un poco menos sensible a ${{ lluvia: 'la lluvia', viento: 'el viento', animal: 'los animales' }[q]}`, 'check');
+    } else render();
+  },
+  simularIntento() { const s = Object.values(S.equipos).find(e => e.rol === 'sentinela') || { id: 'x', nombre: 'Puerta principal' }; const a = { mid: rid(10), clase: 'intento', equipoId: s.id, nombre: s.nombre, t: ahora(), detalle: 'Golpes fuertes y apertura' }; registrarAlerta(a); mostrarAlarma(a); },
+  llamar() { Sonido.callar(); },
+  sirenaRemota() { if (!S.demo) Bus.enviar(tHogar(), { tipo: 'cmd', cmd: 'sirena', para: U.alarma?.equipoId, desde: S.yo.nombre }); toast('Sirena activada en ' + (U.alarma?.nombre || 'el Sentinela'), 'siren'); },
+  resolver(tipo) {
+    const a = U.alarma; if (!a) return;
+    const x = S.alertas.find(y => y.mid === a.mid); if (x) { x.que = tipo === 'falsa' ? 'falsa' : x.que; x.resuelta = true; guardar(); }
+    if (!S.demo) Bus.enviar(tHogar(), { tipo: 'cmd', cmd: 'resuelta', alerta: a.mid, falsa: tipo === 'falsa', desde: S.yo.nombre });
+    cerrarAlarma(); toast('Avisamos a todos que fue falsa alarma', 'check');
+  },
+  cerrarAlarma() { cerrarAlarma(); },
+  guardarAjustes() {
+    const n = ($('#aNombre')?.value || '').trim(); if (n) S.yo.nombre = n;
+    if (S.admin && S.hogar) { const c = ($('#aCasa')?.value || '').trim(); if (c) S.hogar.nombre = c; const p = ($('#aPin')?.value || '').replace(/\D/g, ''); if (p.length === 4) S.hogar.pin = p; }
+    const r = ($('#aRelay')?.value || '').trim(); if (r && /^https?:\/\//.test(r) && r !== S.relay) { S.relay = r; guardar(); arrancar(); }
+    guardar(); latido(); U.hoja = null; render(); toast('Ajustes guardados', 'check');
+  },
+  probarSonido() { Sonido.activar(); Sonido.sonarSirena(2); },
+  salir() { U.confirmar = 'salir'; render(); },
+  confirmarSalir() { U.confirmar = null; reiniciar(); },
+  // Sentinela
+  permisoSensores() { Sensor.iniciar().then(ok => { if (!ok) toast('No se pudo acceder a los sensores', 'alert'); render(); }); },
+  calPaso(p) { Cal.empezar(+p); },
+  calGuardar() { Cal.guardar(false); toast('¡Listo! Sensibilidad ajustada', 'check'); },
+  calFabrica() { Cal.guardar(true); },
+  recalibrar() { S.cal = null; Cal.paso = 1; Cal.res = {}; U.hoja = null; U.pinOk = false; guardar(); render(); },
+  probarLocal() { Sensor.pruebaHasta = ahora() + 15000; toast('Prueba por 15 s: golpea o mueve la ' + lugarTxt(S.yo.lugar), 'vibrate'); render(); },
+  pinTecla(d) { if (d === 'borrar') U.pin = U.pin.slice(0, -1); else if (U.pin.length < 4) U.pin += d; if (U.pin.length === 4) { if (U.pin === S.hogar?.pin) { U.pinOk = true; } else { toast('PIN incorrecto', 'lock'); vibrar(200); } U.pin = ''; } render(); },
+  simular(t) { if (!vigilandoAhora() && ahora() > Sensor.pruebaHasta) return toast('Primero activa la vigilancia o usa «Probar»', 'info'); Sensor.ultIntento = -1e9; Sensor.simular(t); },
+  vigSent(m) { if (m === 'on') ACC.activar(); else ACC.detener(); U.hoja = null; U.pinOk = false; render(); },
+  lugarSent(l) { S.yo.lugar = l; guardar(); enviarEstado(); render(); },
+  callarLocal() { Sonido.callar(); render(); },
+};
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const [act, ...rest] = b.dataset.act.split(':');
+  if (ACC[act]) { if (b.tagName === 'BUTTON') e.preventDefault(); ACC[act](rest.join(':'), b, e); }
+});
+document.addEventListener('change', e => {
+  const k = e.target.dataset.cfg; if (!k) return;
+  S.cfg[k] = e.target.value; publicarCfg();
+});
+document.addEventListener('submit', e => e.preventDefault());
+
+async function elegirContacto() {
+  try {
+    if ('contacts' in navigator && navigator.contacts.select) {
+      const [c] = await navigator.contacts.select(['name', 'tel'], { multiple: false });
+      if (c) { S.pendientes.push({ id: rid(6), nombre: (c.name && c.name[0]) || 'Vecino', tel: (c.tel && c.tel[0]) || '' }); guardar(); render(); toast('Vecino agregado. Envíale la invitación por WhatsApp.', 'userplus'); }
+      return;
+    }
+  } catch (e) { /* el usuario canceló */ return; }
+  U.hoja = 'contacto'; render();
+}
+ACC.guardarContacto = () => {
+  const n = ($('#cNombre')?.value || '').trim(); const t = ($('#cTel')?.value || '').trim();
+  if (!n) return toast('Escribe el nombre del vecino', 'info');
+  S.pendientes.push({ id: rid(6), nombre: n, tel: t, ref: ($('#cRef')?.value || '').trim() }); guardar(); U.hoja = null; render(); toast('Vecino agregado. Envíale la invitación por WhatsApp.', 'userplus');
+};
+
+// ---------- demostración con datos de ejemplo ----------
+function cargarDemo() {
+  const relay = S.relay; S = base(); S.relay = relay; S.demo = true;
+  S.yo = { id: rid(8), nombre: 'Mi celular', rol: 'receptor', lugar: 'puerta', ref: '' };
+  S.admin = true; S.hogar = { id: 'demo' + rid(6), nombre: 'Mi casa', pin: '1234' };
+  const t = ahora();
+  const eq = (id, o) => (S.equipos[id] = { id, visto: t, demo: true, ...o });
+  eq('d1', { rol: 'sentinela', nombre: 'Puerta principal', lugar: 'puerta', vig: 'vigilando', bat: 82, carga: false, sensores: 'ok' });
+  eq('d2', { rol: 'sentinela', nombre: 'Ventana cocina', lugar: 'ventana', vig: 'vigilando', bat: 64, carga: false, sensores: 'ok' });
+  eq('d3', { rol: 'sentinela', nombre: 'Ventana cuarto', lugar: 'ventana', vig: 'vigilando', bat: 28, carga: false, sensores: 'ok' });
+  eq('r1', { rol: 'receptor', nombre: 'Celular de mamá' });
+  eq('r2', { rol: 'receptor', nombre: 'Computadora de la sala' });
+  eq('v1', { rol: 'vecino', nombre: 'Doña Marta', ref: 'Casa de al lado' });
+  eq('v2', { rol: 'vecino', nombre: 'Don José', ref: 'Enfrente' });
+  S.pendientes = [{ id: 'p1', nombre: 'Karla', tel: '' }];
+  S.cfg.modo = 'on';
+  S.alertas = [
+    { mid: 'a1', clase: 'leve', equipoId: 'd2', nombre: 'Ventana cocina', t: t - 50 * 60000, detalle: 'Vibración rara en la ventana', que: 'lluvia' },
+    { mid: 'a2', clase: 'bateria', equipoId: 'd3', nombre: 'Ventana cuarto', t: t - 26 * 3600000, detalle: 'Batería baja (28 %)' },
+    { mid: 'a3', clase: 'conexion', equipoId: 'd3', nombre: 'Ventana cuarto', t: t - 26.5 * 3600000, detalle: 'Sin conexión por 3 min' },
+  ];
+  guardar();
+}
+
+// ---------- vistas ----------
+function render() {
+  const app = $('#app');
+  document.body.style.overflow = '';
+  document.body.dataset.nav = S.hogar && S.yo.rol === 'receptor' && !U.hoja ? '1' : '0';
+  app.classList.toggle('sent', S.yo.rol === 'sentinela' && !!S.hogar);
+  if (!S.hogar) { app.innerHTML = U.paso === 'unir' ? vUnir() : vBienvenida(); return; }
+  if (S.yo.rol === 'sentinela') { app.innerHTML = vSentinela(); iniciarGrafica(); return; }
+  if (S.yo.rol === 'vecino') { app.innerHTML = vVecino(); return; }
+  app.innerHTML = vReceptor() + (U.hoja ? `<div class="hoja" role="dialog" aria-modal="true"><div>${vHoja()}</div></div>` : '');
+  document.body.style.overflow = U.hoja ? 'hidden' : '';
+}
+let tRef = null;
+function refrescar() {   // re-pinta sin interrumpir lo que el usuario está escribiendo
+  clearTimeout(tRef);
+  tRef = setTimeout(() => {
+    const f = document.activeElement;
+    if (f && (f.tagName === 'INPUT' || f.tagName === 'SELECT')) return;
+    if (S.yo.rol === 'sentinela' && Cal.midiendo) return;
+    const y = window.scrollY, hy = $('.hoja')?.scrollTop;
+    render(); window.scrollTo(0, y); const h = $('.hoja'); if (h && hy) h.scrollTop = hy;
+  }, 150);
+}
+
+function vBienvenida() {
+  const r = U.rol;
+  const tarjeta = (id, cls, icono, chip, titulo, texto) => `
+    <button class="rol ${cls}" aria-pressed="${r === id}" data-act="rol:${id}">
+      ${icoBox(icono, cls, 46, 24)}
+      <span style="flex:1"><span class="chip ${cls}">${chip}</span><h3>${titulo}</h3><span class="t2" style="display:block;font-size:13px">${texto}</span></span>
+      <span class="marcar">${r === id ? ic('check', 14, 3) : ''}</span>
+    </button>`;
+  return `<div class="cont sin-nav" style="padding-top:calc(env(safe-area-inset-top,0px) + 22px);gap:14px">
+    <div class="marca"><span class="logo">${ic('shieldok', 26, 2.2)}</span><span><b>Sentinel</b><span>Tu celular viejo cuida tu casa</span></span></div>
+    <div style="margin-top:8px"><h1 class="tit">¿Qué será este dispositivo?</h1><p class="sub">Elige una opción. Puedes cambiarla después.</p></div>
+    ${tarjeta('sentinela', 'c-azul', 'shieldok', 'EMISOR', 'Sentinela', 'El celular viejo que va en el soporte de la puerta o ventana. Detecta golpes y aperturas con el acelerómetro y el giroscopio.')}
+    ${tarjeta('receptor', 'c-cian', 'bell', 'RECEPTOR', 'Receptor', 'Recibe las alertas: tu celular, la tablet o la computadora de la casa.')}
+    <button class="enlace c-violeta" data-act="rol:vecino">${ic('users', 18)} Me invitaron como vecino de confianza</button>
+    <div class="sp"></div>
+    <button class="btn pri" data-act="continuar">Configurar como ${r === 'receptor' ? 'Receptor' : 'Sentinela'} ${ic('arrowr', 18)}</button>
+    <button class="btn sec" data-act="demo">${ic('play', 16)} Ver demostración con datos de ejemplo</button>
+    <p class="pie">Prototipo · Equipo Nanobots · Rally Latinoamericano de Innovación 2026</p>
+  </div>`;
+}
+
+function vUnir() {
+  const r = U.rol, err = U.error ? `<p class="err" role="alert">${esc(U.error)}</p>` : '';
+  const espera = U.esperando ? `<div class="banner c-azul">${ic('wifi', 18)} Conectando con el hogar… deja abierta la pantalla «Vincular» en el celular de la familia.</div>` : '';
+  const cab = t => `<div class="cab" style="padding-left:max(10px,env(safe-area-inset-left,0px))"><button class="icobtn" data-act="volverRol" aria-label="Volver">${ic('back', 20)}</button><h1>${t}</h1></div>`;
+  const campoCodigo = `<div class="campo"><label for="fCodigo">Código de vinculación</label><input id="fCodigo" class="entrada codigo" inputmode="numeric" maxlength="7" autocomplete="one-time-code" placeholder="000000" value="${esc(U.codigo)}"></div>`;
+  if (r === 'sentinela') return cab('Vincular este Sentinela') + `<div class="cont sin-nav">
+      <p class="sub" style="margin:0">En el celular de la familia abre Sentinel → <b>Equipos</b> → <b>+</b>. Escanea ese QR con la cámara de este celular o escribe el código.</p>
+      ${campoCodigo}
+      <div class="campo"><label for="fNombre">Nombre de este Sentinela</label><input id="fNombre" class="entrada" maxlength="30" placeholder="Ventana cocina" value="${esc(S.yo.nombre)}"></div>
+      <div class="campo"><label>¿Dónde va el soporte?</label><div class="seg">
+        <button aria-pressed="${(U.lugar || 'puerta') === 'puerta'}" data-act="lugar:puerta">${ic('door', 16)} Puerta</button>
+        <button aria-pressed="${U.lugar === 'ventana'}" data-act="lugar:ventana">${ic('window', 16)} Ventana</button></div></div>
+      ${err}${espera}<div class="sp"></div>
+      <button class="btn pri" data-act="unirse" ${U.esperando ? 'disabled' : ''}>${ic('shieldok', 18)} Unir al hogar</button>
+    </div>`;
+  if (r === 'vecino') return cab('Soy vecino de confianza') + `<div class="cont sin-nav">
+      <p class="sub" style="margin:0">Tu vecino te comparte un código desde su app (Vecinos → Invitar vecino). Recibirás una alerta si alguien intenta entrar a su casa.</p>
+      ${campoCodigo}
+      <div class="campo"><label for="fNombre">Tu nombre</label><input id="fNombre" class="entrada" maxlength="30" placeholder="Doña Marta" value="${esc(S.yo.nombre)}"></div>
+      <div class="campo"><label for="fRef">Referencia (opcional)</label><input id="fRef" class="entrada" maxlength="30" placeholder="Casa de al lado" value="${esc(S.yo.ref)}"></div>
+      ${err}${espera}<div class="sp"></div>
+      <button class="btn vio" data-act="unirse" ${U.esperando ? 'disabled' : ''}>${ic('users', 18)} Unirme como vecino</button>
+    </div>`;
+  const crear = U.modoRec === 'crear';
+  return cab('Configurar Receptor') + `<div class="cont sin-nav">
+      <div class="seg"><button aria-pressed="${crear}" data-act="modoRec:crear">${ic('house', 16)} Crear mi hogar</button><button aria-pressed="${!crear}" data-act="modoRec:unir">${ic('qr', 16)} Unirme con código</button></div>
+      ${crear ? `
+        <p class="sub" style="margin:0">Este celular será el <b>administrador</b>: vincula los Sentinelas, los demás receptores y los vecinos.</p>
+        <div class="campo"><label for="fCasa">Nombre del hogar</label><input id="fCasa" class="entrada" maxlength="30" placeholder="Mi casa"></div>
+        <div class="campo"><label for="fNombre">Nombre de este equipo</label><input id="fNombre" class="entrada" maxlength="30" placeholder="Mi celular"></div>
+        <div class="campo"><label for="fPin">PIN de 4 números (protege los ajustes de los Sentinelas)</label><input id="fPin" class="entrada codigo" inputmode="numeric" maxlength="4" placeholder="0000"></div>
+        ${err}<div class="sp"></div><button class="btn pri" data-act="crearHogar">${ic('house', 18)} Crear hogar</button>` : `
+        <p class="sub" style="margin:0">Para agregar otro celular, tablet o computadora de la familia. Pide el código en el celular administrador (Equipos → +).</p>
+        ${campoCodigo}
+        <div class="campo"><label for="fNombre">Nombre de este equipo</label><input id="fNombre" class="entrada" maxlength="30" placeholder="Celular de mamá" value="${esc(S.yo.nombre)}"></div>
+        ${err}${espera}<div class="sp"></div><button class="btn pri" data-act="unirse" ${U.esperando ? 'disabled' : ''}>${ic('bell', 18)} Unirme al hogar</button>`}
+    </div>`;
+}
+
+// ----- Receptor -----
+function vReceptor() {
+  const tabs = [['inicio', 'house', 'Inicio'], ['equipos', 'phone', 'Equipos'], ['horario', 'clock', 'Horario'], ['vecinos', 'users', 'Vecinos'], ['alertas', 'bell', 'Alertas']];
+  const nuevas = S.alertas.filter(a => a.clase === 'intento' && !a.resuelta && ahora() - a.t < 12 * 3600000).length;
+  const titulos = { inicio: S.hogar.nombre, equipos: 'Equipos', horario: 'Horario', vecinos: 'Vecinos de confianza', alertas: 'Alertas' };
+  const cuerpo = { inicio: vInicio, equipos: vEquipos, horario: vHorario, vecinos: vVecinos, alertas: vAlertas }[U.tab]();
+  return `<header class="cab">
+      <span style="flex:1;min-width:0">${U.tab === 'inicio' ? '<span class="pre">Hogar</span>' : ''}<h1>${esc(titulos[U.tab])}</h1></span>
+      ${S.demo ? '<span class="chip c-ambar">DEMO</span>' : ''}
+      ${U.tab === 'equipos' ? `<button class="icobtn pri" data-act="vincular" aria-label="Vincular equipo">${ic('plus', 20)}</button>` : ''}
+      <button class="icobtn" data-act="ajustes" aria-label="Ajustes">${ic('sliders', 18)}</button>
+    </header>
+    <main class="cont">
+      <button id="bannerAudio" class="banner c-azul" data-act="audio" ${Sonido.listo() ? 'hidden' : ''}>${ic('volume', 18)} Toca aquí para activar el sonido de las alertas</button>
+      <div id="bannerRed" class="banner c-ambar" ${Bus.conectado === false && !S.demo ? '' : 'hidden'}>${ic('wifioff', 18)} Sin conexión con el servicio de alertas. Revisa el internet.</div>
+      ${cuerpo}
+    </main>
+    <nav class="nav" aria-label="Secciones"><div>${tabs.map(([id, icono, txt]) => `<button data-act="tab:${id}" ${U.tab === id ? 'aria-current="page"' : ''}><span class="pill">${ic(icono, 21, U.tab === id ? 2.3 : 1.8)}</span>${txt}${id === 'alertas' && nuevas ? `<span class="globo">${nuevas}</span>` : ''}</button>`).join('')}</div></nav>`;
+}
+const sentinelas = () => Object.values(S.equipos).filter(e => e.rol === 'sentinela');
+const receptores = () => Object.values(S.equipos).filter(e => e.rol === 'receptor');
+const vecinos = () => Object.values(S.equipos).filter(e => e.rol === 'vecino');
+function estadoEquipo(e) {
+  if (!e.demo && ahora() - (e.visto || 0) > 150000) return { txt: 'Sin conexión', cls: 'c-gris' };
+  if (e.sensores === 'sin') return { txt: 'Sin datos de sensores', cls: 'c-ambar' };
+  if (e.bat != null && e.bat < S.cfg.batMin && !e.carga) return { txt: 'Batería baja', cls: 'c-ambar' };
+  const v = { vigilando: 'Vigilando', reposo: 'En reposo', pausa: 'En pausa' }[e.vig] || 'Conectado';
+  return { txt: e.carga ? v + ' · cargando' : v, cls: e.vig === 'vigilando' ? 'c-verde' : e.vig === 'pausa' ? 'c-ambar' : 'c-gris' };
+}
+const icoLugar = l => l === 'ventana' ? 'window' : 'door';
+
+function vInicio() {
+  const est = textoEstado(), ss = sentinelas(), vv = vecinos().filter(v => !S.cfg.vecinosOff[v.id]);
+  const ult = S.alertas[0];
+  let botones;
+  if (est.e === 'pausa') botones = `<button class="btn pri chico" data-act="reanudar">${ic('play', 15)} Reanudar ahora</button><button class="btn sec chico" data-act="detener">Detener</button>`;
+  else if (est.e === 'vigilando') botones = `<button class="btn pri chico" data-act="pausar">${ic('pause', 15)} Pausar 10 min</button><button class="btn sec chico" data-act="detener">Detener</button>`;
+  else botones = `<button class="btn pri chico" data-act="activar">${ic('shieldok', 16)} Activar ahora</button>${S.cfg.modo !== 'auto' ? '<button class="btn sec chico" data-act="automatico">Volver al horario</button>' : `<button class="btn sec chico" data-act="tab:horario">Ver horario</button>`}`;
+  return `
+    <section class="estado ${est.cls}">
+      <div class="fila" style="padding:0;gap:14px">
+        <span class="anillo ${est.cls} ${est.e === 'vigilando' ? 'late' : ''}" style="--s:84px">${ic(est.e === 'vigilando' ? 'shieldok' : est.e === 'pausa' ? 'pause' : 'moon', 26)}</span>
+        <span><h2>${est.titulo}</h2><span class="t2" style="font-size:13.5px;display:block">${esc(est.sub)}</span>
+        <span class="fila" style="padding:8px 0 0;gap:6px;flex-wrap:wrap"><span class="chip c-azul">${ss.length} SENTINELA${ss.length === 1 ? '' : 'S'}</span><span class="chip c-violeta">${vv.length} VECINO${vv.length === 1 ? '' : 'S'}</span></span></span>
+      </div>
+      <div class="dos" style="grid-template-columns:1.25fr 1fr;margin-top:14px">${botones}</div>
+      ${est.e === 'vigilando' ? '<p class="t2" style="font-size:11.5px;margin-top:8px">«Pausar» sirve para abrir la puerta de noche sin que suene la alarma.</p>' : ''}
+    </section>
+    <div class="seccion"><span class="lbl">Sentinelas</span>${ss.length ? `<button class="lbl txt-c c-azul" data-act="tab:equipos">Gestionar</button>` : ''}</div>
+    ${ss.length ? `<div class="card lista">${ss.map(e => { const st = estadoEquipo(e); return `
+      <button class="fila" data-act="detalle:${e.id}">${icoBox(icoLugar(e.lugar), 'c-azul', 38, 19)}
+        <span style="flex:1;min-width:0"><span class="t1" style="display:block">${esc(e.nombre)}</span><span class="fila ${st.cls}" style="padding:3px 0 0;gap:6px"><span class="dot"></span><span class="txt-c" style="font-size:12.5px">${st.txt}</span></span></span>
+        <span class="num" style="text-align:right;font-size:12.5px">${e.bat != null ? `<span class="fila ${e.bat < S.cfg.batMin && !e.carga ? 'c-ambar txt-c' : ''}" style="padding:0;gap:5px;justify-content:flex-end">${bat(e.bat)}${e.bat} %</span>` : '<span class="t2">—</span>'}<span class="t2" style="display:block;margin-top:3px">${e.demo ? '31 °C' : hace(e.visto)}</span></span>
+      </button>`; }).join('')}</div>` : `
+      <div class="card" style="text-align:center;padding:22px 16px;display:flex;flex-direction:column;gap:10px;align-items:center">
+        ${icoBox('shield', 'c-azul', 48, 24)}<div class="t1">Aún no hay Sentinelas</div>
+        <p class="t2" style="max-width:280px">Toma un celular viejo, abre esta misma página en él y elige «Sentinela». Luego escanea el código que te mostramos.</p>
+        <button class="btn pri chico" data-act="vincular:sentinela" style="width:auto">${ic('plus', 16)} Vincular el primero</button></div>`}
+    ${ult ? `<div class="fila" style="padding:0 4px;gap:10px;font-size:12.5px;color:var(--txt2)"><span class="${ult.clase === 'intento' ? 'c-rojo' : 'c-ambar'} txt-c">${ic(ult.clase === 'intento' ? 'alert' : 'activity', 16)}</span><span><b style="color:var(--txt)">${fmtHora(ult.t)}</b> · ${esc(nombreClase(ult.clase))} en ${esc(ult.nombre || '')}${ult.que ? ' (' + esc(ult.que) + ')' : ''}</span></div>` : ''}
+    ${S.demo ? `<button class="btn peligro" data-act="simularIntento">${ic('alert', 18)} Simular intento de entrada</button>` : ''}`;
+}
+const nombreClase = c => ({ intento: 'Intento de entrada', leve: 'Vibración leve', bateria: 'Batería baja', conexion: 'Sin conexión', calor: 'Temperatura alta', tranquila: 'Noche tranquila' }[c] || c);
+
+function vEquipos() {
+  const fila = (e, cls, icono, sub, extra) => `<button class="fila" data-act="detalle:${e.id}">${icoBox(icono, cls, 38, 19)}<span style="flex:1;min-width:0"><span class="t1" style="display:block">${esc(e.nombre)}</span><span class="t2" style="display:block">${sub}</span></span>${extra || `<span class="t2">${ic('chev', 18)}</span>`}</button>`;
+  const ss = sentinelas(), rr = receptores(), vv = vecinos();
+  const seccion = (titulo, cls, n) => `<div class="seccion"><span class="lbl txt-c ${cls}">${titulo}</span><span class="chip ${cls}">${n}</span></div>`;
+  return `
+    ${seccion('Sentinelas · emisores', 'c-azul', ss.length)}
+    <div class="card lista">${ss.map(e => { const st = estadoEquipo(e); return fila(e, 'c-azul', icoLugar(e.lugar), `<span class="${st.cls} txt-c">${st.txt}</span>${e.bat != null ? ' · ' + e.bat + ' %' : ''}`); }).join('') || '<p class="vacio">Ninguno todavía.</p>'}</div>
+    ${seccion('Receptores', 'c-cian', rr.length + 1)}
+    <div class="card lista">
+      <div class="fila">${icoBox('phone', 'c-cian', 38, 19)}<span style="flex:1"><span class="t1" style="display:block">${esc(S.yo.nombre)}</span><span class="t2" style="display:block">Este equipo</span></span>${S.admin ? '<span class="chip c-cian">ADMIN</span>' : ''}</div>
+      ${rr.map(e => fila(e, 'c-cian', /comput|lapt|pc/i.test(e.nombre) ? 'monitor' : 'phone', ahora() - (e.visto || 0) > 300000 && !e.demo ? 'Visto ' + hace(e.visto) : 'Recibe todas las alertas')).join('')}
+    </div>
+    ${seccion('Vecinos de confianza', 'c-violeta', vv.length)}
+    <div class="card lista">${vv.length ? `<button class="fila" data-act="tab:vecinos">${icoBox('users', 'c-violeta', 38, 19)}<span style="flex:1;min-width:0"><span class="t1" style="display:block">${esc(listaNombres(vv.map(v => v.nombre)))}</span><span class="t2" style="display:block">Solo reciben alertas fuertes</span></span><span class="t2">${ic('chev', 18)}</span></button>` : '<p class="vacio">Invítalos desde la pestaña Vecinos.</p>'}</div>
+    <button class="btn sec" data-act="vincular">${ic('plus', 18)} Vincular equipo</button>`;
+}
+
+function vHorario() {
+  const c = S.cfg, pos = h => ((h / 60 - 12 + 24) % 24) / 24 * 100;
+  const seg = (ini, fin, color) => { const a = aMin(ini), b = aMin(fin); const L = pos(a); let W = ((b - a + 1440) % 1440) / 1440 * 100; if (W === 0) W = 100; return L + W <= 100 ? `<span style="left:${L}%;width:${W}%;background:${color}"></span>` : `<span style="left:${L}%;width:${100 - L}%;background:${color}"></span><span style="left:0;width:${L + W - 100}%;background:${color}"></span>`; };
+  const d = new Date(), ya = pos(d.getHours() * 60 + d.getMinutes());
+  const horas = (aMin(c.fin) - aMin(c.inicio) + 1440) % 1440 / 60;
+  return `
+    <section class="card">
+      <div class="seccion" style="margin:0"><span class="lbl">Así queda tu día</span><span class="chip c-azul">${+horas.toFixed(1)} h de vigilancia</span></div>
+      <div class="barra">${c.carga ? seg(c.cargaIni, c.cargaFin, 'var(--verde)') : ''}${c.auto ? seg(c.inicio, c.fin, 'var(--azul)') : ''}<i style="left:${ya}%" title="Ahora"></i></div>
+      <div class="marcas"><span>12 m.</span><span>6 p. m.</span><span>12 a. m.</span><span>6 a. m.</span><span>12 m.</span></div>
+      <div class="fila" style="gap:14px;font-size:12px;padding:6px 0 0"><span class="fila c-verde" style="padding:0;gap:6px;width:auto"><span class="dot"></span>Carga</span><span class="fila" style="padding:0;gap:6px;width:auto"><span class="dot" style="background:var(--azul)"></span>Vigilancia</span><span class="fila" style="padding:0;gap:6px;width:auto"><span class="dot" style="background:var(--txt)"></span>Ahora</span></div>
+    </section>
+    <section class="card">
+      <div class="fila" style="padding:0">${icoBox('moon', 'c-azul', 34, 17)}<span class="t1" style="flex:1">Vigilancia automática</span>${tg(c.auto, 'cfgTg:auto', 'Vigilancia automática')}</div>
+      <div class="dos" style="margin-top:12px">
+        <div class="campo"><label for="hIni">Empieza</label><input id="hIni" type="time" class="entrada" data-cfg="inicio" value="${c.inicio}"></div>
+        <div class="campo"><label for="hFin">Termina</label><input id="hFin" type="time" class="entrada" data-cfg="fin" value="${c.fin}"></div>
+      </div>
+      <div class="dias" role="group" aria-label="Días de la semana">${'LMMJVSD'.split('').map((x, i) => `<button aria-pressed="${!!c.dias[i]}" data-act="dia:${i}" aria-label="${['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'][i]}">${x}</button>`).join('')}</div>
+    </section>
+    <section class="card">
+      <div class="fila" style="padding:0">${icoBox('zap', 'c-verde', 34, 17)}<span style="flex:1"><span class="t1" style="display:block">Carga diaria</span><span class="t2" style="display:block">${fmtMin(aMin(c.cargaIni))} – ${fmtMin(aMin(c.cargaFin))}</span></span>${tg(c.carga, 'cfgTg:carga', 'Carga diaria')}</div>
+      <div class="dos" style="margin-top:12px">
+        <div class="campo"><label for="cIni">Desde</label><input id="cIni" type="time" class="entrada" data-cfg="cargaIni" value="${c.cargaIni}"></div>
+        <div class="campo"><label for="cFin">Hasta</label><input id="cFin" type="time" class="entrada" data-cfg="cargaFin" value="${c.cargaFin}"></div>
+      </div>
+      <div class="fila" style="border-top:1px solid var(--borde);margin-top:12px"><span style="flex:1">Avisarme 10 min antes</span>${tg(c.aviso10, 'cfgTg:aviso10', 'Avisarme 10 minutos antes')}</div>
+      <div class="fila"><span style="flex:1">Batería mínima para vigilar</span><button class="icobtn" style="width:32px;height:32px" data-act="batMin:-5" aria-label="Menos">−</button><b class="mono" style="min-width:48px;text-align:center">${c.batMin} %</b><button class="icobtn" style="width:32px;height:32px" data-act="batMin:5" aria-label="Más">+</button></div>
+      <div class="fila"><span style="flex:1">Avisar si pasa de <b>${c.tempMax} °C</b><span class="t2" style="display:block">Solo en la app Android: el navegador no da la temperatura</span></span>${tg(c.avisoTemp, 'cfgTg:avisoTemp', 'Aviso de temperatura')}</div>
+    </section>
+    <section class="card fila" style="padding:12px 14px">${icoBox('house', 'c-violeta', 34, 17)}<span style="flex:1"><span class="t1" style="display:block">Modo fuera de casa</span><span class="t2" style="display:block">Vigila todo el día si la familia sale de viaje</span></span>${tg(c.fuera, 'cfgTg:fuera', 'Modo fuera de casa')}</section>`;
+}
+
+function vVecinos() {
+  const vv = vecinos();
+  return `
+    <p class="t2" style="margin:0;font-size:13.5px">Reciben la alerta solo cuando alguien intenta entrar. No ven horarios ni ajustes de la casa. Puedes agregar hasta 5.</p>
+    <div class="card lista">
+      ${vv.map(v => `<div class="fila"><span class="ico r c-violeta" style="font:700 16px var(--f-tit)">${esc((v.nombre || '?')[0].toUpperCase())}</span><span style="flex:1;min-width:0"><span class="t1" style="display:block">${esc(v.nombre)}</span><span class="t2" style="display:block">${esc(v.ref || 'Vecino de confianza')}${!v.demo && ahora() - (v.visto || 0) > 300000 ? ' · visto ' + hace(v.visto) : ''}</span></span>${tg(!S.cfg.vecinosOff[v.id], 'vecinoTg:' + v.id, 'Recibe alertas')}</div>`).join('')}
+      ${S.pendientes.map(p => `<div class="fila"><span class="ico r c-gris" style="font:700 16px var(--f-tit)">${esc((p.nombre || '?')[0].toUpperCase())}</span><span style="flex:1;min-width:0"><span class="t1" style="display:block">${esc(p.nombre)}</span><span class="t2" style="display:block">Falta que se una con el código</span></span><span class="chip c-ambar">PENDIENTE</span><button class="icobtn" style="width:34px;height:34px" data-act="whatsPend:${p.id}" aria-label="Invitar">${ic('msg', 16)}</button><button class="icobtn" style="width:34px;height:34px" data-act="quitarPend:${p.id}" aria-label="Quitar">${ic('trash', 15)}</button></div>`).join('')}
+      ${!vv.length && !S.pendientes.length ? '<p class="vacio">Todavía no tienes vecinos de confianza.</p>' : ''}
+    </div>
+    <button class="btn vio" data-act="invitar" ${vv.length + S.pendientes.length >= 5 ? 'disabled' : ''}>${ic('userplus', 18)} Invitar vecino</button>
+    <div class="tres">
+      <button class="card dato c-violeta" data-act="invitar"><span class="txt-c">${ic('msg', 18)}</span><span style="font-size:12px">WhatsApp</span></button>
+      <button class="card dato c-violeta" data-act="invitar"><span class="txt-c">${ic('qr', 18)}</span><span style="font-size:12px">Código QR</span></button>
+      <button class="card dato c-violeta" data-act="contactos"><span class="txt-c">${ic('users', 18)}</span><span style="font-size:12px">Contactos</span></button>
+    </div>
+    <div class="lbl" style="margin-top:4px">Números de emergencia (Nicaragua)</div>
+    <div class="card lista">${[['Policía Nacional', '118'], ['Bomberos', '115'], ['Cruz Roja', '128']].map(([n, t]) => `<a class="fila" href="tel:${t}"><span style="flex:1">${n}</span><b class="mono" style="font-size:15px;margin-right:6px">${t}</b><span class="ico r c-verde" style="width:34px;height:34px">${ic('call', 15)}</span></a>`).join('')}</div>`;
+}
+
+function vAlertas() {
+  const f = U.filtro;
+  const filtra = a => f === 'todas' || (f === 'intentos' && a.clase === 'intento') || (f === 'leves' && a.clase === 'leve') || (f === 'sistema' && !['intento', 'leve'].includes(a.clase));
+  const lista = S.alertas.filter(filtra);
+  const grupos = []; lista.forEach(a => { const d = diaDe(a.t); const g = grupos.find(x => x.d === d); g ? g.items.push(a) : grupos.push({ d, items: [a] }); });
+  const icono = { intento: 'dooropen', leve: 'vibrate', bateria: 'battery', conexion: 'wifioff', calor: 'therm', tranquila: 'shieldok' };
+  const cls = { intento: 'c-rojo', leve: 'c-ambar', bateria: 'c-ambar', conexion: 'c-gris', calor: 'c-ambar', tranquila: 'c-verde' };
+  const tarjeta = a => `<article class="card ev ${a.clase === 'intento' ? 'critico' : ''}">${icoBox(icono[a.clase] || 'info', cls[a.clase] || 'c-gris', 38, 19)}
+    <div style="flex:1;min-width:0"><div class="fila" style="padding:0;gap:8px;align-items:baseline"><span class="t1" style="flex:1">${esc(nombreClase(a.clase))}</span><span class="t2 num">${fmtHora(a.t)}</span></div>
+      <div class="t2">${esc(a.nombre || '')}${a.detalle ? ' · ' + esc(a.detalle) : ''}</div>
+      ${a.clase === 'intento' ? `<div style="margin-top:7px;display:flex;gap:6px;flex-wrap:wrap">${vecinos().filter(v => !S.cfg.vecinosOff[v.id]).length ? `<span class="chip c-violeta">${vecinos().filter(v => !S.cfg.vecinosOff[v.id]).length} VECINO(S) AVISADO(S)</span>` : ''}${a.que === 'falsa' ? '<span class="chip c-gris">FALSA ALARMA</span>' : a.resuelta ? '<span class="chip c-verde">ATENDIDA</span>' : ''}</div>` : ''}
+      ${a.clase === 'leve' ? `<div style="font-size:12px;margin-top:8px">¿Qué fue?</div><div class="que">${[['lluvia', 'Lluvia'], ['viento', 'Viento'], ['animal', 'Animal'], ['yo', 'Fui yo']].map(([k, t]) => `<button aria-pressed="${a.que === k}" data-act="que:${a.mid},${k}">${t}</button>`).join('')}</div>` : ''}
+    </div></article>`;
+  return `<div class="filtros" role="group" aria-label="Filtrar">${[['todas', 'Todas'], ['intentos', 'Intentos'], ['leves', 'Leves'], ['sistema', 'Sistema']].map(([k, t]) => `<button aria-pressed="${f === k}" data-act="filtro:${k}">${t}</button>`).join('')}</div>
+    ${grupos.map(g => `<div class="lbl" style="margin-top:2px">${esc(g.d)}</div>${g.items.map(tarjeta).join('')}`).join('') || `<div class="card vacio">${ic('shieldok', 28)}<p style="margin-top:8px">Todo tranquilo. Aquí aparecerán los intentos, las vibraciones leves y los avisos de batería o conexión.</p></div>`}
+    <p class="t2" style="text-align:center">Al responder «¿Qué fue?» el Sentinela ajusta su sensibilidad y da menos falsas alarmas.</p>`;
+}
+
+// ----- hojas del receptor -----
+function vHoja() {
+  const cab = (t, sub) => `<div class="cab"><button class="icobtn" data-act="cerrarHoja" aria-label="Cerrar">${ic('back', 20)}</button><span style="flex:1"><h1>${t}</h1>${sub ? `<span class="pre">${sub}</span>` : ''}</span></div>`;
+  if (U.hoja === 'vincular') {
+    const v = U.vinc; if (!v) return '';
+    const link = enlaceUnir(v.codigo, v.rol);
+    let qrImg = '';
+    try { if (typeof qrcode !== 'undefined') { const q = qrcode(0, 'M'); q.addData(link); q.make(); const cel = Math.max(3, Math.floor(210 / (q.getModuleCount() + 4))); qrImg = `<img src="${q.createDataURL(cel, cel * 2)}" alt="Código QR para vincular">`; } } catch (e) { /* sin QR */ }
+    const pasos = { sentinela: ['En el celular viejo, abre esta misma página y elige <b>Sentinela</b>.', 'Escanea este QR con su cámara o escribe los 6 números.', 'Ponle nombre: «Puerta principal», «Ventana cocina»…'], receptor: ['En el otro celular, tablet o computadora abre esta página y elige <b>Receptor</b> → «Unirme con código».', 'Escanea este QR o escribe los 6 números.', 'Ponle nombre: «Celular de mamá»…'], vecino: ['Pídele a tu vecino que abra esta página (o envíale el enlace por WhatsApp).', 'Que elija «Me invitaron como vecino de confianza».', 'Que escriba los 6 números y su nombre.'] }[v.rol];
+    const msj = `Te invito a ser vecino(a) de confianza de «${S.hogar.nombre}» en Sentinel. Abre este enlace y usa el código ${v.codigo} (vence en 5 min): ${link}`;
+    const tel = (v.para?.tel || '').replace(/\D/g, '');
+    return cab('Vincular equipo') + `<div class="cont sin-nav">
+      <div class="seg">${[['sentinela', 'shield', 'Sentinela'], ['receptor', 'bell', 'Receptor'], ['vecino', 'users', 'Vecino']].map(([k, i, t]) => `<button aria-pressed="${v.rol === k}" data-act="rolVinc:${k}">${ic(i, 15)} ${t}</button>`).join('')}</div>
+      ${S.demo ? `<div class="banner c-ambar">${ic('info', 18)} En la demostración no se vinculan equipos reales.</div>` : ''}
+      <section class="card" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:18px">
+        ${qrImg ? `<div class="qr">${qrImg}</div>` : ''}
+        <div class="mono" style="font-size:32px;letter-spacing:.12em">${v.codigo.slice(0, 3)} ${v.codigo.slice(3)}</div>
+        <div class="fila" style="padding:0;gap:6px;width:auto;color:var(--txt2);font-size:13px">${ic('clock', 15)} El código vence en <b id="vRest" class="num" style="color:var(--txt)">5:00</b></div>
+      </section>
+      <section class="card">${pasos.map((p, i) => `<div class="fila" style="gap:10px;padding:5px 0;align-items:flex-start"><span class="chip c-azul" style="width:24px;height:24px;padding:0;justify-content:center;letter-spacing:0">${i + 1}</span><span style="font-size:13.5px;line-height:1.4">${p}</span></div>`).join('')}</section>
+      ${v.rol === 'vecino' ? `<a class="btn vio" href="https://wa.me/${tel}?text=${encodeURIComponent(msj)}" target="_blank" rel="noopener">${ic('msg', 18)} Enviar por WhatsApp${v.para ? ' a ' + esc(v.para.nombre) : ''}</a>` : ''}
+      ${v.unidos.length ? `<div class="banner c-verde">${ic('check', 18)} Se ${v.unidos.length > 1 ? 'unieron' : 'unió'}: ${esc(listaNombres(v.unidos.map(id => S.equipos[id]?.nombre || 'equipo')))}</div>` : `<div class="fila" style="justify-content:center;gap:8px;font-size:13px;color:var(--txt2)"><span class="dot" style="box-shadow:0 0 0 4px var(--verde-f)"></span>Esperando al equipo nuevo…</div>`}
+      <button class="btn sec" data-act="cerrarHoja">${v.unidos.length ? 'Listo' : 'Cancelar'}</button>
+    </div>`;
+  }
+  if (U.hoja && U.hoja.startsWith('detalle:')) {
+    const id = U.hoja.slice(8), e = S.equipos[id];
+    if (!e) return cab('Equipo') + '<div class="cont sin-nav"><p class="vacio">Este equipo ya no está vinculado.</p></div>';
+    const ce = S.cfg.equipos[id] || {}, st = estadoEquipo(e);
+    const conf = U.confirmar === 'desv:' + id ? `<div class="card" style="border-color:rgba(255,90,95,.45)"><p class="t1">¿Desvincular «${esc(e.nombre)}»?</p><p class="t2">Dejará de vigilar y de recibir alertas de este hogar.</p><div class="dos" style="margin-top:12px"><button class="btn peligro chico" data-act="confirmarDesv:${id}">Desvincular</button><button class="btn sec chico" data-act="cancelar">Cancelar</button></div></div>` : `<button class="btn peligro" data-act="desvincular:${id}">${ic('trash', 17)} Desvincular</button>`;
+    if (e.rol !== 'sentinela') return cab(esc(e.nombre), e.rol === 'vecino' ? 'Vecino de confianza' : 'Receptor') + `<div class="cont sin-nav">
+      <section class="card"><div class="t2">${e.rol === 'vecino' ? 'Recibe solo las alertas de intento de entrada.' : 'Recibe todas las alertas y puede cambiar los ajustes.'}</div><div class="t2" style="margin-top:6px">Última conexión: ${e.demo ? 'ahora' : hace(e.visto)}</div></section>${conf}</div>`;
+    return cab(esc(e.nombre), 'Sentinela · ' + lugarTxt(e.lugar)) + `<div class="cont sin-nav">
+      <section class="card"><div class="tres">
+        <div class="dato">${bat(e.bat)}<b class="num">${e.bat != null ? e.bat + ' %' : '—'}</b><span class="t2" style="margin:0">${e.carga ? 'Cargando' : 'Batería'}</span></div>
+        <div class="dato">${ic('therm', 18)}<b>${e.demo ? '31 °C' : 'N/D'}</b><span class="t2" style="margin:0">Temperatura</span></div>
+        <div class="dato">${ic(st.txt === 'Sin conexión' ? 'wifioff' : 'wifi', 18)}<b>${st.txt === 'Sin conexión' ? 'Sin red' : 'Bien'}</b><span class="t2" style="margin:0">${e.demo ? 'ahora' : hace(e.visto)}</span></div>
+      </div><div class="fila ${st.cls}" style="justify-content:center;gap:6px;padding:10px 0 0"><span class="dot"></span><span class="txt-c" style="font-size:13px">${st.txt}</span></div></section>
+      <div class="campo"><label>Sensibilidad</label><div class="seg">${['baja', 'media', 'alta'].map(n => `<button aria-pressed="${(ce.nivel || 'media') === n}" data-act="nivel:${id},${n}">${n[0].toUpperCase() + n.slice(1)}</button>`).join('')}</div>
+        <span class="t2">${ce.ajuste && ce.ajuste > 1 ? `Ajustada por tus respuestas: ${Math.round((ce.ajuste - 1) * 100)} % menos sensible a vibraciones leves.` : 'Alta detecta golpes suaves; baja ignora más vibraciones.'}</span></div>
+      <section class="card fila" style="padding:12px 14px">${icoBox('siren', 'c-rojo', 34, 17)}<span style="flex:1"><span class="t1" style="display:block">Sirena en este equipo</span><span class="t2" style="display:block">Suena fuerte al detectar un intento</span></span>${tg(ce.sirena ?? true, 'sirenaEq:' + id, 'Sirena en este equipo')}</section>
+      <button class="btn sec" data-act="probar:${id}">${ic('vibrate', 18)} Probar detección</button>
+      ${conf}</div>`;
+  }
+  if (U.hoja === 'ajustes') {
+    const conf = U.confirmar === 'salir' ? `<div class="card" style="border-color:rgba(255,90,95,.45)"><p class="t1">¿Salir del hogar y borrar los datos de este equipo?</p><div class="dos" style="margin-top:12px"><button class="btn peligro chico" data-act="confirmarSalir">Salir</button><button class="btn sec chico" data-act="cancelar">Cancelar</button></div></div>` : `<button class="btn peligro" data-act="salir">${S.demo ? 'Salir de la demostración' : 'Salir del hogar'}</button>`;
+    return cab('Ajustes') + `<div class="cont sin-nav">
+      <div class="campo"><label for="aNombre">Nombre de este equipo</label><input id="aNombre" class="entrada" maxlength="30" value="${esc(S.yo.nombre)}"></div>
+      ${S.admin ? `<div class="campo"><label for="aCasa">Nombre del hogar</label><input id="aCasa" class="entrada" maxlength="30" value="${esc(S.hogar.nombre)}"></div>
+      <div class="campo"><label for="aPin">PIN de administrador (4 números)</label><input id="aPin" class="entrada mono" inputmode="numeric" maxlength="4" value="${esc(S.hogar.pin)}"></div>` : ''}
+      <button class="btn sec" data-act="probarSonido">${ic('volume', 18)} Probar el sonido de alarma</button>
+      <div class="campo"><label for="aRelay">Servidor de mensajes</label><input id="aRelay" class="entrada mono" style="font-size:14px" value="${esc(S.relay)}"><span class="t2">El prototipo envía las alertas por el servicio gratuito ntfy. La versión final usará un servidor propio.</span></div>
+      <button class="btn pri" data-act="guardarAjustes">Guardar</button>
+      <section class="card t2" style="line-height:1.5">${ic('info', 16)} <b style="color:var(--txt)">Prototipo web.</b> Deja esta página abierta para recibir alertas. La app Android usará notificaciones aunque la app esté cerrada. Sentinel no usa cámara ni micrófono.</section>
+      ${conf}</div>`;
+  }
+  if (U.hoja === 'contacto') return cab('Agregar vecino') + `<div class="cont sin-nav">
+      <div class="campo"><label for="cNombre">Nombre</label><input id="cNombre" class="entrada" maxlength="30" placeholder="Doña Marta"></div>
+      <div class="campo"><label for="cTel">Teléfono (para WhatsApp)</label><input id="cTel" class="entrada mono" inputmode="tel" placeholder="+505 8888 8888"></div>
+      <div class="campo"><label for="cRef">Referencia</label><input id="cRef" class="entrada" maxlength="30" placeholder="Casa de al lado"></div>
+      <button class="btn vio" data-act="guardarContacto">${ic('userplus', 18)} Agregar</button></div>`;
+  return '';
+}
+
+// ----- Sentinela -----
+function vSentinela() {
+  if (!S.cal) return vCalibrar();
+  if (U.hoja === 'ajustesSent') return vAjustesSentinela();
+  const est = textoEstado(), prueba = ahora() < Sensor.pruebaHasta;
+  const sinSensor = Sensor.on && !Sensor.hayDatos && ahora() - arranque > 4000;
+  const ult = S.alertas[0];
+  return `<div class="cab" style="justify-content:center"><span class="chip c-azul">${ic('shield', 12, 2.5)} SENTINELA · EMISOR</span></div>
+  <main class="cont sin-nav" style="gap:10px;align-items:center;text-align:center">
+    <div><h1 class="tit" style="font-size:24px">${esc(S.yo.nombre)}</h1><p class="t2" style="font-size:13px">Hogar «${esc(S.hogar.nombre)}» · ${Bus.conectado === false ? 'sin conexión' : 'conectado'}</p></div>
+    <span class="anillo ${prueba ? 'c-azul' : est.cls} ${est.e === 'vigilando' || prueba ? 'late' : ''}" style="--s:168px;margin:10px 0 2px">${ic(prueba ? 'vibrate' : est.e === 'vigilando' ? 'shieldok' : est.e === 'pausa' ? 'pause' : 'moon', 50)}</span>
+    <div><div class="${prueba ? 'c-azul' : est.cls} txt-c" style="font:800 22px var(--f-tit);letter-spacing:.04em">${prueba ? 'MODO PRUEBA' : est.titulo.toUpperCase()}</div><div class="t2" style="font-size:13.5px">${prueba ? 'Golpea o mueve la ' + lugarTxt(S.yo.lugar) + ' (15 s)' : esc(est.sub)}</div></div>
+    ${sinSensor ? `<div class="banner c-ambar" style="text-align:left">${ic('alert', 18)} <span>Este navegador no entrega datos de movimiento. Ábrelo en Chrome de Android (con https).${typeof DeviceMotionEvent !== 'undefined' && DeviceMotionEvent.requestPermission ? ' <button class="enlace c-azul" style="display:inline;padding:0" data-act="permisoSensores">Permitir sensores</button>' : ''}</span></div>` : ''}
+    <button id="bannerAudio" class="banner c-azul" data-act="audio" ${Sonido.listo() ? 'hidden' : ''}>${ic('volume', 18)} Toca aquí una vez para habilitar la sirena</button>
+    ${Sonido.sirena ? `<button class="btn peligro" data-act="callarLocal">${ic('volume', 18)} Apagar sirena</button>` : ''}
+    <section class="card" style="width:100%;padding:12px 14px;text-align:left">
+      <div class="seccion" style="margin:0"><span class="lbl">Vibración en vivo</span><span id="nivelVib" class="chip c-verde">NORMAL</span></div>
+      <canvas id="grafica" class="grafica" aria-label="Gráfica de vibración en vivo"></canvas>
+    </section>
+    <div class="tres" style="width:100%">
+      <div class="card dato">${bat(Bat.nivel, 'var(--verde)')}<b id="datoBat" class="num">${Bat.nivel != null ? Bat.nivel + ' %' : '—'}</b><span class="t2" style="margin:0;font-size:11.5px">${Bat.carga ? 'Cargando' : 'Batería'}</span></div>
+      <div class="card dato"><span class="c-verde txt-c">${ic('therm', 18)}</span><b>N/D</b><span class="t2" style="margin:0;font-size:11.5px">Temperatura</span></div>
+      <div class="card dato"><span class="c-verde txt-c">${ic('wifi', 18)}</span><b id="datoRed">${Bus.conectado === false ? 'Sin red' : 'Bien'}</b><span class="t2" style="margin:0;font-size:11.5px">Señal</span></div>
+    </div>
+    ${ult ? `<p class="t2" style="font-size:12.5px">Último evento: <b style="color:var(--txt)">${esc(nombreClase(ult.clase))}</b> · ${fmtHora(ult.t)}</p>` : ''}
+    <div class="sp"></div>
+    <p class="t2" style="font-size:12px">La pantalla se oscurece sola para ahorrar batería. En este prototipo debe quedar encendida y con la página abierta.</p>
+    <div class="dos" style="width:100%"><button class="btn sec" data-act="probarLocal">${ic('vibrate', 17)} Probar</button><button class="btn sec" data-act="ajustesSentinela">${ic('lock', 17)} Ajustes</button></div>
+  </main>`;
+}
+ACC.ajustesSentinela = () => { U.hoja = 'ajustesSent'; U.pinOk = false; U.pin = ''; render(); };
+ACC.cerrarAjSent = () => { U.hoja = null; U.pinOk = false; U.confirmar = null; render(); };
+function vAjustesSentinela() {
+  const cab = `<div class="cab"><button class="icobtn" data-act="cerrarAjSent" aria-label="Cerrar">${ic('back', 20)}</button><h1>Ajustes del Sentinela</h1></div>`;
+  if (!U.pinOk) return cab + `<main class="cont sin-nav" style="align-items:center;text-align:center">
+    ${icoBox('lock', 'c-azul', 52, 26)}<p class="t1">Escribe el PIN del administrador</p>
+    <div class="mono" style="font-size:30px;letter-spacing:.4em">${'●'.repeat(U.pin.length)}${'○'.repeat(4 - U.pin.length)}</div>
+    <div style="display:grid;grid-template-columns:repeat(3,72px);gap:10px">${['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', 'borrar'].map(k => k ? `<button class="card" style="height:56px;font:600 22px var(--f-txt);display:grid;place-items:center" data-act="pinTecla:${k}" aria-label="${k}">${k === 'borrar' ? ic('back', 20) : k}</button>` : '<span></span>').join('')}</div>
+    <p class="t2">El PIN se definió al crear el hogar en el celular administrador.</p></main>`;
+  const ce = S.cfg.equipos[S.yo.id] || {};
+  const conf = U.confirmar === 'salir' ? `<div class="card" style="border-color:rgba(255,90,95,.45)"><p class="t1">¿Desvincular este Sentinela?</p><div class="dos" style="margin-top:12px"><button class="btn peligro chico" data-act="confirmarSalir">Desvincular</button><button class="btn sec chico" data-act="cancelar">Cancelar</button></div></div>` : `<button class="btn peligro" data-act="salir">${ic('trash', 17)} Desvincular este equipo</button>`;
+  return cab + `<main class="cont sin-nav">
+    <div class="campo"><label>¿Dónde está el soporte?</label><div class="seg"><button aria-pressed="${S.yo.lugar === 'puerta'}" data-act="lugarSent:puerta">${ic('door', 16)} Puerta</button><button aria-pressed="${S.yo.lugar === 'ventana'}" data-act="lugarSent:ventana">${ic('window', 16)} Ventana</button></div></div>
+    <div class="dos"><button class="btn pri chico" data-act="vigSent:on">${ic('shieldok', 16)} Activar ahora</button><button class="btn sec chico" data-act="vigSent:off">Detener</button></div>
+    <section class="card fila" style="padding:12px 14px">${icoBox('siren', 'c-rojo', 34, 17)}<span style="flex:1"><span class="t1" style="display:block">Sirena en este equipo</span><span class="t2" style="display:block">Sensibilidad: ${ce.nivel || 'media'} (se cambia desde un Receptor)</span></span>${tg(ce.sirena ?? true, 'sirenaEq:' + S.yo.id, 'Sirena')}</section>
+    <button class="btn sec" data-act="recalibrar">${ic('activity', 18)} Repetir calibración</button>
+    <div class="lbl" style="margin-top:6px">Para probar sin forzar la puerta</div>
+    <div class="dos"><button class="btn sec chico" data-act="simular:golpe">Simular golpe fuerte</button><button class="btn sec chico" data-act="simular:apertura">Simular apertura</button></div>
+    <p class="t2">Umbrales actuales: leve ${Sensor.umbrales().leve.toFixed(2)} m/s² · golpe ${Sensor.umbrales().fuerte.toFixed(2)} m/s² · giro ${Math.round(Sensor.umbrales().ang)}°</p>
+    ${conf}</main>`;
+}
+function vCalibrar() {
+  const p = Cal.paso || 1, r = Cal.res;
+  const barra = `<div class="pasos">${[1, 2, 3].map(i => `<span class="${i < p || (i === p && Cal.midiendo) ? 'ok' : ''}"></span>`).join('')}</div>`;
+  const cab = `<div class="cab" style="justify-content:center"><span class="chip c-azul">${ic('activity', 12, 2.5)} CALIBRACIÓN · ${S.yo.nombre ? esc(S.yo.nombre) : 'SENTINELA'}</span></div>`;
+  const sinDatos = Sensor.on && !Sensor.hayDatos && ahora() - arranque > 4000;
+  if (p > 3) return cab + `<main class="cont sin-nav" style="text-align:center;align-items:center">${barra}
+    ${icoBox('check', 'c-verde', 64, 32)}<h1 class="tit">¡Listo! Sensibilidad ajustada</h1>
+    <div class="card lista" style="width:100%;text-align:left">
+      <div class="fila"><span style="flex:1">Quieta</span><span class="${r.ok1 ? 'c-verde' : 'c-ambar'} txt-c">${r.ok1 ? 'Ruido medido' : 'Sin datos'}</span></div>
+      <div class="fila"><span style="flex:1">Abrir y cerrar</span><span class="${r.ok2 ? 'c-verde' : 'c-ambar'} txt-c">${r.ok2 ? 'Giro de ' + r.giro + '°' : 'No se detectó giro'}</span></div>
+      <div class="fila"><span style="flex:1">Golpes suaves</span><span class="${r.ok3 ? 'c-verde' : 'c-ambar'} txt-c">${r.ok3 ? r.golpes + ' detectados' : 'No se detectaron'}</span></div>
+    </div>
+    <div class="sp"></div><button class="btn pri" data-act="calGuardar">${ic('shieldok', 18)} Guardar y empezar a vigilar</button>
+    <button class="btn sec" data-act="calPaso:1">Repetir</button></main>`;
+  const info = [null,
+    ['Deja la puerta quieta', 'No toques la puerta ni el celular por 5 segundos. Así medimos el ruido normal de tu casa.', 'clock'],
+    ['Ábrela y ciérrala', 'Abre la puerta o ventana con normalidad y vuelve a cerrarla.', 'dooropen'],
+    ['Da 3 golpes suaves', 'Toca 3 veces cerca del soporte, como si alguien llamara suave.', 'vibrate']][p];
+  return cab + `<main class="cont sin-nav" style="text-align:center;align-items:center">${barra}
+    <p class="lbl">Paso ${p} de 3</p>
+    ${icoBox(info[2], 'c-azul', 72, 36)}
+    <h1 class="tit">${info[0]}</h1><p class="sub" style="max-width:320px">${info[1]}</p>
+    ${Cal.midiendo ? `<div class="cuenta"><span id="calRest">${p === 1 ? 5 : 10}</span><span style="font-size:20px"> s</span></div>${p > 1 ? `<p class="t2">${p === 2 ? 'Giro medido' : 'Golpes'}: <b id="calN" style="color:var(--txt)">${p === 2 ? '0°' : '0'}</b></p>` : '<p class="t2">Midiendo…</p>'}` : ''}
+    ${sinDatos ? `<div class="banner c-ambar" style="text-align:left">${ic('alert', 18)} Este navegador no entrega datos de movimiento. Usa Chrome en Android con https, o sigue con los valores de fábrica.</div>` : ''}
+    <div class="sp"></div>
+    ${Cal.midiendo ? '' : `<button class="btn pri" data-act="calPaso:${p}">${ic('play', 16)} ${p === 1 ? 'Empezar' : 'Listo, empezar'}</button>`}
+    <button class="btn sec" data-act="calFabrica">Omitir y usar valores de fábrica</button></main>`;
+}
+
+// gráfica de vibración en vivo
+let tGraf = null;
+function iniciarGrafica() {
+  cancelAnimationFrame(tGraf);
+  const cv = $('#grafica'); if (!cv) return;
+  const dpr = window.devicePixelRatio || 1;
+  const dibujar = () => {
+    if (!document.body.contains(cv)) return;
+    const w = cv.clientWidth, h = cv.clientHeight;
+    if (cv.width !== w * dpr) { cv.width = w * dpr; cv.height = h * dpr; }
+    const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h);
+    const Uu = Sensor.umbrales(), top = Math.max(Uu.fuerte * 1.3, 1.5), t = performance.now();
+    const y = v => h - 4 - clamp(v / top, 0, 1) * (h - 8);
+    g.setLineDash([4, 4]); g.lineWidth = 1;
+    [[Uu.leve, '#F5A524'], [Uu.fuerte, '#FF5A5F']].forEach(([v, c]) => { g.strokeStyle = c; g.globalAlpha = .5; g.beginPath(); g.moveTo(0, y(v)); g.lineTo(w, y(v)); g.stroke(); });
+    g.setLineDash([]); g.globalAlpha = 1;
+    const ms = Sensor.muestras, max = ms.reduce((m, s) => t - s.t < 1500 ? Math.max(m, s.a) : m, 0);
+    const col = max > Uu.fuerte ? '#FF5A5F' : max > Uu.leve ? '#F5A524' : '#22C55E';
+    g.strokeStyle = col; g.lineWidth = 2; g.lineJoin = 'round'; g.beginPath();
+    ms.forEach((s, i) => { const x = w - (t - s.t) / 4000 * w; i ? g.lineTo(x, y(s.a)) : g.moveTo(x, y(s.a)); });
+    if (!ms.length) { g.moveTo(0, y(0)); g.lineTo(w, y(0)); }
+    g.stroke();
+    const ch = $('#nivelVib');
+    if (ch) { const n = max > Uu.fuerte ? ['FUERTE', 'c-rojo'] : max > Uu.leve ? ['LEVE', 'c-ambar'] : ['NORMAL', 'c-verde']; if (ch.textContent !== n[0]) { ch.textContent = n[0]; ch.className = 'chip ' + n[1]; } }
+    tGraf = requestAnimationFrame(dibujar);
+  };
+  dibujar();
+}
+function pintarDatosSentinela() { const b = $('#datoBat'); if (b) b.textContent = Bat.nivel != null ? Bat.nivel + ' %' : '—'; }
+
+// ----- Vecino -----
+function vVecino() {
+  const ss = sentinelas(), est = textoEstado(), intentos = S.alertas.filter(a => a.clase === 'intento').slice(0, 5);
+  const conf = U.confirmar === 'salir' ? `<div class="card"><p class="t1">¿Dejar de cuidar «${esc(S.hogar.nombre)}»?</p><div class="dos" style="margin-top:12px"><button class="btn peligro chico" data-act="confirmarSalir">Salir</button><button class="btn sec chico" data-act="cancelar">Cancelar</button></div></div>` : `<button class="btn sec" data-act="salir">Salir</button>`;
+  return `<header class="cab"><span style="flex:1"><span class="pre">Vecino de confianza</span><h1>${esc(S.yo.nombre)}</h1></span><span class="chip c-violeta">VECINO</span></header>
+  <main class="cont sin-nav">
+    <button id="bannerAudio" class="banner c-azul" data-act="audio" ${Sonido.listo() ? 'hidden' : ''}>${ic('volume', 18)} Toca aquí para activar el sonido de las alertas</button>
+    <section class="estado ${est.cls}"><div class="fila" style="padding:0;gap:14px"><span class="anillo ${est.cls}" style="--s:72px">${ic('house', 24)}</span><span><span class="pre t2">Cuidas la casa</span><h2 style="color:var(--txt)">${esc(S.hogar.nombre)}</h2><span class="${est.cls} txt-c" style="font-weight:600;font-size:13.5px">${est.titulo}</span><span class="t2" style="display:block">${ss.length} Sentinela(s) conectados</span></span></div></section>
+    ${S.cfg.vecinosOff[S.yo.id] ? `<div class="banner c-ambar">${ic('info', 18)} La familia pausó tus alertas.</div>` : ''}
+    <div class="lbl">Intentos de entrada recientes</div>
+    <div class="card lista">${intentos.map(a => `<div class="fila">${icoBox('dooropen', 'c-rojo', 36, 18)}<span style="flex:1"><span class="t1" style="display:block">${esc(a.nombre)}</span><span class="t2" style="display:block">${diaDe(a.t)} · ${fmtHora(a.t)}${a.que === 'falsa' ? ' · falsa alarma' : ''}</span></span></div>`).join('') || '<p class="vacio">Ninguno. Si pasa algo, este celular sonará.</p>'}</div>
+    <div class="lbl">Números de emergencia (Nicaragua)</div>
+    <div class="card lista">${[['Policía Nacional', '118'], ['Bomberos', '115'], ['Cruz Roja', '128']].map(([n, t]) => `<a class="fila" href="tel:${t}"><span style="flex:1">${n}</span><b class="mono">${t}</b></a>`).join('')}</div>
+    <p class="t2" style="text-align:center">Deja esta página abierta para recibir las alertas.</p>
+    ${conf}
+  </main>`;
+}
+
+// ---------- ciclos ----------
+const arranque = ahora();
+setInterval(() => {
+  if (!S.hogar) return;
+  if (S.yo.rol === 'sentinela') {
+    Sensor.revisarLeve();
+    const v = estadoVig(); if (v !== ultimaVig) { ultimaVig = v; enviarEstado(); render(); }
+    if (vigilandoAhora() && ahora() - ultimoToque > 15000 && !$('.oscuro') && !Sonido.sirena && !U.hoja && S.cal) {
+      const o = document.createElement('div'); o.className = 'oscuro'; o.textContent = `Sentinel vigilando · ${S.yo.nombre} · toca para ver`; document.body.appendChild(o);
+    }
+  }
+  if (U.hoja === 'vincular' && U.vinc) {
+    const r = U.vinc.vence - ahora(), el = $('#vRest');
+    if (r <= 0) abrirVincular(U.vinc.rol);
+    else if (el) el.textContent = `${Math.floor(r / 60000)}:${String(Math.floor(r / 1000) % 60).padStart(2, '0')}`;
+  }
+}, 500);
+setInterval(() => {   // revisiones del receptor: conexión, batería, recordatorio de carga
+  if (!S.hogar || S.yo.rol === 'sentinela') return;
+  const t = ahora();
+  if (S.yo.rol === 'receptor') {
+    for (const e of sentinelas()) {
+      if (e.demo) continue;
+      if (t - (e.visto || 0) > 150000 && !e.offAvisado) {
+        e.offAvisado = true;
+        registrarAlerta({ mid: 'off' + e.id + Math.floor(t / 60000), clase: 'conexion', equipoId: e.id, nombre: e.nombre, t, detalle: 'Dejó de reportarse hace más de 2 min' });
+        toast(`${e.nombre} está sin conexión`, 'wifioff');
+      }
+      if (e.bat != null && e.bat <= 20 && !e.carga && t - (S.avisos['bat' + e.id] || 0) > 1800000) {
+        S.avisos['bat' + e.id] = t;
+        registrarAlerta({ mid: 'bat' + e.id + Math.floor(t / 60000), clase: 'bateria', equipoId: e.id, nombre: e.nombre, t, detalle: `Batería baja (${e.bat} %)` });
+        toast(`Carga ${e.nombre}: ${e.bat} %`, 'battery');
+      }
+    }
+  }
+  const c = S.cfg;
+  if (c.carga && c.aviso10) {
+    const d = new Date(), m = d.getHours() * 60 + d.getMinutes(), clave = 'carga' + d.toDateString();
+    if (m === (aMin(c.cargaIni) - 10 + 1440) % 1440 && !S.avisos[clave] && S.yo.rol === 'receptor') {
+      S.avisos[clave] = t; toast(`En 10 min: hora de cargar los Sentinelas (${fmtMin(aMin(c.cargaIni))})`, 'zap'); Sonido.bip(880, .2, .25);
+    }
+  }
+  guardar(); refrescar();
+}, 15000);
+
+// ---------- inicio ----------
+(function inicio() {
+  const h = location.hash.match(/^#unir-(\d{6})-([srv])$/);
+  if (h) {
+    history.replaceState(null, '', location.pathname + location.search);
+    if (S.hogar) toast(`Este equipo ya está vinculado a «${S.hogar.nombre}». Para cambiarlo, sal del hogar en Ajustes.`);
+    else { U.rol = { s: 'sentinela', r: 'receptor', v: 'vecino' }[h[2]]; U.codigo = h[1]; U.modoRec = 'unir'; U.paso = 'unir'; }
+  }
+  if (S.yo.rol === 'sentinela' && S.hogar && !S.cal) Cal.paso = 1;
+  arrancar();
+})();
+</script>
+</body>
+</html>
